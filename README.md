@@ -1,4 +1,4 @@
-# ArtUSD Stablecoin Model White Paper for Educational Purpose
+# ArtUSD Stablecoin Model White Paper
 > Real Matter Technology Limited
 > 
 > Writer : NG Ming Lam
@@ -16,19 +16,17 @@
 - [7. Risks and Mitigations](#7-risks-and-mitigations)
 - [8. Funding and Leverage Model](#10-funding-and-leverage-model)
 - [9. Conclusion](#8-conclusion)
-- [9. Future Work](#9-future-work)
-- [Rendering Diagrams](#rendering-diagrams)
 - [Disclaimer](#disclaimer)
 
 ## Abstract
-ArtUSD is a stablecoin model pegged 1:1 to the US dollar, backed by a **$1 billion art collection** verified through NFT-based legel credentials and a regulated USD reserve pool (in USDC). Operating on Ethereum, ArtUSD leverages smart contracts to facilitate issuance, trading, redemption, and arbitrage. The system integrates a **leverage model** requiring only **$300 million USDC** in the FundPool to issue **1 billion ArtUSD**, achieving capital efficiency with a 3:1 leverage ratio. The **Primary Market/Auction House (e.g., Sotheby’s)** manages issuance and offline arbitrage, the **Secondary Market/DEX (e.g., Quantumatter)** enables trading, and the **Accounting Firm (e.g., PwC)** ensures reserve transparency. This white paper details the system’s architecture, roles, smart contracts, purchasing/arbitrage processes, and funding model, supported by visual diagrams.
+ArtUSD is a stablecoin model pegged 1:1 to the US dollar, backed by a **$1 billion art collection** verified through NFT-based legel credentials and a regulated USD reserve pool (in USDC). Operating on Ethereum, ArtUSD leverages smart contracts to facilitate issuance, trading, redemption, and arbitrage. The system integrates a **leverage model** requiring only **$300 million USDC** in the FundPool to issue **1 billion ArtUSD**, achieving capital efficiency with a 3:1 leverage ratio. The **Primary Market/Auction House (e.g., Sotheby’s)** manages issuance and offline arbitrage, the **Secondary Market/DEX (e.g., Quantumatter)** enables trading, and the **Accounting Firm (e.g., PwC)** ensures reserve transparency.  This white paper details the system’s architecture, roles, smart contracts, purchasing/arbitrage processes, and funding model, supported by visual diagrams.
 
 ## 1. Introduction
 ArtUSD introduces a novel stablecoin model that combines the stability of fiat-backed virtual assets (e.g. cryptocurrencies) with the value preservation of high-value art collections. Central to its design is a **leverage model** that optimizes capital efficiency while ensuring a robust 1:1 peg to the US dollar. By backing **1 billion ArtUSD** with a **$1 billion art collection** and a **~$300 million USDC FundPool**, ArtUSD achieves a **leverage ratio** of 3:1, requiring only ~30% liquid reserves. This model delivers key benefits:
 - **Capital Efficiency**: A fractional USDC reserve reduces upfront capital needs, leveraging the $1 billion art collection as collateral, akin to issuing **perpetual redeemable bonds**.
 - **Price Stability**: Online arbitrage (via Secondary Market/DEX) and offline auctions (e.g., via Sotheby’s events) correct price deviations, maintaining the 1:1 peg.
 - **Trust and Transparency**: NFT verifiable credentials (`ArtCredentialNFT.sol`) verify art authenticity, oracles (`ArtUSD.getArtReserveValue`) provide accurate valuations, and audits (`FundPool.getReserveBalance`) ensure reserve integrity.
-- **Market Appeal**: The bond-like structure, with each ArtUSD redeemable for $1 USDC, attracts investors seeking stability and art-backed value.
+- **Market Appeal**: The bond-like structure, with each ArtUSD redeemable for $1 USDC, attracts investors seeking stability and art-backed value.   This white paper is for educational purposes only. It is not intended to provide financial, legal, or investment advice.
 
 The ArtUSD ecosystem integrates five roles:
 - **Crypto Investor**: Purchases ArtUSD, trades, and arbitrages to stabilize the peg.
@@ -556,7 +554,7 @@ ArtUSD delivers a stablecoin backed by a $1 billion art collection and ~$300 mil
 - Incentivize Swapper liquidity via fee sharing.
 - Partner with PQC platforms for quantum-safe integration
 
-Disclaimer
+## Disclaimer
 [^1]: This white paper is for educational purposes only. It is not intended to provide financial, legal, or investment advice, nor does it constitute an offer to sell or a solicitation to buy any securities or tokens. The concepts, mechanisms, and smart contracts described are hypothetical and intended for illustrative purposes. Readers should conduct their own research and consult with qualified professionals before making any financial decisions.
 
 
