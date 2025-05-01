@@ -21,15 +21,23 @@
 ## Abstract
 
 ArtUSD is a stablecoin model pegged 1:1 to the US dollar, backed by a **$1 billion art collection** verified through NFT-based legel credentials and a regulated USD reserve pool (in USDC). Operating on Ethereum, ArtUSD leverages smart contracts to facilitate issuance, trading, redemption, and arbitrage. The system integrates a **leverage model** requiring only **$300 million USDC** in the FundPool to issue **1 billion ArtUSD**, achieving capital efficiency with a 3:1 leverage ratio. The **Primary Market/Auction House (e.g., Sotheby’s)** manages issuance and offline arbitrage, the **Secondary Market/DEX (e.g., Quantumatter)** enables trading, and the **Accounting Firm (e.g., PwC)** ensures reserve transparency.   
-This white paper details the system’s architecture, roles, smart contracts, purchasing/arbitrage processes, and funding model, supported by visual diagrams.
+
+This white paper details the system’s architecture, roles, smart contracts, purchasing/arbitrage processes, and funding model, supported by visual diagrams. This paper is for educational purposes only. It is not intended to provide financial, legal, or investment advice.  
 
 ## 1. Introduction
 
-ArtUSD introduces a novel stablecoin model that combines the stability of fiat-backed virtual assets (e.g. cryptocurrencies) with the value preservation of high-value art collections. Central to its design is a **leverage model** that optimizes capital efficiency while ensuring a robust 1:1 peg to the US dollar. By backing **1 billion ArtUSD** with a **$1 billion art collection** and a **~$300 million USDC FundPool**, ArtUSD achieves a **leverage ratio** of 3:1, requiring only ~30% liquid reserves. This model delivers key benefits:
+ArtUSD introduces a novel stablecoin model that combines the stability of fiat-backed virtual assets (e.g. cryptocurrencies) with the value preservation of high-value art collections. Central to its design is a 
+- **leverage model** that optimizes capital efficiency while ensuring a robust 1:1 peg to the US dollar.
+- By backing **1 billion ArtUSD**
+- with a **$1 billion art collection** 
+- and a **~$300 million USDC FundPool**,
+ArtUSD achieves a **leverage ratio** of 3:1, requiring only ~30% liquid reserves.   
+
+This model delivers key benefits:
 - **Capital Efficiency**: A fractional USDC reserve reduces upfront capital needs, leveraging the $1 billion art collection as collateral, akin to issuing **perpetual redeemable bonds**.
 - **Price Stability**: Online arbitrage (via Secondary Market/DEX) and offline auctions (e.g., via Sotheby’s events) correct price deviations, maintaining the 1:1 peg.
 - **Trust and Transparency**: NFT verifiable credentials (`ArtCredentialNFT.sol`) verify art authenticity, oracles (`ArtUSD.getArtReserveValue`) provide accurate valuations, and audits (`FundPool.getReserveBalance`) ensure reserve integrity.
-- **Market Appeal**: The bond-like structure, with each ArtUSD redeemable for $1 USDC, attracts investors seeking stability and art-backed value.   This white paper is for educational purposes only. It is not intended to provide financial, legal, or investment advice.
+- **Market Appeal**: The bond-like structure, with each ArtUSD redeemable for $1 USDC, attracts investors seeking stability and art-backed value.    
 
 The ArtUSD ecosystem integrates five roles:
 - **Crypto Investor**: Purchases ArtUSD, trades, and arbitrages to stabilize the peg.
@@ -48,9 +56,18 @@ The ArtUSD system is driven by five roles, each interacting through smart contra
 
 ```mermaid
 graph TD
+
     A[Crypto Investor] -->|ArtUSD.transfer<br>FundPool.depositUSD<br>ArtUSD.redeemForUSD<br>ArtUSDUSDCSwapper.swapUSDCToArtUSD<br>ArtUSDUSDCSwapper.swapArtUSDToUSDC| B[Primary Market/Auction House<br>e.g., Sotheby's]
+
     A -->|ArtUSDUSDCSwapper.swapUSDCToArtUSD<br>ArtUSDUSDCSwapper.swapArtUSDToUSDC<br>ArtUSDUSDCSwapper.getUSDCOut<br>ArtUSDUSDCSwapper.getArtUSDOut| C[Secondary Market/DEX<br>e.g., Quantumatter]
     A -->|FundPool.depositUSD<br>ArtUSD.redeemForUSD| D[FundPool.sol]
+
+    subgraph Roles
+        B[Primary Market/Auction House<br>e.g., Sotheby's]
+        C[Secondary Market/DEX<br>e.g., Quantumatter]
+        G[Art Verifiable Credential Issuer]
+        I[Auditor<br>e.g., PwC]
+    end
     
     B -->|ArtUSD.transfer<br>FundPool.depositUSD<br>ArtUSD.mint| D
     B -->|ArtUSD.mint| E[ArtUSD.sol]
@@ -78,12 +95,12 @@ Functions: ArtUSD.transfer (purchasing), ArtUSDUSDCSwapper.swapUSDCToArtUSD/swap
 
 Purpose: Buys ArtUSD, trades, and arbitrages to maintain the peg.
 
-Primary Market/Auction House (Sotheby’s):
+Primary Market/Auction House (e.g., Sotheby’s):
 Functions: ArtUSD.mint (issuance), ArtUSD.transfer (distribution), FundPool.depositUSD (auction proceeds).
 
 Purpose: Manages issuance, auctions, and offline arbitrage.
 
-Secondary Market/DEX (Quantumatter):
+Secondary Market/DEX (e.g., Quantumatter):
 Functions: ArtUSDUSDCSwapper.addLiquidity, swapUSDCToArtUSD, swapArtUSDToUSDC, getUSDCOut, getArtUSDOut.
 
 Purpose: Operates the AMM for trading and arbitrage.
@@ -93,7 +110,7 @@ Functions: ArtCredentialNFT.mint, issueCredential.
 
 Purpose: Verifies art collections, supporting ArtUSD.getArtReserveValue.
 
-Accounting Firm (PwC):
+Accounting Firm (e.g., PwC):
 Functions: FundPool.getReserveBalance, withdrawUSD.
 
 Purpose: Audits reserves for transparency.
