@@ -21,8 +21,8 @@
 ---
 ## Abstract
 
-ArtUSD is a stablecoin model pegged 1:1 to the US dollar, backed by a **$1 billion art collection** verified through NFT-based legel credentials and a regulated USD reserve pool (in USDC). Operating on Ethereum, ArtUSD leverages smart contracts to facilitate issuance, trading, redemption, and arbitrage. The system integrates a **leverage model** requiring only **$300 million USDC** in the FundPool to issue **1 billion ArtUSD**, achieving capital efficiency with a 4.33:1 leverage ratio. The **Primary Market/Auction House (e.g., Sotheby’s)** manages issuance and offline arbitrage, the **Secondary Market/DEX (e.g., Quantumatter)** enables trading and onchain arbitrage, and the **Accounting Firm (e.g., PwC)** ensures reserve transparency.   
-
+ArtUSD is a stablecoin model pegged 1:1 to the US dollar, backed by a **$1 billion art collection** verified through NFT-based legel credentials and a regulated USD reserve pool (in USDC). Operating on Ethereum, ArtUSD leverages smart contracts to facilitate issuance, trading, redemption, and arbitrage.   
+The system integrates a **leverage model** requiring only **$300 million USDC** in the FundPool to issue **1 billion ArtUSD**, achieving capital efficiency with a 4.33:1 leverage ratio. The **Primary Market/Auction House (e.g., Sotheby’s)** manages issuance and offline arbitrage, the **Secondary Market/DEX (e.g., Quantumatter)** enables trading and onchain arbitrage, and the **Accounting Firm (e.g., PwC)** ensures reserve transparency.   
 This white paper details the system’s architecture, roles, smart contracts, purchasing/arbitrage processes, and funding model, supported by visual diagrams. This paper is for educational purposes only. It is not intended to provide financial, legal, or investment advice.  
 
 ---
@@ -235,6 +235,7 @@ Example:
 #### 4.2.1 Onchain Arbitrage   
 
 Role: DEX.   
+<br>
 :arrow_heading_down: Below $1 (0.95 USDC/ArtUSD):
 - Price Check:   
   `ArtUSDUSDCSwapper.getArtUSDOut(1,000 USDC)` → 0.95 (reserves: 10,526,316 ArtUSD, 10,000,000 USDC).   
@@ -601,7 +602,7 @@ ArtUSD resembles perpetual redeemable bonds:
         - deposits 250M USDC (`depositUSD`).   
 
 - Audit:   
-    PwC verifies reserves (`getReserveBalance`).   
+    - PwC verifies reserves (`getReserveBalance`).   
 
 ### 6.5 Risks and Mitigations   
 
@@ -658,7 +659,8 @@ ArtUSD delivers a stablecoin backed by a $1 billion art collection and ~$300 mil
 ### Disclaimer   
 
 > This white paper is for educational purposes only. It is not intended to provide financial, legal, or investment advice, nor does it constitute an offer to sell or a solicitation to buy any securities or tokens. The concepts, mechanisms, and smart contracts described are hypothetical and intended for illustrative purposes. Readers should conduct their own research and consult with qualified professionals before making any financial decisions.
-> 
+<br>
+> (©) 2024 Real Matter Technology Limited
 ---
 
 
