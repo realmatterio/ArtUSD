@@ -272,7 +272,7 @@ Role: Auction House.
 
 ### 4.3 Stablecoin Flow Diagram
 
-This section outlines the flow diagram for issuing 1 billion ArtUSD backed by a $1 billion art collection and ¬$300 million USDC FundPool.
+This section outlines the flow diagram for issuing 1 billion ArtUSD backed by a $1 billion art collection and ~$300 million USDC FundPool.
 
 ![Mermaid Figure 2](Mermaid%20Fig%202.png)
 
@@ -312,7 +312,7 @@ graph TD
 
 ```
 
-> Figure 2: Stablecoin Flow Diagram, showing the $1 billion art collection, ¬$300 million USDC FundPool, 1 billion ArtUSD, and leverage ratios (4.33:1). Roles interact via smart contract functions to support issuance, redemption, trading, and auditing.
+> Figure 2: Stablecoin Flow Diagram, showing the $1 billion art collection, ~$300 million USDC FundPool, 1 billion ArtUSD, and leverage ratios (4.33:1). Roles interact via smart contract functions to support issuance, redemption, trading, and auditing.
 
 ---
 ## 5. Smart Contract Implementation   
@@ -335,7 +335,7 @@ contract ArtUSD is ERC20, Ownable {
 
     event Redeemed(address indexed user, uint256 amount, string assetType);
 
-    constructor(address _artPriceFeed, address _fundPool) ERC20("ArtUSD", "AUSD") {
+    constructor(address initialOwner, address _artPriceFeed, address _fundPool) ERC20("ArtUSD", "AUSD") Ownable(initialOwner) {
         artPriceFeed = AggregatorV3Interface(_artPriceFeed);
         fundPool = _fundPool;
         paused = false;
@@ -393,7 +393,7 @@ contract FundPool is Ownable {
     event USDDeposited(address indexed user, uint256 amount);
     event USDReleased(address indexed user, uint256 amount);
 
-    constructor(address _usdc, address _artUSD) {
+    constructor(address initialOwner, address _usdc, address _artUSD) Ownable(initialOwner) {
         usdc = IERC20(_usdc);
         artUSD = _artUSD;
         totalReserve = 0;
@@ -447,7 +447,7 @@ contract ArtUSDUSDCSwapper is Ownable {
     event LiquidityAdded(address indexed provider, uint256 artUSDAmount, uint256 usdcAmount);
     event Swap(address indexed user, uint256 artUSDIn, uint256 usdcOut, uint256 usdcIn, uint256 artUSDOut);
 
-    constructor(address _artUSD, address _usdc) {
+    constructor(address initialOwner, address _artUSD, address _usdc) Ownable(initialOwner) {
         artUSD = IERC20(_artUSD);
         usdc = IERC20(_usdc);
     }
@@ -522,7 +522,7 @@ contract ArtCredentialNFT is ERC721, Ownable {
 
     event CredentialIssued(address indexed to, uint256 tokenId, string artDetails);
 
-    constructor() ERC721("ArtCredentialNFT", "ACN") {
+    constructor(address initialOwner) ERC721("ArtCredentialNFT", "ACN") Ownable(initialOwner) {
         tokenIdCounter = 0;
     }
 
@@ -661,8 +661,7 @@ ArtUSD delivers a stablecoin backed by a $1 billion art collection and ~$300 mil
 
 > This white paper is for educational purposes only. It is not intended to provide financial, legal, or investment advice, nor does it constitute an offer to sell or a solicitation to buy any securities or tokens. The concepts, mechanisms, and smart contracts described are hypothetical and intended for illustrative purposes. Readers should conduct their own research and consult with qualified professionals before making any financial decisions.
 <br>
-> (©) 2024 Real Matter Technology Limited
----
+© 2024 Real Matter Technology Limited
 
 
 
