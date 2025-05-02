@@ -61,21 +61,21 @@ The ArtUSD system is driven by five roles, each interacting through smart contra
 graph TD
     
     subgraph "`<b style="font-size: 20px;">BUYER</b>`"
-        A{{<b style="font-size: 20px;"><br>Crypto Investors<br></b>}}
+        A{{<b style="font-size: 20px;"><br>Crypto Investors<br>.</b>}}
     end
 
     subgraph "`<b style="font-size: 20px;">ROLES</b>`"
-        B(<b style="font-size: 20px;"><br>Primary Market<br>Auction House<br></b><b style="font-size: 16px;">e.g., Sotheby's<br></b>)
-        C(<b style="font-size: 20px;"><br>Secondary Market<br>DEX<br></b><b style="font-size: 16px;">e.g., Quantumatter<br></b>)
-        G(<b style="font-size: 20px;"><br>Art Credential Issuer<br></b><b style="font-size: 16px;">e.g., Sotheby's<br></b>)
-        I(<b style="font-size: 20px;"><br>Auditor<br></b><b style="font-size: 16px;">e.g., PwC<br></b>)
+        B(<b style="font-size: 20px;"><br>Primary Market<br>Auction House<br></b><b style="font-size: 16px;"><br>e.g., Sotheby's<br>.</b>)
+        C(<b style="font-size: 20px;"><br>Secondary Market<br>DEX<br></b><b style="font-size: 16px;"><br>e.g., Quantumatter<br>.</b>)
+        G(<b style="font-size: 20px;"><br>Art Credential Issuer<br></b><b style="font-size: 16px;"><br>e.g., Sotheby's<br>.</b>)
+        I(<b style="font-size: 20px;"><br>Auditor<br></b><b style="font-size: 16px;"><br>e.g., PwC<br>.</b>)
     end
 
     subgraph "`<b style="font-size: 20px;">SMART CONTRACTS</b>`"
-        E[(<br>ArtUSD.sol<br>)]
-        D[(<br>FundPool.sol<br>)]
-        F[(<br>ArtUSDUSDCSwapper.sol<br>)]
-        H[(<br>ArtCredentialNFT.sol<br>)]
+        E[(<br>ArtUSD.sol<br>.)]
+        D[(<br>FundPool.sol<br>.)]
+        F[(<br>ArtUSDUSDCSwapper.sol<br>.)]
+        H[(<br>ArtCredentialNFT.sol<br>.)]
     end
 
     A -->|ArtUSD.transfer<br>FundPool.depositUSD<br>ArtUSD.redeemForUSD<br>ArtUSDUSDCSwapper.swapUSDCToArtUSD<br>ArtUSDUSDCSwapper.swapArtUSDToUSDC| B
@@ -274,19 +274,19 @@ This section outlines the flow diagram for issuing 1 billion ArtUSD backed by a 
 
 graph TD
 
-    A(<b style="font-size: 20px;">Art Collection<br><br></b>$1B<br>Verified by ArtCredentialNFT.issueCredential<br>Valued by ArtUSD.getArtReserveValue)
-    B(<b style="font-size: 20px;">Issued ArtUSD<br><br></b>1B Tokens<br>ArtUSD.mint<br>ArtUSD.redeemForUSD)
-    C[(<b style="font-size: 20px;">FundPool<br><br></b>~$300 USDC<br>FundPool.depositUSD<br>FundPool.releaseUSD<br>Audited by FundPool.getReserveBalance)]
+    A(<b style="font-size: 20px;">Art Collection<br><br></b>$1B<br>Verified by ArtCredentialNFT.issueCredential<br>Valued by ArtUSD.getArtReserveValue<br>.)
+    B(<b style="font-size: 20px;">Issued ArtUSD<br><br></b>1B Tokens<br>ArtUSD.mint<br>ArtUSD.redeemForUSD<br>.)
+    C[(<b style="font-size: 20px;">FundPool<br><br></b>~$300 USDC<br>FundPool.depositUSD<br>FundPool.releaseUSD<br>Audited by FundPool.getReserveBalance<br>.)]
 
     subgraph "`<b style="font-size: 20px;">PRIMARY MARKET</b>`"
-        E{{<b style="font-size: 20px;"><br>Auction House<br></b>e.g., Sotheby's}}
-        F{{<b style="font-size: 20px;"><br>Crypto Investor</b>}}
-        G{{<b style="font-size: 20px;"><br>Auditor<br></b>e.g., PwC}}
-        H{{<b style="font-size: 20px;"><br>Art Credential Issuer<br></b>e.g., Sotheby's}}
+        E{{<b style="font-size: 20px;"><br>Auction House<br></b>e.g., Sotheby's<br>.}}
+        F{{<b style="font-size: 20px;"><br>Crypto Investor<br>.</b>}}
+        G{{<b style="font-size: 20px;"><br>Auditor<br></b>e.g., PwC<br>.}}
+        H{{<b style="font-size: 20px;"><br>Art Credential Issuer<br></b>e.g., Sotheby's<br>.}}
     end
 
     subgraph "`<b style="font-size: 20px;">SECONDARY MARKET</b><br><br>`"
-        D(<b style="font-size: 20px;">Swapper Liquidity<br></b><br>50M ArtUSD + 50M USDC<br>ArtUSDUSDCSwapper.addLiquidity<br>ArtUSDUSDCSwapper.swapUSDCToArtUSD<br>ArtUSDUSDCSwapper.swapArtUSDToUSDC)
+        D(<b style="font-size: 20px;">Swapper Liquidity<br></b><br>50M ArtUSD + 50M USDC<br>ArtUSDUSDCSwapper.addLiquidity<br>ArtUSDUSDCSwapper.swapUSDCToArtUSD<br>ArtUSDUSDCSwapper.swapArtUSDToUSDC<br>.)
     end
 
     A -->|Collateral Backing| B
