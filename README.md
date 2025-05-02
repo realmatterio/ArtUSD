@@ -2,9 +2,9 @@
 # ArtUSD Stablecoin Model White Paper
 > Real Matter Technology Limited
 > 
-> Writer : NG Ming Lam
+> Author: NG Ming Lam
 >
-> 1 May 2025
+> Date: 1 May 2025
 
 ## Table of Contents
 - [Abstract](#abstract)
@@ -23,38 +23,47 @@
 ## Abstract
 
 ArtUSD is a stablecoin model pegged 1:1 to the US dollar, backed by a **$1 billion art collection** verified through NFT-based legel credentials and a regulated USD reserve pool (in USDC). Operating on Ethereum, ArtUSD leverages smart contracts to facilitate issuance, trading, redemption, and arbitrage.   
-The system integrates a **leverage model** requiring only **$300 million USDC** in the FundPool to issue **1 billion ArtUSD**, achieving capital efficiency with a 4.33:1 leverage ratio. The **Primary Market/Auction House (e.g., Sotheby’s)** manages issuance and offline arbitrage, the **Secondary Market/DEX (e.g., Quantumatter)** enables trading and onchain arbitrage, and the **Accounting Firm (e.g., PwC)** ensures reserve transparency.   
-This white paper details the system’s architecture, roles, smart contracts, purchasing/arbitrage processes, and funding model, supported by visual diagrams. This paper is for educational purposes only. It is not intended to provide financial, legal, or investment advice.  
+The system integrates a **reference leverage model** requiring, for example, only **$300 million USDC** in the FundPool to issue **1 billion ArtUSD**, achieving capital efficiency with a 4.33:1 leverage ratio. The **Primary Market/Auction House (e.g., Sotheby’s)** manages issuance and offline arbitrage, the **Secondary Market/DEX (e.g., Quantumatter)** enables trading and onchain arbitrage, and the **Auditor (e.g., PwC)** ensures reserve transparency.   
+This white paper details the system’s architecture, market roles, smart contracts, purchasing/arbitrage processes, and funding model, supported by visual diagrams. This paper is for educational purposes only. It is not intended to provide financial, legal, or investment advice.  
 
 ---
 ## 1. Introduction
 
 ArtUSD introduces a novel stablecoin model that combines the stability of fiat-backed virtual assets (e.g. cryptocurrencies) with the value preservation of high-value art collections. Central to its design is   
-- a **leverage model** that optimizes capital efficiency while ensuring a robust 1:1 peg to the US dollar.
-- By backing **1 billion ArtUSD**
+- a **reference leverage model** that optimizes capital efficiency while ensuring a robust 1:1 peg to the US dollar.
+- for example, by backing **1 billion ArtUSD**
 - with a **$1 billion art collection** 
 - and a **~$300 million USDC FundPool**,
 ArtUSD achieves a **leverage ratio** of 4.33:1, requiring only ~30% liquid reserves.   
 
 This model delivers key benefits:
-- **Capital Efficiency**: A fractional USDC reserve reduces upfront capital needs, leveraging the $1 billion art collection as collateral, akin to issuing **perpetual redeemable bonds**.
-- **Price Stability**: Online arbitrage (via Secondary Market/DEX) and offline auctions (e.g., via Sotheby’s events) correct price deviations, maintaining the 1:1 peg.
-- **Trust and Transparency**: NFT verifiable credentials (`ArtCredentialNFT.sol`) verify art authenticity, oracles (`ArtUSD.getArtReserveValue`) provide accurate valuations, and audits (`FundPool.getReserveBalance`) ensure reserve integrity.
-- **Market Appeal**: The bond-like structure, with each ArtUSD redeemable for $1 USDC, attracts investors seeking stability and art-backed value.    
+- **Capital Efficiency**:
+  A fractional USDC reserve reduces upfront capital needs, leveraging the $1 billion art collection as collateral, akin to issuing **perpetual redeemable bonds**.
+- **Price Stability**:
+  Onchain arbitrage (via Secondary Market/DEX) and offline auctions (e.g., via Sotheby’s events) correct price deviations, maintaining the 1:1 peg.
+- **Trust and Transparency**:
+  NFT verifiable credentials (`ArtCredentialNFT.sol`) verify art authenticity, price oracles (`ArtUSD.getArtReserveValue`) provide accurate valuations, and audits (`FundPool.getReserveBalance`) ensure reserve integrity.
+- **Market Appeal**:
+  The bond-like structure, with each ArtUSD redeemable for $1 USDC, attracts investors seeking stability and art-backed value.    
 
-The ArtUSD ecosystem integrates five roles:
-- **Crypto Investor**: Purchases ArtUSD, trades, and arbitrages to stabilize the peg.
-- **Primary Market/Auction House (e.g., Sotheby’s)**: Issues ArtUSD, conducts auctions, and manages offline arbitrage.
-- **Secondary Market/DEX (e.g., Quantumatter)**: Operates the ArtUSD/USDC automated market maker (AMM) for trading.
-- **Art Verifiable Credential Issuer**: Issues NFTs to authenticate art collections.
-- **Accounting Firm (e.g., PwC)**: Audits the USDC FundPool for transparency.
+The ArtUSD ecosystem integrates five market roles:
+- **Crypto Investor**:
+  Purchases ArtUSD, trades, and arbitrages to stabilize the peg.
+- **Primary Market | Auction House (e.g., Sotheby’s)**:
+  Issues ArtUSD, conducts auctions, and manages offline arbitrage.
+- **Secondary Market | DEX (e.g., Quantumatter)**:
+  Operates the ArtUSD/USDC automated market maker (AMM) for trading.
+- **Art Credential Issuer (e.g., Sotheby’s)**:
+  Issues verifiable NFTs to authenticate art collections.
+- **Accounting Firm (e.g., PwC)**:
+  Audits the USDC FundPool for transparency.
 
-This white paper outlines the system’s architecture, role interactions, smart contracts, purchasing and arbitrage processes, and funding model, with diagrams to illustrate operations and the leverage structure.
+This white paper outlines the system’s architecture, market role interactions, smart contracts, purchasing and arbitrage processes, and funding model, with diagrams to illustrate operations and the leverage structure.
 
 ---
 ## 2. Role-Centric Market Model
 
-The ArtUSD system is driven by five roles, each interacting through smart contract functions across four contracts: `ArtUSD.sol`, `FundPool.sol`, `ArtUSDUSDCSwapper.sol`, and `ArtCredentialNFT.sol`. The block diagram (Figure 1) visualizes these roles as primary nodes, with arrows indicating function-based interactions.
+The ArtUSD system is driven by five market roles, each interacting through smart contract functions across four contracts: `ArtUSD.sol`, `FundPool.sol`, `ArtUSDUSDCSwapper.sol`, and `ArtCredentialNFT.sol`. The block diagram (Figure 1) visualizes these roles as primary nodes, with arrows indicating function-based interactions.
 
 ### 2.1  Block Diagram
 
@@ -67,7 +76,7 @@ graph TD
         A{{<b style="font-size: 20px;"><br>Crypto Investors<br>.</b>}}
     end
 
-    subgraph "`<b style="font-size: 20px;">ROLES</b>`"
+    subgraph "`<b style="font-size: 20px;">MARKET ROLES</b>`"
         B(<b style="font-size: 20px;"><br>Primary Market<br>Auction House<br></b><b style="font-size: 16px;"><br>e.g., Sotheby's<br>.</b>)
         C(<b style="font-size: 20px;"><br>Secondary Market<br>DEX<br></b><b style="font-size: 16px;"><br>e.g., Quantumatter<br>.</b>)
         G(<b style="font-size: 20px;"><br>Art Credential Issuer<br></b><b style="font-size: 16px;"><br>e.g., Sotheby's<br>.</b>)
@@ -97,9 +106,9 @@ graph TD
 
 ```
 
-> Figure 1: Role-Centric Market Model illustrating interactions between Crypto Investor, Primary Market/Auction House (e.g., Sotheby’s), Secondary Market/DEX (e.g., Quantumatter), Art Verifiable Credential Issuer, and Auditor (e.g., PwC), facilitated by smart contract functions.
+> Figure 1: Role-Centric Market Model illustrating interactions between Crypto Investor, Primary Market/Auction House, Secondary Market/DEX, Art Credential Issuer, and Auditor, facilitated by smart contract functions.
 
-### 2.2 Role Functionalities
+### 2.2 Market Role Functionalities
 
 Crypto Investor:   
 - Buys ArtUSD, trades, and arbitrages to maintain the peg.   
@@ -270,7 +279,7 @@ Role: Auction House.
 - Example:   
   Price at 0.90 `USDC/ArtUSD`; auctions $250M art, deposits 250M `USDC`, mints 250M `ArtUSD`, stabilizing the peg.
 
-### 4.3 Stablecoin Flow Diagram
+### 4.3 Stablecoin Flow Diagram (example)
 
 This section outlines the flow diagram for issuing 1 billion ArtUSD backed by a $1 billion art collection and ~$300 million USDC FundPool.
 
@@ -545,7 +554,7 @@ contract ArtCredentialNFT is ERC721, Ownable {
 
 This section outlines the funding requirements and leverage structure for issuing 1 billion ArtUSD backed by a $1 billion art collection, conceptualized as perpetual redeemable bonds.   
 
-### 6.1 FundPool Requirements   
+### 6.1 FundPool Requirements (example)   
 
 Issuing 1 billion ArtUSD requires a FundPool of ~$300 million USDC (30% reserve ratio):   
 - Daily Operations:   
@@ -623,9 +632,9 @@ ArtUSD resembles perpetual redeemable bonds:
   Ethereum or Permissioned Hyperledger Besu for low gas fees.
 - Standards:   
   ERC-20 (ArtUSD), ERC-721 (ArtCredentialNFT), Modelling Uniswap V2-inspired AMM.
-- Oracles:   
+- Price Oracles:   
   Auction houses for art valuation.
-- Security:  
+- Code Security:  
   Certik audits, OpenZeppelin libraries, Gnosis Safe for reserves.
 - Transparency:   
   certified auditors, public reserve data via FundPool.getReserveBalance.
@@ -647,12 +656,12 @@ ArtUSD resembles perpetual redeemable bonds:
 ---
 ## 9. Conclusion   
 
-ArtUSD delivers a stablecoin backed by a $1 billion art collection and ~$300 million USDC, leveraging a 3:1 ratio for capital efficiency. The role-centric ecosystem, with the primary market and the secondary market, ensures stability and trust. NFT credentials and arbitrage mechanisms enhance reliability, positioning ArtUSD for adoption in DeFi and art auction markets.
+ArtUSD delivers an example stablecoin model backed by a $1 billion art collection and ~$300 million USDC, leveraging a 3:1 ratio for capital efficiency. The role-centric ecosystem, with the primary market and the secondary market, ensures stability and trust. NFT credentials and arbitrage mechanisms enhance reliability, positioning ArtUSD for adoption in DeFi and art auction markets.
 
 ---
 ### Future Work   
 
-- Deploy on Permissioned Hyperledger Besu for cost efficiency.   
+- Deploy on cross-chains for cost efficiency.   
 - Develop a DApp integrating auctions and trading.   
 - Incentivize Swapper liquidity via fee sharing.   
 - Partner with PQC platforms for quantum-safe integration   
@@ -661,7 +670,7 @@ ArtUSD delivers a stablecoin backed by a $1 billion art collection and ~$300 mil
 
 > This white paper is for educational purposes only. It is not intended to provide financial, legal, or investment advice, nor does it constitute an offer to sell or a solicitation to buy any securities or tokens. The concepts, mechanisms, and smart contracts described are hypothetical and intended for illustrative purposes. Readers should conduct their own research and consult with qualified professionals before making any financial decisions.
 <br>
-© 2024 Real Matter Technology Limited
+© 2024~2025 Real Matter Technology Limited
 
 
 
