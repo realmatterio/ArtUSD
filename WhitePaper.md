@@ -184,7 +184,7 @@ Managed by Aucion House (e.g., Sotheby’s), with Crypto Investors as buyers:
     - Function: `ArtUSD.transfer(to, amount)`.   
     - Outcome: Investors receive ArtUSD.   
 - Audit:   
-    - Role: Auditor (PwC).   
+    - Role: Auditor.   
     - Function: `FundPool.getReserveBalance()`.   
 
 Example:   
