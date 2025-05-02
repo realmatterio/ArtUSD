@@ -60,18 +60,20 @@ Crypto Investor | Primary Market | Secondary Market| Credential Issuer | Auditor
 ---
 graph TD
 
-    %% Central node
-    A(<b style="font-size: 20px;">Crypto Investor</b>)
+    
+    subgraph "`<b style="font-size: 20px;">BUYER</b>`"
+        A{{<b style="font-size: 20px;"><br>Crypto Investors<br></b>}}
+    end
 
     A -->|ArtUSD.transfer<br>FundPool.depositUSD<br>ArtUSD.redeemForUSD<br>ArtUSDUSDCSwapper.swapUSDCToArtUSD<br>ArtUSDUSDCSwapper.swapArtUSDToUSDC| B(<b style="font-size: 16px;">Primary Market/Auction House<br>e.g., Sotheby's</b>)
     A -->|ArtUSDUSDCSwapper.swapUSDCToArtUSD<br>ArtUSDUSDCSwapper.swapArtUSDToUSDC<br>ArtUSDUSDCSwapper.getUSDCOut<br>ArtUSDUSDCSwapper.getArtUSDOut| C(<b style="font-size: 16px;">Secondary Market/DEX<br>e.g., Quantumatter</b>)
     A -->|FundPool.depositUSD<br>ArtUSD.redeemForUSD| D[(FundPool.sol)]
 
-    subgraph Roles
-        B(<b style="font-size: 20px;">Primary Market<br>Auction House<br></b><b style="font-size: 16px;">e.g., Sotheby's</b>)
-        C(<b style="font-size: 20px;">Secondary Market<br>DEX<br></b><b style="font-size: 16px;">e.g., Quantumatter</b>)
-        G(<b style="font-size: 20px;">Art Credential Issuer<br></b><b style="font-size: 16px;">e.g., Sotheby's</b>)
-        I(<b style="font-size: 20px;">Auditor<br></b><b style="font-size: 16px;">e.g., PwC</b>)
+    subgraph "`<b style="font-size: 20px;">ROLES</b>`"
+        B(<b style="font-size: 20px;"><br>Primary Market<br>Auction House<br></b><b style="font-size: 16px;">e.g., Sotheby's<br></b>)
+        C(<b style="font-size: 20px;"><br>Secondary Market<br>DEX<br></b><b style="font-size: 16px;">e.g., Quantumatter<br></b>)
+        G(<b style="font-size: 20px;"><br>Art Credential Issuer<br></b><b style="font-size: 16px;">e.g., Sotheby's<br></b>)
+        I(<b style="font-size: 20px;"><br>Auditor<br></b><b style="font-size: 16px;">e.g., PwC<br></b>)
     end
     
     B -->|ArtUSD.transfer<br>FundPool.depositUSD<br>ArtUSD.mint| D
@@ -84,21 +86,24 @@ graph TD
     
     I -->|FundPool.getReserveBalance<br>FundPool.withdrawUSD| D
     
-    subgraph Smart Contracts
-        E[(ArtUSD.sol)]
-        D[(FundPool.sol)]
-        F[(ArtUSDUSDCSwapper.sol)]
-        H[(ArtCredentialNFT.sol)]
+    subgraph "`<b style="font-size: 20px;">SMART CONTRACTS</b>`"
+        E[(<br>ArtUSD.sol<br>)]
+        D[(<br>FundPool.sol<br>)]
+        F[(<br>ArtUSDUSDCSwapper.sol<br>)]
+        H[(<br>ArtCredentialNFT.sol<br>)]
     end
 ```
 
 > Figure 1: Role-Centric Block Diagram illustrating interactions between Crypto Investor, Primary Market/Auction House (e.g., Sotheby’s), Secondary Market/DEX (e.g., Quantumatter), Art Verifiable Credential Issuer, and Auditor (e.g., PwC), facilitated by smart contract functions.
 
 ### 2.2 Role Functionalities
-Crypto Investor:
-Functions: ArtUSD.transfer (purchasing), ArtUSDUSDCSwapper.swapUSDCToArtUSD/swapArtUSDToUSDC (trading), FundPool.depositUSD (minting), ArtUSD.redeemForUSD (redemption).
 
-Purpose: Buys ArtUSD, trades, and arbitrages to maintain the peg.
+Crypto Investor:   
+Buys ArtUSD, trades, and arbitrages to maintain the peg.
+- `ArtUSD.transfer` (purchasing),
+- `ArtUSDUSDCSwapper.swapUSDCToArtUSD/swapArtUSDToUSDC` (trading),
+- `FundPool.depositUSD` (minting),
+- `ArtUSD.redeemForUSD` (redemption).
 
 Primary Market/Auction House (e.g., Sotheby’s):
 Functions: ArtUSD.mint (issuance), ArtUSD.transfer (distribution), FundPool.depositUSD (auction proceeds).
