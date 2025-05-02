@@ -57,6 +57,8 @@ The ArtUSD system is driven by five roles, each interacting through smart contra
 
 ### 2.1  Block Diagram
 
+![Mermaid Figure 1](Mermaid%20Fig%201.png)
+
 ```mermaid
 graph TD
     
@@ -269,6 +271,8 @@ Role: Auction House.
 ### 4.3 Stablecoin Flow Diagram
 
 This section outlines the flow diagram for issuing 1 billion ArtUSD backed by a $1 billion art collection and ¬$300 million USDC FundPool.
+
+![Mermaid Figure 2](Mermaid%20Fig%202.png)
 
 ```mermaid
 
