@@ -65,8 +65,8 @@ graph TD
         A{{<b style="font-size: 20px;"><br>Crypto Investors<br></b>}}
     end
 
-    A -->|ArtUSD.transfer<br>FundPool.depositUSD<br>ArtUSD.redeemForUSD<br>ArtUSDUSDCSwapper.swapUSDCToArtUSD<br>ArtUSDUSDCSwapper.swapArtUSDToUSDC| B(<b style="font-size: 16px;">Primary Market/Auction House<br>e.g., Sotheby's</b>)
-    A -->|ArtUSDUSDCSwapper.swapUSDCToArtUSD<br>ArtUSDUSDCSwapper.swapArtUSDToUSDC<br>ArtUSDUSDCSwapper.getUSDCOut<br>ArtUSDUSDCSwapper.getArtUSDOut| C(<b style="font-size: 16px;">Secondary Market/DEX<br>e.g., Quantumatter</b>)
+    A -->|ArtUSD.transfer<br>FundPool.depositUSD<br>ArtUSD.redeemForUSD<br>ArtUSDUSDCSwapper.swapUSDCToArtUSD<br>ArtUSDUSDCSwapper.swapArtUSDToUSDC| B(``)
+    A -->|ArtUSDUSDCSwapper.swapUSDCToArtUSD<br>ArtUSDUSDCSwapper.swapArtUSDToUSDC<br>ArtUSDUSDCSwapper.getUSDCOut<br>ArtUSDUSDCSwapper.getArtUSDOut| C(``)
     A -->|FundPool.depositUSD<br>ArtUSD.redeemForUSD| D[(FundPool.sol)]
 
     subgraph "`<b style="font-size: 20px;">ROLES</b>`"
@@ -99,123 +99,132 @@ graph TD
 ### 2.2 Role Functionalities
 
 Crypto Investor:   
-Buys ArtUSD, trades, and arbitrages to maintain the peg.
-- `ArtUSD.transfer` (purchasing),
-- `ArtUSDUSDCSwapper.swapUSDCToArtUSD/swapArtUSDToUSDC` (trading),
-- `FundPool.depositUSD` (minting),
-- `ArtUSD.redeemForUSD` (redemption).
+- Buys ArtUSD, trades, and arbitrages to maintain the peg.   
+`ArtUSD.transfer` (purchasing),   
+`ArtUSDUSDCSwapper.swapUSDCToArtUSD/swapArtUSDToUSDC` (trading),   
+`FundPool.depositUSD` (minting),   
+`ArtUSD.redeemForUSD` (redemption).   
 
-Primary Market/Auction House (e.g., Sotheby’s):
-Functions: ArtUSD.mint (issuance), ArtUSD.transfer (distribution), FundPool.depositUSD (auction proceeds).
+Primary Market | Auction House (e.g., Sotheby’s):   
+- Manages onchain issuance, offchain auctions, and offline arbitrage.   
+`ArtUSD.mint` (issuance),   
+`ArtUSD.transfer` (distribution),   
+`FundPool.depositUSD` (offchain auction proceeds).   
 
-Purpose: Manages issuance, auctions, and offline arbitrage.
+Secondary Market | DEX (e.g., Quantumatter):   
+- Operates the AMM for trading and onchain arbitrage   
+`ArtUSDUSDCSwapper.addLiquidity`,   
+`swapUSDCToArtUSD`,   
+`swapArtUSDToUSDC`,   
+`getUSDCOut`,   
+`getArtUSDOut`.   
 
-Secondary Market/DEX (e.g., Quantumatter):
-Functions: ArtUSDUSDCSwapper.addLiquidity, swapUSDCToArtUSD, swapArtUSDToUSDC, getUSDCOut, getArtUSDOut.
+Art Credential Issuer (e.g., Sotheby’s):   
+- Verifies art collections, supporting ArtUSD.getArtReserveValue.   
+`ArtCredentialNFT.mint`,   
+`issueCredential`.   
 
-Purpose: Operates the AMM for trading and arbitrage.
-
-Art Verifiable Credential Issuer:
-Functions: ArtCredentialNFT.mint, issueCredential.
-
-Purpose: Verifies art collections, supporting ArtUSD.getArtReserveValue.
-
-Accounting Firm (e.g., PwC):
-Functions: FundPool.getReserveBalance, withdrawUSD.
-
-Purpose: Audits reserves for transparency.
+Auditor (e.g., PwC):
+- Audits reserves for transparency.   
+`FundPool.getReserveBalance`,   
+`withdrawUSD`.   
 
 ### 2.3 Diagram Explanation
-Crypto Investor  Primary Market/Auction House: Purchasing via auctions (ArtUSD.transfer, FundPool.depositUSD).
 
-Crypto Investor  Secondary Market/DEX: Trading and arbitrage (swapUSDCToArtUSD, swapArtUSDToUSDC).
+Crypto Investor :left_right_arrow: Primary Market/Auction House:   
+- Purchasing via auctions   
+`ArtUSD.transfer`,   
+`FundPool.depositUSD`.   
 
-Primary Market/Auction House  FundPool: Depositing proceeds (depositUSD, mint).
+Crypto Investor :left_right_arrow: Secondary Market/DEX:   
+- Trading and arbitrage   
+`swapUSDCToArtUSD`,   
+`swapArtUSDToUSDC`.   
 
-Secondary Market/DEX  Swapper: Managing AMM liquidity (addLiquidity, swap).
+Primary Market | Auction House :left_right_arrow: FundPool:   
+- Depositing proceeds   
+`depositUSD`,    
+`mint`.   
 
-Art Verifiable Credential Issuer  ArtUSD: Supporting valuation (issueCredential, getArtReserveValue).
+Secondary Market | DEX :left_right_arrow: Swapper:   
+- Managing AMM liquidity   
+`addLiquidity`,   
+`swap`.   
 
-Accounting Firm  FundPool: Auditing reserves (getReserveBalance).
+Art Credential Issuer :left_right_arrow: ArtUSD:   
+- Supporting valuation   
+`issueCredential`,   
+`getArtReserveValue`.   
 
-## 3. System Architecture
+Auditor :left_right_arrow: FundPool:   
+- Auditing reserves   
+`getReserveBalance`.   
+
+## 3. System Architecture   
+
 ArtUSD’s architecture comprises four smart contracts to support issuance, redemption, trading, and art verification.
 
 ### 3.1 ArtUSD.sol
-Purpose: Manages ArtUSD issuance, transfers, redemption, and burning (ERC-20).
 
-Key Functions:
-transfer(to, amount): Transfers ArtUSD.
-
-mint(to, amount): Issues ArtUSD (called by FundPool.depositUSD).
-
-redeemForUSD(amount): Redeems ArtUSD for USDC at 1:1.
-
-getArtReserveValue(): Retrieves art value via Chainlink oracle.
-
-pause()/unpause(): Emergency controls.
+- Purpose: Manages ArtUSD issuance, transfers, redemption, and burning (ERC-20).   
+- Key Functions:   
+`transfer(to, amount)`: Transfers ArtUSD.   
+`mint(to, amount)`: Issues ArtUSD (called by FundPool.depositUSD).   
+`redeemForUSD(amount)`: Redeems ArtUSD for USDC at 1:1.   
+`getArtReserveValue()`: Retrieves art value via Chainlink oracle.   
+`pause()/unpause()`: Emergency controls.   
 
 ### 3.2 FundPool.sol
-Purpose: Manages USDC reserves, audited by PwC.
 
-Key Functions:
-depositUSD(amount): Accepts USDC, triggers minting.
-
-releaseUSD(to, amount): Releases USDC for redemptions.
-
-getReserveBalance(): Provides reserve transparency.
-
-withdrawUSD(amount): Owner-managed adjustments.
+- Purpose: Manages USDC reserves, audited by PwC.   
+- Key Functions:   
+`depositUSD(amount)`: Accepts USDC, triggers minting.   
+`releaseUSD(to, amount)`: Releases USDC for redemptions.   
+`getReserveBalance()`: Provides reserve transparency.   
+`withdrawUSD(amount)`: Owner-managed adjustments.   
 
 ### 3.3 ArtUSDUSDCSwapper.sol
-Purpose: Enables trading via a Uniswap V2-inspired AMM.
 
-Key Functions:
-addLiquidity(artUSDAmount, usdcAmount): Initializes the pool.
-
-swapUSDCToArtUSD(usdcIn): Buys ArtUSD.
-
-swapArtUSDToUSDC(artUSDIn): Sells ArtUSD.
-
-getUSDCOut(artUSDIn) / getArtUSDOut(usdcIn): Calculates trade outputs.
+- Purpose: Enables trading via a Uniswap V2-inspired AMM.   
+- Key Functions:   
+`addLiquidity(artUSDAmount, usdcAmount)`: Initializes the pool.   
+`swapUSDCToArtUSD(usdcIn)`: Buys ArtUSD.   
+`swapArtUSDToUSDC(artUSDIn)`: Sells ArtUSD.   
+`getUSDCOut(artUSDIn) / getArtUSDOut(usdcIn)`: Calculates trade outputs.   
 
 ### 3.4 ArtCredentialNFT.sol
-Purpose: Issues ERC-721 NFTs as art credentials.
 
-Key Functions:
-mint(to): Creates NFTs.
-
-issueCredential(to, details): Issues credentials with art details.
+- Purpose: Issues ERC-721 NFTs as art credentials.   
+- Key Functions:   
+`mint(to)`: Creates NFTs.   
+`issueCredential(to, details)`: Issues credentials with art details.   
 
 ## 4. Purchasing and Arbitrage Processes
-ArtUSD supports purchasing in the primary market and arbitrage (online/offline) to maintain the 1:1 peg.
+
+ArtUSD supports purchasing in the primary market and onchain arbitrage to maintain the 1:1 peg.
 
 ### 4.1 Purchasing Process
-Managed by Sotheby’s, with Crypto Investors as buyers:
-Auction Event ("Potato Event"):
-Role: Primary Market/Auction House.
+Managed by Aucion House (e.g., Sotheby’s), with Crypto Investors as buyers:   
 
-Action: Sotheby’s auctions art verified by ArtCredentialNFT.issueCredential.
+- Auction Event:   
+    - Role: Primary Market.
+    - Action: Auctions art verified by `ArtCredentialNFT.issueCredential`.   
+    - Outcome: Investors bid the NFT Credentials in USDC.   
+- Deposit Proceeds:   
+    - Function: `FundPool.depositUSD(amount)` → `ArtUSD.mint(to, amount)`.   
+    - Outcome: ArtUSD minted.   
+- Distribute ArtUSD:   
+    - Function: `ArtUSD.transfer(to, amount)`.   
+    - Outcome: Investors receive ArtUSD.   
+- Audit:   
+    - Role: Auditor (PwC).   
+    - Function: `FundPool.getReserveBalance()`.   
 
-Outcome: Investors bid in USDC.
-
-Deposit Proceeds:
-Function: FundPool.depositUSD(amount) → ArtUSD.mint(to, amount).
-
-Outcome: ArtUSD minted.
-
-Distribute ArtUSD:
-Function: ArtUSD.transfer(to, amount).
-
-Outcome: Investors receive ArtUSD.
-
-Audit:
-Role: Accounting Firm (PwC).
-
-Function: FundPool.getReserveBalance().
-
-Example:
-Sotheby’s raises 1M USDC, deposits via FundPool.depositUSD(1M), mints 1M ArtUSD, and transfers to an investor (ArtUSD.transfer).
+Example:   
+- Sotheby’s raises 1M USDC,
+    - deposits via `FundPool.depositUSD(1M)`,
+    - mints 1M `ArtUSD`, and
+    - transfers to crypto investors (`ArtUSD.transfer`).   
 
 ### 4.2 Arbitrage Process
 
