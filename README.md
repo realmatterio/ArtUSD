@@ -1,3 +1,4 @@
+![ArtUSD.png](ArtUSD_200x145.png)
 # ArtUSD Stablecoin Model White Paper
 > Real Matter Technology Limited
 > 
