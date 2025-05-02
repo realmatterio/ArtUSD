@@ -296,7 +296,7 @@ graph TD
     B -->|Trading/Arbitrage| D
     
     C -->|Funds Swapper| D
-    C -->|Leverage Ratio<br>4.33:1 for $300M<br>| B
+    C -->|Leverage Ratio<br>4.33:1 for $300M| B
     
     E -->|Deposits Auction Proceeds<br>FundPool.depositUSD| C
     F -->|Trades<br>swapUSDCToArtUSD<br>swapArtUSDToUSDC| D
@@ -535,72 +535,83 @@ contract ArtCredentialNFT is ERC721, Ownable {
 ```
 
 ---
-## 6. Funding and Leverage Model
+## 6. Funding and Leverage Model   
 
-This section outlines the funding requirements and leverage structure for issuing 1 billion ArtUSD backed by a $1 billion art collection, conceptualized as perpetual redeemable bonds.
+This section outlines the funding requirements and leverage structure for issuing 1 billion ArtUSD backed by a $1 billion art collection, conceptualized as perpetual redeemable bonds.   
 
-### 6.1 FundPool Requirements
+### 6.1 FundPool Requirements   
 
 Issuing 1 billion ArtUSD requires a FundPool of ~$300 million USDC (30% reserve ratio):   
-- Daily Operations:
+- Daily Operations:   
   $200M for 20% redemptions (ArtUSD.redeemForUSD),   
   $50M for Swapper liquidity (ArtUSDUSDCSwapper.addLiquidity),   
   $50M buffer.   
 - Stress Case:   
   FundPool of $500M for 50% redemptions.   
-- Art Liquidation:
-  auctions replenish USDC via `FundPool.depositUSD`.
+- Art Liquidation:   
+  auctions replenish USDC via `FundPool.depositUSD`.   
 
-### 6.2 Perpetual Bond Analogy
+### 6.2 Perpetual Bond Analogy   
 
 ArtUSD resembles perpetual redeemable bonds:   
 - Perpetual Bond Value:   
-  1 ArtUSD = $1 USDC (`redeemForUSD`).
-- Collateral:
-  $1B art collection (`ArtCredentialNFT.issueCredential`).
-- Leverage Ratio:
-  $300M USDC:
-  ($1B art + $300M) / $300M = 4.33:1.
-- Stability:
-  Arbitrage (`swapUSDCToArtUSD`, `swapArtUSDToUSDC`) and
-  auctions (`depositUSD`).
-- Yield:
-  Other staking protocols
+  1 ArtUSD = $1 USDC (`redeemForUSD`).   
+- Collateral:   
+  $1B art collection (`ArtCredentialNFT.issueCredential`).   
+- Leverage Ratio:   
+  $300M USDC:   
+  ($1B art + $300M) / $300M = 4.33:1.   
+- Stability:   
+  Arbitrage (`swapUSDCToArtUSD`, `swapArtUSDToUSDC`) and   
+  auctions (`depositUSD`).   
+- Yield:   
+  Other staking protocols   
 
-### 6.4 Example Scenario
-Setup:
-Art Collection: $1B, verified by ArtCredentialNFT.issueCredential.
+### 6.3 Stablecoin Flow Example Scenario   
 
-FundPool: $300M USDC (4.33:1 leverage).
+- Setup:   
+    - Art Collection:   
+      $1B, verified by `ArtCredentialNFT.issueCredential`.   
+    - FundPool:   
+      $300M USDC (`4.33:1 leverage`).   
+    - Issued ArtUSD:   
+      1B tokens (`ArtUSD.mint`).   
+    - Swapper:   
+      50M ArtUSD + 50M USDC (`ArtUSDUSDCSwapper.addLiquidity`).   
 
-Issued ArtUSD: 1B tokens (ArtUSD.mint).
+- Operations:   
+    - Redemption:   
+        - 20% daily demand (200M `ArtUSD`)   
+        - requires 200M USDC (`redeemForUSD`), covered by FundPool.   
+    - :arrow_heading_down: Arbitrage Below $1 (0.95 `USDC/ArtUSD`):   
+        - Buy 10,494.74 ArtUSD for 1,000 USDC (`swapUSDCToArtUSD`),   
+        - redeem for 10,494.74 USDC,   
+        - profit 9,494.69 USDC.
+    - :arrow_heading_up: Arbitrage Above $1 (1.05 `USDC/ArtUSD`):   
+        - Deposit 1,000 USDC (`depositUSD`),  
+        - mint 1,000 ArtUSD,   
+        - sell for 1,047.12 USDC (`swapArtUSDToUSDC`),   
+        - profit 47.07 USDC.   
+    - Offline:   
+        - Sotheby’s auctions $250M art,   
+        - deposits 250M USDC (`depositUSD`).   
 
-Swapper: 50M ArtUSD + 50M USDC (ArtUSDUSDCSwapper.addLiquidity).
+- Audit:   
+    PwC verifies reserves (`getReserveBalance`).   
 
-Operations:
-Redemption: 20% daily demand (200M ArtUSD) requires 200M USDC (redeemForUSD), covered by FundPool.
+### 6.5 Risks and Mitigations   
 
-Arbitrage:
-Below $1 (0.95 USDC/ArtUSD): Buy 10,494.74 ArtUSD for 1,000 USDC (swapUSDCToArtUSD), redeem for 10,494.74 USDC, profit 9,494.69 USDC.
-
-Above $1 (1.05 USDC/ArtUSD): Deposit 1,000 USDC (depositUSD), mint 1,000 ArtUSD, sell for 1,047.12 USDC (swapArtUSDToUSDC), profit 47.07 USDC.
-
-Offline: Sotheby’s auctions $250M art, deposits 250M USDC (depositUSD).
-
-Audit: PwC verifies reserves (getReserveBalance).
-
-### 6.5 Risks and Mitigations
-
-Art Illiquidity: Redemption caps (10%), frequent auctions.
-
-Valuation Volatility: Chainlink oracles, conservative issuance (80% of art value).
-
-Reserve Depletion: $500M FundPool, auction proceeds.
-
-Regulatory Scrutiny: PwC audits, AML/KYC via Sotheby’s.
+- Art Illiquidity:   
+  Redemption caps (10%), frequent auctions.   
+- Valuation Volatility:   
+  Price oracles, conservative issuance (80% of art value).   
+- Reserve Depletion:   
+  ~$300M FundPool, auction proceeds.   
+- Regulatory Scrutiny:   
+  Audits and AML/KYC.   
 
 ---
-## 7. Implementation Details
+## 7. Implementation Details   
 
 - Blockchain:   
   Ethereum or Permissioned Hyperledger Besu for low gas fees.
@@ -610,7 +621,7 @@ Regulatory Scrutiny: PwC audits, AML/KYC via Sotheby’s.
   Auction houses for art valuation.
 - Security:  
   Certik audits, OpenZeppelin libraries, Gnosis Safe for reserves.
-- Transparency:
+- Transparency:   
   certified auditors, public reserve data via FundPool.getReserveBalance.
 
 ---
@@ -620,11 +631,11 @@ Regulatory Scrutiny: PwC audits, AML/KYC via Sotheby’s.
   Daily redemption caps, auction proceeds.   
 - Smart Contract Vulnerabilities:   
   Audits, secure libraries.   
-- Gas Fees:
+- Gas Fees:   
   Layer 2 deployment.   
 - Art Illiquidity:   
   Frequent auctions, NFT credentials.   
-- Regulatory Risks:
+- Regulatory Risks:   
   AML/KYC compliance.
 
 ---
@@ -642,9 +653,8 @@ ArtUSD delivers a stablecoin backed by a $1 billion art collection and ~$300 mil
 
 ### Disclaimer   
 
-[^1]: This white paper is for educational purposes only. It is not intended to provide financial, legal, or investment advice, nor does it constitute an offer to sell or a solicitation to buy any securities or tokens. The concepts, mechanisms, and smart contracts described are hypothetical and intended for illustrative purposes. Readers should conduct their own research and consult with qualified professionals before making any financial decisions.   
-
-> END
+> This white paper is for educational purposes only. It is not intended to provide financial, legal, or investment advice, nor does it constitute an offer to sell or a solicitation to buy any securities or tokens. The concepts, mechanisms, and smart contracts described are hypothetical and intended for illustrative purposes. Readers should conduct their own research and consult with qualified professionals before making any financial decisions.
+> 
 ---
 
 
