@@ -26,8 +26,8 @@ This white paper details the system’s architecture, roles, smart contracts, pu
 
 ## 1. Introduction
 
-ArtUSD introduces a novel stablecoin model that combines the stability of fiat-backed virtual assets (e.g. cryptocurrencies) with the value preservation of high-value art collections. Central to its design is a 
-- **leverage model** that optimizes capital efficiency while ensuring a robust 1:1 peg to the US dollar.
+ArtUSD introduces a novel stablecoin model that combines the stability of fiat-backed virtual assets (e.g. cryptocurrencies) with the value preservation of high-value art collections. Central to its design is   
+- a **leverage model** that optimizes capital efficiency while ensuring a robust 1:1 peg to the US dollar.
 - By backing **1 billion ArtUSD**
 - with a **$1 billion art collection** 
 - and a **~$300 million USDC FundPool**,
@@ -55,35 +55,34 @@ The ArtUSD system is driven by five roles, each interacting through smart contra
 ### 2.1 Block Diagram
 
 ```mermaid
-graph TD
+flowchart TD
 
-    A[Crypto Investor] -->|ArtUSD.transfer<br>FundPool.depositUSD<br>ArtUSD.redeemForUSD<br>ArtUSDUSDCSwapper.swapUSDCToArtUSD<br>ArtUSDUSDCSwapper.swapArtUSDToUSDC| B[Primary Market/Auction House<br>e.g., Sotheby's]
-
-    A -->|ArtUSDUSDCSwapper.swapUSDCToArtUSD<br>ArtUSDUSDCSwapper.swapArtUSDToUSDC<br>ArtUSDUSDCSwapper.getUSDCOut<br>ArtUSDUSDCSwapper.getArtUSDOut| C[Secondary Market/DEX<br>e.g., Quantumatter]
-    A -->|FundPool.depositUSD<br>ArtUSD.redeemForUSD| D[FundPool.sol]
+    A(<b style="font-size: 16px;">Crypto Investor</b>) -->|ArtUSD.transfer<br>FundPool.depositUSD<br>ArtUSD.redeemForUSD<br>ArtUSDUSDCSwapper.swapUSDCToArtUSD<br>ArtUSDUSDCSwapper.swapArtUSDToUSDC| B(<b style="font-size: 16px;">Primary Market/Auction House<br>e.g., Sotheby's</b>)
+    A -->|ArtUSDUSDCSwapper.swapUSDCToArtUSD<br>ArtUSDUSDCSwapper.swapArtUSDToUSDC<br>ArtUSDUSDCSwapper.getUSDCOut<br>ArtUSDUSDCSwapper.getArtUSDOut| C(<b style="font-size: 16px;">Secondary Market/DEX<br>e.g., Quantumatter</b>)
+    A -->|FundPool.depositUSD<br>ArtUSD.redeemForUSD| D[(FundPool.sol)]
 
     subgraph Roles
-        B[Primary Market/Auction House<br>e.g., Sotheby's]
-        C[Secondary Market/DEX<br>e.g., Quantumatter]
-        G[Art Verifiable Credential Issuer]
-        I[Auditor<br>e.g., PwC]
+        B(<b style="font-size: 16px;">Primary Market/Auction House<br>e.g., Sotheby's</b>)
+        C(<b style="font-size: 16px;">Secondary Market/DEX<br>e.g., Quantumatter</b>)
+        G(<b style="font-size: 16px;">Art Verifiable Credential Issuer</b>)
+        I(<b style="font-size: 16px;">Auditor<br>e.g., PwC</b>)
     end
     
     B -->|ArtUSD.transfer<br>FundPool.depositUSD<br>ArtUSD.mint| D
-    B -->|ArtUSD.mint| E[ArtUSD.sol]
+    B -->|ArtUSD.mint| E[(ArtUSD.sol)]
     
-    C -->|ArtUSDUSDCSwapper.addLiquidity<br>ArtUSDUSDCSwapper.swapUSDCToArtUSD<br>ArtUSDUSDCSwapper.swapArtUSDToUSDC| F[ArtUSDUSDCSwapper.sol]
+    C -->|ArtUSDUSDCSwapper.addLiquidity<br>ArtUSDUSDCSwapper.swapUSDCToArtUSD<br>ArtUSDUSDCSwapper.swapArtUSDToUSDC| F[(ArtUSDUSDCSwapper.sol)]
     
-    G[Art Verifiable Credential Issuer] -->|ArtCredentialNFT.mint<br>ArtCredentialNFT.issueCredential| H[ArtCredentialNFT.sol]
+    G -->|ArtCredentialNFT.mint<br>ArtCredentialNFT.issueCredential| H[(ArtCredentialNFT.sol)]
     G -->|Supports ArtUSD.getArtReserveValue| E
     
-    I[Auditor<br>e.g., PwC] -->|FundPool.getReserveBalance<br>FundPool.withdrawUSD| D
+    I -->|FundPool.getReserveBalance<br>FundPool.withdrawUSD| D
     
     subgraph Smart Contracts
-        E[ArtUSD.sol]
-        D[FundPool.sol]
-        F[ArtUSDUSDCSwapper.sol]
-        H[ArtCredentialNFT.sol]
+        E[(ArtUSD.sol)]
+        D[(FundPool.sol)]
+        F[(ArtUSDUSDCSwapper.sol)]
+        H[(ArtCredentialNFT.sol)]
     end
 ```
 
