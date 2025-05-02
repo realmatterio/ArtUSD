@@ -55,17 +55,23 @@ The ArtUSD system is driven by five roles, each interacting through smart contra
 ### 2.1 Block Diagram
 
 ```mermaid
-flowchart TD
+---
+Crypto Investor | Primary Market | Secondary Market| Credential Issuer | Auditor
+---
+graph TD
 
-    A(<b style="font-size: 16px;">Crypto Investor</b>) -->|ArtUSD.transfer<br>FundPool.depositUSD<br>ArtUSD.redeemForUSD<br>ArtUSDUSDCSwapper.swapUSDCToArtUSD<br>ArtUSDUSDCSwapper.swapArtUSDToUSDC| B(<b style="font-size: 16px;">Primary Market/Auction House<br>e.g., Sotheby's</b>)
+    %% Central node
+    A(<b style="font-size: 20px;">Crypto Investor</b>)
+
+    A -->|ArtUSD.transfer<br>FundPool.depositUSD<br>ArtUSD.redeemForUSD<br>ArtUSDUSDCSwapper.swapUSDCToArtUSD<br>ArtUSDUSDCSwapper.swapArtUSDToUSDC| B(<b style="font-size: 16px;">Primary Market/Auction House<br>e.g., Sotheby's</b>)
     A -->|ArtUSDUSDCSwapper.swapUSDCToArtUSD<br>ArtUSDUSDCSwapper.swapArtUSDToUSDC<br>ArtUSDUSDCSwapper.getUSDCOut<br>ArtUSDUSDCSwapper.getArtUSDOut| C(<b style="font-size: 16px;">Secondary Market/DEX<br>e.g., Quantumatter</b>)
     A -->|FundPool.depositUSD<br>ArtUSD.redeemForUSD| D[(FundPool.sol)]
 
     subgraph Roles
-        B(<b style="font-size: 16px;">Primary Market/Auction House<br>e.g., Sotheby's</b>)
-        C(<b style="font-size: 16px;">Secondary Market/DEX<br>e.g., Quantumatter</b>)
-        G(<b style="font-size: 16px;">Art Verifiable Credential Issuer</b>)
-        I(<b style="font-size: 16px;">Auditor<br>e.g., PwC</b>)
+        B(<b style="font-size: 20px;">Primary Market<br>Auction House<br></b><b style="font-size: 16px;">e.g., Sotheby's</b>)
+        C(<b style="font-size: 20px;">Secondary Market<br>DEX<br></b><b style="font-size: 16px;">e.g., Quantumatter</b>)
+        G(<b style="font-size: 20px;">Art Credential Issuer<br></b><b style="font-size: 16px;">e.g., Sotheby's</b>)
+        I(<b style="font-size: 20px;">Auditor<br></b><b style="font-size: 16px;">e.g., PwC</b>)
     end
     
     B -->|ArtUSD.transfer<br>FundPool.depositUSD<br>ArtUSD.mint| D
