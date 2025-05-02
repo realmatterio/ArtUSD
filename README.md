@@ -64,33 +64,34 @@ graph TD
         A{{<b style="font-size: 20px;"><br>Crypto Investors<br></b>}}
     end
 
-    A -->|ArtUSD.transfer<br>FundPool.depositUSD<br>ArtUSD.redeemForUSD<br>ArtUSDUSDCSwapper.swapUSDCToArtUSD<br>ArtUSDUSDCSwapper.swapArtUSDToUSDC| B(``)
-    A -->|ArtUSDUSDCSwapper.swapUSDCToArtUSD<br>ArtUSDUSDCSwapper.swapArtUSDToUSDC<br>ArtUSDUSDCSwapper.getUSDCOut<br>ArtUSDUSDCSwapper.getArtUSDOut| C(``)
-    A -->|FundPool.depositUSD<br>ArtUSD.redeemForUSD| D[(FundPool.sol)]
-
     subgraph "`<b style="font-size: 20px;">ROLES</b>`"
         B(<b style="font-size: 20px;"><br>Primary Market<br>Auction House<br></b><b style="font-size: 16px;">e.g., Sotheby's<br></b>)
         C(<b style="font-size: 20px;"><br>Secondary Market<br>DEX<br></b><b style="font-size: 16px;">e.g., Quantumatter<br></b>)
         G(<b style="font-size: 20px;"><br>Art Credential Issuer<br></b><b style="font-size: 16px;">e.g., Sotheby's<br></b>)
         I(<b style="font-size: 20px;"><br>Auditor<br></b><b style="font-size: 16px;">e.g., PwC<br></b>)
     end
-    
-    B -->|ArtUSD.transfer<br>FundPool.depositUSD<br>ArtUSD.mint| D
-    B -->|ArtUSD.mint| E[(ArtUSD.sol)]
-    
-    C -->|ArtUSDUSDCSwapper.addLiquidity<br>ArtUSDUSDCSwapper.swapUSDCToArtUSD<br>ArtUSDUSDCSwapper.swapArtUSDToUSDC| F[(ArtUSDUSDCSwapper.sol)]
-    
-    G -->|ArtCredentialNFT.mint<br>ArtCredentialNFT.issueCredential| H[(ArtCredentialNFT.sol)]
-    G -->|Supports ArtUSD.getArtReserveValue| E
-    
-    I -->|FundPool.getReserveBalance<br>FundPool.withdrawUSD| D
-    
+
     subgraph "`<b style="font-size: 20px;">SMART CONTRACTS</b>`"
         E[(<br>ArtUSD.sol<br>)]
         D[(<br>FundPool.sol<br>)]
         F[(<br>ArtUSDUSDCSwapper.sol<br>)]
         H[(<br>ArtCredentialNFT.sol<br>)]
     end
+
+    A -->|ArtUSD.transfer<br>FundPool.depositUSD<br>ArtUSD.redeemForUSD<br>ArtUSDUSDCSwapper.swapUSDCToArtUSD<br>ArtUSDUSDCSwapper.swapArtUSDToUSDC| B
+    A -->|ArtUSDUSDCSwapper.swapUSDCToArtUSD<br>ArtUSDUSDCSwapper.swapArtUSDToUSDC<br>ArtUSDUSDCSwapper.getUSDCOut<br>ArtUSDUSDCSwapper.getArtUSDOut| C
+    A -->|FundPool.depositUSD<br>ArtUSD.redeemForUSD| D
+    
+    B -->|ArtUSD.transfer<br>FundPool.depositUSD<br>ArtUSD.mint| D
+    B -->|ArtUSD.mint| E
+    
+    C -->|ArtUSDUSDCSwapper.addLiquidity<br>ArtUSDUSDCSwapper.swapUSDCToArtUSD<br>ArtUSDUSDCSwapper.swapArtUSDToUSDC| F
+    
+    G -->|ArtCredentialNFT.mint<br>ArtCredentialNFT.issueCredential| H
+    G -->|Supports ArtUSD.getArtReserveValue| E
+    
+    I -->|FundPool.getReserveBalance<br>FundPool.withdrawUSD| D
+
 ```
 
 > Figure 1: Role-Centric Market Model illustrating interactions between Crypto Investor, Primary Market/Auction House (e.g., Sotheby’s), Secondary Market/DEX (e.g., Quantumatter), Art Verifiable Credential Issuer, and Auditor (e.g., PwC), facilitated by smart contract functions.
@@ -273,7 +274,7 @@ This section outlines the flow diagram for issuing 1 billion ArtUSD backed by a 
 
 graph TD
 
-    A(<b style="font-size: 20px;">Art Collection<br></b>$1B<br>Verified by ArtCredentialNFT.issueCredential<br>Valued by ArtUSD.getArtReserveValue)
+    A(<b style="font-size: 20px;">Art Collection<br><br></b>$1B<br>Verified by ArtCredentialNFT.issueCredential<br>Valued by ArtUSD.getArtReserveValue)
     B(<b style="font-size: 20px;">Issued ArtUSD<br><br></b>1B Tokens<br>ArtUSD.mint<br>ArtUSD.redeemForUSD)
     C[(<b style="font-size: 20px;">FundPool<br><br></b>~$300 USDC<br>FundPool.depositUSD<br>FundPool.releaseUSD<br>Audited by FundPool.getReserveBalance)]
 
@@ -284,7 +285,7 @@ graph TD
         H{{<b style="font-size: 20px;"><br>Art Credential Issuer<br></b>e.g., Sotheby's}}
     end
 
-    subgraph "`<b style="font-size: 20px;">SECONDARY MARKET</b>`"
+    subgraph "`<b style="font-size: 20px;">SECONDARY MARKET</b><br><br>`"
         D(<b style="font-size: 20px;">Swapper Liquidity<br></b><br>50M ArtUSD + 50M USDC<br>ArtUSDUSDCSwapper.addLiquidity<br>ArtUSDUSDCSwapper.swapUSDCToArtUSD<br>ArtUSDUSDCSwapper.swapArtUSDToUSDC)
     end
 
