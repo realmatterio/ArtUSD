@@ -260,7 +260,7 @@ contract ArtUSD is ERC20, Ownable {
 
     event Redeemed(address indexed user, uint256 amount, string assetType);
 
-    constructor(address _artPriceFeed, address _fundPool) ERC20("ArtUSD", "AUSD") {
+    constructor(address initialOwner, address _artPriceFeed, address _fundPool) ERC20("ArtUSD", "AUSD") Ownable(initialOwner) {
         artPriceFeed = AggregatorV3Interface(_artPriceFeed);
         fundPool = _fundPool;
         paused = false;
@@ -318,7 +318,7 @@ contract FundPool is Ownable {
     event USDDeposited(address indexed user, uint256 amount);
     event USDReleased(address indexed user, uint256 amount);
 
-    constructor(address _usdc, address _artUSD) {
+    constructor(address initialOwner, address _usdc, address _artUSD) Ownable(initialOwner) {
         usdc = IERC20(_usdc);
         artUSD = _artUSD;
         totalReserve = 0;
@@ -372,7 +372,7 @@ contract ArtUSDUSDCSwapper is Ownable {
     event LiquidityAdded(address indexed provider, uint256 artUSDAmount, uint256 usdcAmount);
     event Swap(address indexed user, uint256 artUSDIn, uint256 usdcOut, uint256 usdcIn, uint256 artUSDOut);
 
-    constructor(address _artUSD, address _usdc) {
+    constructor(address initialOwner, address _artUSD, address _usdc) Ownable(initialOwner) {
         artUSD = IERC20(_artUSD);
         usdc = IERC20(_usdc);
     }
@@ -447,7 +447,7 @@ contract ArtCredentialNFT is ERC721, Ownable {
 
     event CredentialIssued(address indexed to, uint256 tokenId, string artDetails);
 
-    constructor() ERC721("ArtCredentialNFT", "ACN") {
+    constructor(address initialOwner) ERC721("ArtCredentialNFT", "ACN") Ownable(initialOwner) {
         tokenIdCounter = 0;
     }
 
