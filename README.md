@@ -7,15 +7,15 @@
 
 ## Table of Contents
 - [Abstract](#abstract)
-- [1. Introduction](#1-introduction)
-- [2. Role-Centric Market Model](#2-role-centric-market-model)
-- [3. System Architecture](#3-system-architecture)
-- [4. Purchasing and Arbitrage Processes](#4-purchasing-and-arbitrage-processes)
-- [5. Smart Contract Implementation](#5-smart-contract-implementation)
-- [6. Funding and Leverage Model](#6-funding-and-leverage-model)
-- [7. Implementation Details](#7-implementation-details)
-- [8. Risks and Mitigations](#8-risks-and-mitigations)
-- [9. Conclusion](#9-conclusion)
+1. [Introduction](#1-introduction)
+2. [Role-Centric Market Model](#2-role-centric-market-model)
+3. [System Architecture](#3-system-architecture)
+4. [Purchasing and Arbitrage Processes](#4-purchasing-and-arbitrage-processes)
+5. [Smart Contract Implementation](#5-smart-contract-implementation)
+6. [Funding and Leverage Model](#6-funding-and-leverage-model)
+7. [Implementation Details](#7-implementation-details)
+8. [Risks and Mitigations](#8-risks-and-mitigations)
+9. [Conclusion](#9-conclusion)
 - [Disclaimer](#disclaimer)
 
 ---
