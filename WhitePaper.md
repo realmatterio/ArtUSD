@@ -188,7 +188,7 @@ Managed by Aucion House (e.g., Sotheby’s), with Crypto Investors as buyers:
     - Function: `FundPool.getReserveBalance()`.   
 
 Example:   
-- Sotheby’s raises 1M USDC,
+- Sotheby’s raises < 1M USD,
     - deposits via `FundPool.depositUSD(1M)`,
     - mints 1M `ArtUSD`, and
     - transfers to crypto investors (`ArtUSD.transfer`).   
@@ -234,10 +234,10 @@ Role: Auction House.
 
 ### 4.3 Stablecoin Flow Diagram
 
-This section outlines the flow diagram for issuing 1 billion ArtUSD backed by a $1 billion art collection and ¬$300 million USDC FundPool.
+This section outlines the flow diagram for issuing 1 billion ArtUSD backed by a $1 billion art collection and ~$300 million USDC FundPool.
 
 ![Mermaid Figure 2](Mermaid%20Fig%202.png)
-> Figure 2: Stablecoin Flow Diagram, showing the $1 billion art collection, ¬$300 million USDC FundPool, 1 billion ArtUSD, and leverage ratios (4.33:1). Roles interact via smart contract functions to support issuance, redemption, trading, and auditing.
+> Figure 2: Stablecoin Flow Diagram, showing the $1 billion art collection, ~$300 million USDC FundPool, 1 billion ArtUSD, and leverage ratios (4.33:1). Roles interact via smart contract functions to support issuance, redemption, trading, and auditing.
 
 ---
 ## 5. Smart Contract Implementation   
@@ -586,7 +586,7 @@ ArtUSD delivers a stablecoin backed by a $1 billion art collection and ~$300 mil
 
 > This white paper is for educational purposes only. It is not intended to provide financial, legal, or investment advice, nor does it constitute an offer to sell or a solicitation to buy any securities or tokens. The concepts, mechanisms, and smart contracts described are hypothetical and intended for illustrative purposes. Readers should conduct their own research and consult with qualified professionals before making any financial decisions.
 <br>
-© 2024 Real Matter Technology Limited
+© 2025 Real Matter Technology Limited
 
 
 
