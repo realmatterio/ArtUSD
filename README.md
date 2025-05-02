@@ -8,7 +8,7 @@
 ## Table of Contents
 - [Abstract](#abstract)
 - [1. Introduction](#1-introduction)
-- [2. Role-Centric Block Diagram](#2-role-centric-block-diagram)
+- [2. Role-Centric Market Model](#2-role-centric-market-model)
 - [3. System Architecture](#3-system-architecture)
 - [4. Purchasing and Arbitrage Processes](#4-purchasing-and-arbitrage-processes)
 - [5. Smart Contract Implementation](#5-smart-contract-implementation)
@@ -21,7 +21,7 @@
 ---
 ## Abstract
 
-ArtUSD is a stablecoin model pegged 1:1 to the US dollar, backed by a **$1 billion art collection** verified through NFT-based legel credentials and a regulated USD reserve pool (in USDC). Operating on Ethereum, ArtUSD leverages smart contracts to facilitate issuance, trading, redemption, and arbitrage. The system integrates a **leverage model** requiring only **$300 million USDC** in the FundPool to issue **1 billion ArtUSD**, achieving capital efficiency with a 3:1 leverage ratio. The **Primary Market/Auction House (e.g., Sotheby’s)** manages issuance and offline arbitrage, the **Secondary Market/DEX (e.g., Quantumatter)** enables trading, and the **Accounting Firm (e.g., PwC)** ensures reserve transparency.   
+ArtUSD is a stablecoin model pegged 1:1 to the US dollar, backed by a **$1 billion art collection** verified through NFT-based legel credentials and a regulated USD reserve pool (in USDC). Operating on Ethereum, ArtUSD leverages smart contracts to facilitate issuance, trading, redemption, and arbitrage. The system integrates a **leverage model** requiring only **$300 million USDC** in the FundPool to issue **1 billion ArtUSD**, achieving capital efficiency with a 4.33:1 leverage ratio. The **Primary Market/Auction House (e.g., Sotheby’s)** manages issuance and offline arbitrage, the **Secondary Market/DEX (e.g., Quantumatter)** enables trading and onchain arbitrage, and the **Accounting Firm (e.g., PwC)** ensures reserve transparency.   
 
 This white paper details the system’s architecture, roles, smart contracts, purchasing/arbitrage processes, and funding model, supported by visual diagrams. This paper is for educational purposes only. It is not intended to provide financial, legal, or investment advice.  
 
@@ -33,7 +33,7 @@ ArtUSD introduces a novel stablecoin model that combines the stability of fiat-b
 - By backing **1 billion ArtUSD**
 - with a **$1 billion art collection** 
 - and a **~$300 million USDC FundPool**,
-ArtUSD achieves a **leverage ratio** of 3:1, requiring only ~30% liquid reserves.   
+ArtUSD achieves a **leverage ratio** of 4.33:1, requiring only ~30% liquid reserves.   
 
 This model delivers key benefits:
 - **Capital Efficiency**: A fractional USDC reserve reduces upfront capital needs, leveraging the $1 billion art collection as collateral, akin to issuing **perpetual redeemable bonds**.
@@ -51,16 +51,13 @@ The ArtUSD ecosystem integrates five roles:
 This white paper outlines the system’s architecture, role interactions, smart contracts, purchasing and arbitrage processes, and funding model, with diagrams to illustrate operations and the leverage structure.
 
 ---
-## 2. Role-Centric Block Diagram
+## 2. Role-Centric Market Model
 
 The ArtUSD system is driven by five roles, each interacting through smart contract functions across four contracts: `ArtUSD.sol`, `FundPool.sol`, `ArtUSDUSDCSwapper.sol`, and `ArtCredentialNFT.sol`. The block diagram (Figure 1) visualizes these roles as primary nodes, with arrows indicating function-based interactions.
 
-### 2.1 Block Diagram
+### 2.1  Block Diagra
 
 ```mermaid
----
-Crypto Investor | Primary Market | Secondary Market| Credential Issuer | Auditor
----
 graph TD
 
     
@@ -97,7 +94,7 @@ graph TD
     end
 ```
 
-> Figure 1: Role-Centric Block Diagram illustrating interactions between Crypto Investor, Primary Market/Auction House (e.g., Sotheby’s), Secondary Market/DEX (e.g., Quantumatter), Art Verifiable Credential Issuer, and Auditor (e.g., PwC), facilitated by smart contract functions.
+> Figure 1: Role-Centric Market Model illustrating interactions between Crypto Investor, Primary Market/Auction House (e.g., Sotheby’s), Secondary Market/DEX (e.g., Quantumatter), Art Verifiable Credential Issuer, and Auditor (e.g., PwC), facilitated by smart contract functions.
 
 ### 2.2 Role Functionalities
 
@@ -502,28 +499,31 @@ This section outlines the funding requirements and leverage structure for issuin
 
 ### 6.1 FundPool Requirements
 
-Issuing 1 billion ArtUSD requires a FundPool of $300-500 million USDC (30-50% reserve ratio):
-Daily Operations: $200M for 20% redemptions (ArtUSD.redeemForUSD), $50M for Swapper liquidity (ArtUSDUSDCSwapper.addLiquidity), $50M buffer.
+Issuing 1 billion ArtUSD requires a FundPool of ~$300 million USDC (30% reserve ratio):   
+- Daily Operations:
+  $200M for 20% redemptions (ArtUSD.redeemForUSD),   
+  $50M for Swapper liquidity (ArtUSDUSDCSwapper.addLiquidity),   
+  $50M buffer.   
+- Stress Case:   
+  FundPool of $500M for 50% redemptions.   
+- Art Liquidation:
+  auctions replenish USDC via `FundPool.depositUSD`.
 
-Stress Case: $500M for 50% redemptions.
+### 6.2 Perpetual Bond Analogy
 
-Art Liquidation: Sotheby’s auctions replenish USDC via FundPool.depositUSD.
-
-Full Backing: $1B USDC ensures 100% redeemability but reduces art’s role.
-
-### 6.2 Bond Analogy
-
-ArtUSD resembles perpetual redeemable bonds:
-Bond Value: 1 ArtUSD = $1 USDC (redeemForUSD).
-
-Collateral: $1B art collection (ArtCredentialNFT.issueCredential).
-
-Leverage Ratio:
-$300M USDC: ($1B art + $300M) / $300M = 4.33:1.
-
-$500M USDC: ($1B + $500M) / $500M = 3:1.
-
-Stability: Arbitrage (swapUSDCToArtUSD, swapArtUSDToUSDC) and auctions (depositUSD).
+ArtUSD resembles perpetual redeemable bonds:   
+- Perpetual Bond Value:   
+  1 ArtUSD = $1 USDC (`redeemForUSD`).
+- Collateral:
+  $1B art collection (`ArtCredentialNFT.issueCredential`).
+- Leverage Ratio:
+  $300M USDC:
+  ($1B art + $300M) / $300M = 4.33:1.
+- Stability:
+  Arbitrage (`swapUSDCToArtUSD`, `swapArtUSDToUSDC`) and
+  auctions (`depositUSD`).
+- Yield:
+  Other staking protocols
 
 ### 6.3 Visual Diagram
 
@@ -537,7 +537,7 @@ graph TD
     B -->|Trading/Arbitrage| D[Swapper Liquidity<br>50M ArtUSD + 50M USDC<br>ArtUSDUSDCSwapper.addLiquidity<br>ArtUSDUSDCSwapper.swapUSDCToArtUSD<br>ArtUSDUSDCSwapper.swapArtUSDToUSDC]
     
     C -->|Funds Swapper| D
-    C -->|Leverage Ratio<br>4.33:1 ($300M)<br>3:1 ($500M)| B
+    C -->|Leverage Ratio<br>4.33:1 for $300M<br>| B
     
     subgraph Roles
         E[Primary Market/Auction House<br>Sotheby's] -->|Deposits Auction Proceeds<br>FundPool.depositUSD| C
@@ -594,9 +594,9 @@ Regulatory Scrutiny: PwC audits, AML/KYC via Sotheby’s.
 
 - Blockchain:   
   Ethereum or Permissioned Hyperledger Besu for low gas fees.
-- Standards:
+- Standards:   
   ERC-20 (ArtUSD), ERC-721 (ArtCredentialNFT), Modelling Uniswap V2-inspired AMM.
-- Oracles:
+- Oracles:   
   Auction houses for art valuation.
 - Security:  
   Certik audits, OpenZeppelin libraries, Gnosis Safe for reserves.
@@ -605,28 +605,37 @@ Regulatory Scrutiny: PwC audits, AML/KYC via Sotheby’s.
 
 ---
 ## 8. Risks and Mitigations
-Reserve Depletion: Daily redemption caps, auction proceeds.
 
-Smart Contract Vulnerabilities: Audits, secure libraries.
-
-Gas Fees: Layer 2 deployment.
-
-Art Illiquidity: Frequent auctions, NFT credentials.
-
-Regulatory Risks: AML/KYC compliance via Sotheby’s and PwC.
+- Reserve Depletion:   
+  Daily redemption caps, auction proceeds.   
+- Smart Contract Vulnerabilities:   
+  Audits, secure libraries.   
+- Gas Fees:
+  Layer 2 deployment.   
+- Art Illiquidity:   
+  Frequent auctions, NFT credentials.   
+- Regulatory Risks:
+  AML/KYC compliance.
 
 ---
-## 9. Conclusion
-ArtUSD delivers a stablecoin backed by a $1 billion art collection and ~$300 million USDC, leveraging a 3:1 ratio for capital efficiency. The role-centric ecosystem, with Sotheby’s issuing, Quantumatter trading, and PwC auditing, ensures stability and trust. NFT credentials and arbitrage mechanisms enhance reliability, positioning ArtUSD for adoption in DeFi and art auction markets.
+## 9. Conclusion   
 
-#### Future Work
-- Deploy on Permissioned Hyperledger Besu for cost efficiency.
-- Develop a DApp integrating auctions and trading.
-- Incentivize Swapper liquidity via fee sharing.
-- Partner with PQC platforms for quantum-safe integration
+ArtUSD delivers a stablecoin backed by a $1 billion art collection and ~$300 million USDC, leveraging a 3:1 ratio for capital efficiency. The role-centric ecosystem, with the primary market and the secondary market, ensures stability and trust. NFT credentials and arbitrage mechanisms enhance reliability, positioning ArtUSD for adoption in DeFi and art auction markets.
 
-## Disclaimer
-[^1]: This white paper is for educational purposes only. It is not intended to provide financial, legal, or investment advice, nor does it constitute an offer to sell or a solicitation to buy any securities or tokens. The concepts, mechanisms, and smart contracts described are hypothetical and intended for illustrative purposes. Readers should conduct their own research and consult with qualified professionals before making any financial decisions.
+---
+### Future Work   
+
+- Deploy on Permissioned Hyperledger Besu for cost efficiency.   
+- Develop a DApp integrating auctions and trading.   
+- Incentivize Swapper liquidity via fee sharing.   
+- Partner with PQC platforms for quantum-safe integration   
+
+### Disclaimer   
+
+[^1]: This white paper is for educational purposes only. It is not intended to provide financial, legal, or investment advice, nor does it constitute an offer to sell or a solicitation to buy any securities or tokens. The concepts, mechanisms, and smart contracts described are hypothetical and intended for illustrative purposes. Readers should conduct their own research and consult with qualified professionals before making any financial decisions.   
+
+> END
+---
 
 
 
