@@ -59,7 +59,6 @@ The ArtUSD system is driven by five roles, each interacting through smart contra
 
 ```mermaid
 graph TD
-
     
     subgraph "`<b style="font-size: 20px;">BUYER</b>`"
         A{{<b style="font-size: 20px;"><br>Crypto Investors<br></b>}}
@@ -265,6 +264,44 @@ Role: Auction House.
   `FundPool.depositUSD` → `ArtUSD.mint`.   
 - Example:   
   Price at 0.90 `USDC/ArtUSD`; auctions $250M art, deposits 250M `USDC`, mints 250M `ArtUSD`, stabilizing the peg.
+
+### 4.3 Stablecoin Flow Diagram
+
+This section outlines the flow diagram for issuing 1 billion ArtUSD backed by a $1 billion art collection and ¬$300 million USDC FundPool.
+
+```mermaid
+
+graph TD
+
+    A[Art Collection<br>$1B<br>Verified by ArtCredentialNFT.issueCredential<br>Valued by ArtUSD.getArtReserveValue] -->|Collateral Backing| B[Issued ArtUSD<br>1B Tokens<br>ArtUSD.mint<br>ArtUSD.redeemForUSD]
+    A -->|Liquidation via Auctions| C[FundPool<br>$300-500M USDC<br>FundPool.depositUSD<br>FundPool.releaseUSD<br>Audited by FundPool.getReserveBalance]
+    
+    B -->|Redemptions| C
+    B -->|Trading/Arbitrage| D[Swapper Liquidity<br>50M ArtUSD + 50M USDC<br>ArtUSDUSDCSwapper.addLiquidity<br>ArtUSDUSDCSwapper.swapUSDCToArtUSD<br>ArtUSDUSDCSwapper.swapArtUSDToUSDC]
+    
+    C -->|Funds Swapper| D
+    C -->|Leverage Ratio<br>4.33:1 for $300M<br>| B
+    
+    E[Primary Market/Auction House<br>Sotheby's] -->|Deposits Auction Proceeds<br>FundPool.depositUSD| C
+    F[Crypto Investor] -->|Trades<br>swapUSDCToArtUSD<br>swapArtUSDToUSDC| D
+    F -->|Deposits/Redeems<br>depositUSD<br>redeemForUSD| C
+    G[Accounting Firm<br>PwC] -->|Audits<br>getReserveBalance| C
+    H[Art Verifiable Credential Issuer] -->|Issues Credentials<br>issueCredential| A
+
+    subgraph "`<b style="font-size: 20px;">PRIMARY MARKET</b>`"
+        E{{<b style="font-size: 20px;"><br>Auction House<br></b>e.g., Sotheby's}}
+        F{{<b style="font-size: 20px;"><br>Crypto Investor</b>}}
+        G{{<b style="font-size: 20px;"><br>Auditor<br></b>e.g., PwC}}
+        H{{<b style="font-size: 20px;"><br>Art Credential Issuer<br></b>e.g., Sotheby's}}
+    end
+
+    subgraph "`<b style="font-size: 20px;">SECONDARY MARKET</b>`"
+        D(<b style="font-size: 20px;">Swapper Liquidity<br></b><br>50M ArtUSD + 50M USDC<br>ArtUSDUSDCSwapper.addLiquidity<br>ArtUSDUSDCSwapper.swapUSDCToArtUSD<br>ArtUSDUSDCSwapper.swapArtUSDToUSDC)
+    end
+
+```
+
+> Figure 2: Stablecoin Flow Diagram, showing the $1 billion art collection, ¬$300 million USDC FundPool, 1 billion ArtUSD, and leverage ratios (4.33:1). Roles interact via smart contract functions to support issuance, redemption, trading, and auditing.
 
 ---
 ## 5. Smart Contract Implementation   
@@ -524,38 +561,6 @@ ArtUSD resembles perpetual redeemable bonds:
   auctions (`depositUSD`).
 - Yield:
   Other staking protocols
-
-### 6.3 Visual Diagram
-
-```mermaid
-
-graph TD
-    A[Art Collection<br>$1B<br>Verified by ArtCredentialNFT.issueCredential<br>Valued by ArtUSD.getArtReserveValue] -->|Collateral Backing| B[Issued ArtUSD<br>1B Tokens<br>ArtUSD.mint<br>ArtUSD.redeemForUSD]
-    A -->|Liquidation via Auctions| C[FundPool<br>$300-500M USDC<br>FundPool.depositUSD<br>FundPool.releaseUSD<br>Audited by FundPool.getReserveBalance]
-    
-    B -->|Redemptions| C
-    B -->|Trading/Arbitrage| D[Swapper Liquidity<br>50M ArtUSD + 50M USDC<br>ArtUSDUSDCSwapper.addLiquidity<br>ArtUSDUSDCSwapper.swapUSDCToArtUSD<br>ArtUSDUSDCSwapper.swapArtUSDToUSDC]
-    
-    C -->|Funds Swapper| D
-    C -->|Leverage Ratio<br>4.33:1 for $300M<br>| B
-    
-    subgraph Roles
-        E[Primary Market/Auction House<br>Sotheby's] -->|Deposits Auction Proceeds<br>FundPool.depositUSD| C
-        F[Crypto Investor] -->|Trades<br>swapUSDCToArtUSD<br>swapArtUSDToUSDC| D
-        F -->|Deposits/Redeems<br>depositUSD<br>redeemForUSD| C
-        G[Accounting Firm<br>PwC] -->|Audits<br>getReserveBalance| C
-        H[Art Verifiable Credential Issuer] -->|Issues Credentials<br>issueCredential| A
-    end
-    
-    subgraph Smart Contracts
-        I[ArtUSD.sol]
-        J[FundPool.sol]
-        K[ArtUSDUSDCSwapper.sol]
-        L[ArtCredentialNFT.sol]
-    end
-```
-
-> Figure 2: Funding and Leverage Model Diagram, showing the $1 billion art collection, $300-500 million USDC FundPool, 1 billion ArtUSD, and leverage ratios (4.33:1 or 3:1). Roles interact via smart contract functions to support issuance, redemption, trading, and auditing.
 
 ### 6.4 Example Scenario
 Setup:
