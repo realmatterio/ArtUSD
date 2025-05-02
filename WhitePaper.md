@@ -1,3 +1,4 @@
+![ArtUSD.png](ArtUSD_200x145.png)
 # ArtUSD Stablecoin Model White Paper
 > Real Matter Technology Limited
 > 
@@ -585,8 +586,7 @@ ArtUSD delivers a stablecoin backed by a $1 billion art collection and ~$300 mil
 
 > This white paper is for educational purposes only. It is not intended to provide financial, legal, or investment advice, nor does it constitute an offer to sell or a solicitation to buy any securities or tokens. The concepts, mechanisms, and smart contracts described are hypothetical and intended for illustrative purposes. Readers should conduct their own research and consult with qualified professionals before making any financial decisions.
 <br>
-> (©) 2024 Real Matter Technology Limited
----
+© 2024 Real Matter Technology Limited
 
 
 
