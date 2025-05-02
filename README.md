@@ -12,18 +12,20 @@
 - [3. System Architecture](#3-system-architecture)
 - [4. Purchasing and Arbitrage Processes](#4-purchasing-and-arbitrage-processes)
 - [5. Smart Contract Implementation](#5-smart-contract-implementation)
-- [6. Implementation Details](#6-implementation-details)
-- [7. Risks and Mitigations](#7-risks-and-mitigations)
-- [8. Funding and Leverage Model](#8-funding-and-leverage-model)
+- [6. Funding and Leverage Model](#6-funding-and-leverage-model)
+- [7. Implementation Details](#7-implementation-details)
+- [8. Risks and Mitigations](#8-risks-and-mitigations)
 - [9. Conclusion](#9-conclusion)
 - [Disclaimer](#disclaimer)
 
+---
 ## Abstract
 
 ArtUSD is a stablecoin model pegged 1:1 to the US dollar, backed by a **$1 billion art collection** verified through NFT-based legel credentials and a regulated USD reserve pool (in USDC). Operating on Ethereum, ArtUSD leverages smart contracts to facilitate issuance, trading, redemption, and arbitrage. The system integrates a **leverage model** requiring only **$300 million USDC** in the FundPool to issue **1 billion ArtUSD**, achieving capital efficiency with a 3:1 leverage ratio. The **Primary Market/Auction House (e.g., Sotheby’s)** manages issuance and offline arbitrage, the **Secondary Market/DEX (e.g., Quantumatter)** enables trading, and the **Accounting Firm (e.g., PwC)** ensures reserve transparency.   
 
 This white paper details the system’s architecture, roles, smart contracts, purchasing/arbitrage processes, and funding model, supported by visual diagrams. This paper is for educational purposes only. It is not intended to provide financial, legal, or investment advice.  
 
+---
 ## 1. Introduction
 
 ArtUSD introduces a novel stablecoin model that combines the stability of fiat-backed virtual assets (e.g. cryptocurrencies) with the value preservation of high-value art collections. Central to its design is   
@@ -48,6 +50,7 @@ The ArtUSD ecosystem integrates five roles:
 
 This white paper outlines the system’s architecture, role interactions, smart contracts, purchasing and arbitrage processes, and funding model, with diagrams to illustrate operations and the leverage structure.
 
+---
 ## 2. Role-Centric Block Diagram
 
 The ArtUSD system is driven by five roles, each interacting through smart contract functions across four contracts: `ArtUSD.sol`, `FundPool.sol`, `ArtUSDUSDCSwapper.sol`, and `ArtCredentialNFT.sol`. The block diagram (Figure 1) visualizes these roles as primary nodes, with arrows indicating function-based interactions.
@@ -160,6 +163,7 @@ Auditor :left_right_arrow: FundPool:
 - Auditing reserves   
 `getReserveBalance`.   
 
+---
 ## 3. System Architecture   
 
 ArtUSD’s architecture comprises four smart contracts to support issuance, redemption, trading, and art verification.
@@ -199,6 +203,7 @@ ArtUSD’s architecture comprises four smart contracts to support issuance, rede
 `mint(to)`: Creates NFTs.   
 `issueCredential(to, details)`: Issues credentials with art details.   
 
+---
 ## 4. Purchasing and Arbitrage Processes
 
 ArtUSD supports purchasing in the primary market and onchain arbitrage to maintain the 1:1 peg.
@@ -208,7 +213,7 @@ Managed by Aucion House (e.g., Sotheby’s), with Crypto Investors as buyers:
 
 - Auction Event:   
     - Role: Primary Market.
-    - Action: Auctions art verified by `ArtCredentialNFT.issueCredential`.   
+    - Action: auctions art verified by `ArtCredentialNFT.issueCredential`.   
     - Outcome: Investors bid the NFT Credentials in USDC.   
 - Deposit Proceeds:   
     - Function: `FundPool.depositUSD(amount)` → `ArtUSD.mint(to, amount)`.   
@@ -226,42 +231,50 @@ Example:
     - mints 1M `ArtUSD`, and
     - transfers to crypto investors (`ArtUSD.transfer`).   
 
-### 4.2 Arbitrage Process
+### 4.2 Arbitrage Process   
 
-#### 4.2.1 Online Arbitrage
-Below $1 (0.95 USDC/ArtUSD):
-Price Check: ArtUSDUSDCSwapper.getArtUSDOut(1,000 USDC) → 0.95 (reserves: 10,526,316 ArtUSD, 10,000,000 USDC).
+#### 4.2.1 Onchain Arbitrage   
 
-Buy ArtUSD: swapUSDCToArtUSD(1,000 USDC) → 10,494.74 ArtUSD.
+Role: DEX.   
+:arrow_heading_down: Below $1 (0.95 USDC/ArtUSD):
+- Price Check:   
+  `ArtUSDUSDCSwapper.getArtUSDOut(1,000 USDC)` → 0.95 (reserves: 10,526,316 ArtUSD, 10,000,000 USDC).   
+- Buy ArtUSD:   
+  `swapUSDCToArtUSD(1,000 USDC)` → 10,494.74 ArtUSD.   
+- Redeem USDC:   
+  `redeemForUSD(10,494.74)` → 10,494.74 USDC.   
+- Profit:   
+  9,494.69 USDC (after 0.3% fee + 0.05 USDC gas).   
+- Audit:
+  PwC verifies reserves (`getReserveBalance`).   
 
-Redeem USDC: redeemForUSD(10,494.74) → 10,494.74 USDC.
-
-Profit: 9,494.69 USDC (after 0.3% fee + 0.05 USDC gas).
-
-Audit: PwC verifies reserves (getReserveBalance).
-
-Above $1 (1.05 USDC/ArtUSD):
-Price Check: getUSDCOut(1,000 ArtUSD) → 1.05 (reserves: 9,523,809 ArtUSD, 10,000,000 USDC).
-
-Deposit USDC: depositUSD(1,000) → 1,000 ArtUSD.
-
-Sell ArtUSD: swapArtUSDToUSDC(1,000) → 1,047.12 USDC.
-
-Profit: 47.07 USDC.
-
-Audit: PwC verifies reserves.
+:arrow_heading_up: Above $1 (1.05 USDC/ArtUSD):   
+- Price Check:   
+  `getUSDCOut(1,000 ArtUSD)` → 1.05 (reserves: 9,523,809 ArtUSD, 10,000,000 USDC).     
+- Deposit USDC:   
+  `depositUSD(1,000)` → 1,000 ArtUSD.   
+- Sell ArtUSD:   
+  `swapArtUSDToUSDC(1,000)` → 1,047.12 USDC.   
+- Profit:
+  47.07 USDC.   
+- Audit:
+  PwC verifies reserves.   
 
 #### 4.2.2 Offline Arbitrage
-Role: Primary Market/Auction House.
 
-Action: Sotheby’s auctions art to address price deviations, depositing proceeds (FundPool.depositUSD → ArtUSD.mint).
+Role: Auction House.  
+- Action: auctions art to address price deviations,  
+- depositing proceeds   
+  `FundPool.depositUSD` → `ArtUSD.mint`.   
+- Example:   
+  Price at 0.90 `USDC/ArtUSD`; auctions $250M art, deposits 250M `USDC`, mints 250M `ArtUSD`, stabilizing the peg.
 
-Example: Price at 0.90 USDC/ArtUSD; Sotheby’s auctions $250M art, deposits 250M USDC, mints 250M ArtUSD, stabilizing the peg.
+---
+## 5. Smart Contract Implementation   
 
-## 5. Smart Contract Implementation
+### 5.1 ArtUSD.sol   
 
-### 5.1 ArtUSD.sol
-solidity
+```solidity
 
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
@@ -315,9 +328,11 @@ contract ArtUSD is ERC20, Ownable {
         paused = false;
     }
 }
+```
 
-### 5.2 FundPool.sol
-solidity
+### 5.2 FundPool.sol   
+
+```solidity
 
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
@@ -365,9 +380,11 @@ contract FundPool is Ownable {
         totalReserve -= amount;
     }
 }
+```
 
-### 5.3 ArtUSDUSDCSwapper.sol
-solidity
+### 5.3 ArtUSDUSDCSwapper.sol   
+
+```solidity
 
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
@@ -442,9 +459,11 @@ contract ArtUSDUSDCSwapper is Ownable {
         return (usdcInWithFee * reserveArtUSD) / (reserveUSDC * 1000 + usdcInWithFee);
     }
 }
+```
 
-### 5.4 ArtCredentialNFT.sol
-solidity
+### 5.4 ArtCredentialNFT.sol   
+
+```solidity
 
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
@@ -474,35 +493,15 @@ contract ArtCredentialNFT is ERC721, Ownable {
         tokenIdCounter++;
     }
 }
+```
 
-## 6. Implementation Details
-
-Blockchain: Ethereum or Polygon for low gas fees.
-
-Standards: ERC-20 (ArtUSD), ERC-721 (ArtCredentialNFT), Uniswap V2-inspired AMM.
-
-Oracles: Chainlink for art valuation.
-
-Security: Certik audits, OpenZeppelin libraries, Gnosis Safe for reserves.
-
-Transparency: PwC audits, public reserve data via FundPool.getReserveBalance.
-
-## 7. Risks and Mitigations
-Reserve Depletion: Daily redemption caps, auction proceeds.
-
-Smart Contract Vulnerabilities: Audits, secure libraries.
-
-Gas Fees: Layer 2 deployment.
-
-Art Illiquidity: Frequent auctions, NFT credentials.
-
-Regulatory Risks: AML/KYC compliance via Sotheby’s and PwC.
-
-## 8. Funding and Leverage Model
+---
+## 6. Funding and Leverage Model
 
 This section outlines the funding requirements and leverage structure for issuing 1 billion ArtUSD backed by a $1 billion art collection, conceptualized as perpetual redeemable bonds.
 
-### 8.1 FundPool Requirements
+### 6.1 FundPool Requirements
+
 Issuing 1 billion ArtUSD requires a FundPool of $300-500 million USDC (30-50% reserve ratio):
 Daily Operations: $200M for 20% redemptions (ArtUSD.redeemForUSD), $50M for Swapper liquidity (ArtUSDUSDCSwapper.addLiquidity), $50M buffer.
 
@@ -512,7 +511,8 @@ Art Liquidation: Sotheby’s auctions replenish USDC via FundPool.depositUSD.
 
 Full Backing: $1B USDC ensures 100% redeemability but reduces art’s role.
 
-### 8.2 Bond Analogy
+### 6.2 Bond Analogy
+
 ArtUSD resembles perpetual redeemable bonds:
 Bond Value: 1 ArtUSD = $1 USDC (redeemForUSD).
 
@@ -525,8 +525,9 @@ $500M USDC: ($1B + $500M) / $500M = 3:1.
 
 Stability: Arbitrage (swapUSDCToArtUSD, swapArtUSDToUSDC) and auctions (depositUSD).
 
-### 8.3 Visual Diagram
-mermaid
+### 6.3 Visual Diagram
+
+```mermaid
 
 graph TD
     A[Art Collection<br>$1B<br>Verified by ArtCredentialNFT.issueCredential<br>Valued by ArtUSD.getArtReserveValue] -->|Collateral Backing| B[Issued ArtUSD<br>1B Tokens<br>ArtUSD.mint<br>ArtUSD.redeemForUSD]
@@ -552,10 +553,11 @@ graph TD
         K[ArtUSDUSDCSwapper.sol]
         L[ArtCredentialNFT.sol]
     end
+```
 
-[^Figure 2]: Funding and Leverage Model Diagram, showing the $1 billion art collection, $300-500 million USDC FundPool, 1 billion ArtUSD, and leverage ratios (4.33:1 or 3:1). Roles interact via smart contract functions to support issuance, redemption, trading, and auditing.
+> Figure 2: Funding and Leverage Model Diagram, showing the $1 billion art collection, $300-500 million USDC FundPool, 1 billion ArtUSD, and leverage ratios (4.33:1 or 3:1). Roles interact via smart contract functions to support issuance, redemption, trading, and auditing.
 
-### 8.4 Example Scenario
+### 6.4 Example Scenario
 Setup:
 Art Collection: $1B, verified by ArtCredentialNFT.issueCredential.
 
@@ -577,7 +579,8 @@ Offline: Sotheby’s auctions $250M art, deposits 250M USDC (depositUSD).
 
 Audit: PwC verifies reserves (getReserveBalance).
 
-### 8.5 Risks and Mitigations
+### 6.5 Risks and Mitigations
+
 Art Illiquidity: Redemption caps (10%), frequent auctions.
 
 Valuation Volatility: Chainlink oracles, conservative issuance (80% of art value).
@@ -586,6 +589,33 @@ Reserve Depletion: $500M FundPool, auction proceeds.
 
 Regulatory Scrutiny: PwC audits, AML/KYC via Sotheby’s.
 
+---
+## 7. Implementation Details
+
+- Blockchain:   
+  Ethereum or Permissioned Hyperledger Besu for low gas fees.
+- Standards:
+  ERC-20 (ArtUSD), ERC-721 (ArtCredentialNFT), Modelling Uniswap V2-inspired AMM.
+- Oracles:
+  Auction houses for art valuation.
+- Security:  
+  Certik audits, OpenZeppelin libraries, Gnosis Safe for reserves.
+- Transparency:
+  certified auditors, public reserve data via FundPool.getReserveBalance.
+
+---
+## 8. Risks and Mitigations
+Reserve Depletion: Daily redemption caps, auction proceeds.
+
+Smart Contract Vulnerabilities: Audits, secure libraries.
+
+Gas Fees: Layer 2 deployment.
+
+Art Illiquidity: Frequent auctions, NFT credentials.
+
+Regulatory Risks: AML/KYC compliance via Sotheby’s and PwC.
+
+---
 ## 9. Conclusion
 ArtUSD delivers a stablecoin backed by a $1 billion art collection and ~$300 million USDC, leveraging a 3:1 ratio for capital efficiency. The role-centric ecosystem, with Sotheby’s issuing, Quantumatter trading, and PwC auditing, ensures stability and trust. NFT credentials and arbitrage mechanisms enhance reliability, positioning ArtUSD for adoption in DeFi and art auction markets.
 
