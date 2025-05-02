@@ -55,7 +55,7 @@ This white paper outlines the system’s architecture, role interactions, smart 
 
 The ArtUSD system is driven by five roles, each interacting through smart contract functions across four contracts: `ArtUSD.sol`, `FundPool.sol`, `ArtUSDUSDCSwapper.sol`, and `ArtCredentialNFT.sol`. The block diagram (Figure 1) visualizes these roles as primary nodes, with arrows indicating function-based interactions.
 
-### 2.1  Block Diagra
+### 2.1  Block Diagram
 
 ```mermaid
 graph TD
