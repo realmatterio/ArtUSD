@@ -186,7 +186,7 @@ ArtUSD’s architecture comprises four smart contracts to support issuance, rede
 `transfer(to, amount)`: Transfers ArtUSD.   
 `mint(to, amount)`: Issues ArtUSD (called by FundPool.depositUSD).   
 `redeemForUSD(amount)`: Redeems ArtUSD for USDC at 1:1.   
-`getArtReserveValue()`: Retrieves art value via Chainlink oracle.   
+`getArtReserveValue()`: Retrieves art value via price oracle (e.g., via chainlink).   
 `pause()/unpause()`: Emergency controls.   
 
 ### 3.2 FundPool.sol
