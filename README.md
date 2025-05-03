@@ -57,7 +57,7 @@ The ArtUSD ecosystem integrates five market roles:
   Operates the ArtUSD/USDC automated market maker (AMM) for trading.   
 - **Art Credential Issuer (e.g., Sotheby’s)**:   
   Issues verifiable NFTs to authenticate art collections.   
-- **Accounting Firm (e.g., PwC)**:   
+- **Auditor (e.g., PwC)**:   
   Audits the USDC FundPool for transparency.   
 
 This white paper outlines the system’s architecture, market role interactions, smart contracts, purchasing and arbitrage processes, and funding model, with diagrams to illustrate operations and the leverage structure.
