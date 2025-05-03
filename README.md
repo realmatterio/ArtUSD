@@ -62,14 +62,18 @@ The ArtUSD ecosystem integrates five market roles:
 
 This white paper outlines the system’s architecture, market role interactions, smart contracts, purchasing and arbitrage processes, and funding model, with diagrams to illustrate operations and the leverage structure.
 
+![Mermaid Figure 1](Mermaid%20Fig%201.png)
+
+> Figure 1: The flowchart illustrates the stablecoin system backed by real-world art assets, structured across three sections: Primary Market (involving investors, stablecoin minting, and fund management by the auction house), Real World Assets (collateralized art collection, valuation, and liquidation), and Secondary Market (trading and arbitrage through DEX/swappers, with audit trails for transparency).
+
 ---
 ## 2. Role-Centric Market Model
 
-The ArtUSD system is driven by five market roles, each interacting through smart contract functions across four contracts: `ArtUSD.sol`, `FundPool.sol`, `ArtUSDUSDCSwapper.sol`, and `ArtCredentialNFT.sol`. The block diagram (Figure 1) visualizes these roles as primary nodes, with arrows indicating function-based interactions.
+The ArtUSD system is driven by five market roles, each interacting through smart contract functions across four contracts: `ArtUSD.sol`, `FundPool.sol`, `ArtUSDUSDCSwapper.sol`, and `ArtCredentialNFT.sol`. The block diagram (Fig. 2) visualizes these roles as primary nodes, with arrows indicating function-based interactions.
 
 ### 2.1  Block Diagram
 
-![Mermaid Figure 1](Mermaid%20Fig%201.png)
+![Mermaid Figure 2](Mermaid%20Fig%202.png)
 
 ```mermaid
 graph TD
@@ -108,7 +112,7 @@ graph TD
 
 ```
 
-> Figure 1: Role-Centric Market Model illustrating interactions between Crypto Investor, Primary Market/Auction House, Secondary Market/DEX, Art Credential Issuer, and Auditor, facilitated by smart contract functions.
+> Figure 2: Role-Centric Market Model illustrating interactions between Crypto Investor, Primary Market/Auction House, Secondary Market/DEX, Art Credential Issuer, and Auditor, facilitated by smart contract functions.
 
 ### 2.2 Market Role Functionalities
 
@@ -285,7 +289,7 @@ Role: Auction House.
 
 This section outlines the flow diagram for issuing 1 billion ArtUSD backed by a $1 billion art collection and ~$300 million USDC FundPool.
 
-![Mermaid Figure 2](Mermaid%20Fig%202.png)
+![Mermaid Figure 3](Mermaid%20Fig%203.png)
 
 ```mermaid
 
@@ -323,7 +327,7 @@ graph TD
 
 ```
 
-> Figure 2: Stablecoin Flow Diagram, showing the $1 billion art collection, ~$300 million USDC FundPool, 1 billion ArtUSD, and leverage ratios (4.33:1). Roles interact via smart contract functions to support issuance, redemption, trading, and auditing.
+> Figure 3: Stablecoin Flow Diagram, showing the $1 billion art collection, ~$300 million USDC FundPool, 1 billion ArtUSD, and leverage ratios (4.33:1). Roles interact via smart contract functions to support issuance, redemption, trading, and auditing.
 
 ---
 ## 5. Smart Contract Implementation   
