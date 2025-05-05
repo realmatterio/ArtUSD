@@ -251,6 +251,26 @@ Role: Auction House.
 - Example:   
   Price at 0.90 `USDC/ArtUSD`; auctions $250M art, deposits 250M `USDC`, mints 250M `ArtUSD`, stabilizing the peg.
 
+#### 4.2.3 Short-Term vs. Long-Term Arbitrage for ArtUSD   
+
+| Aspect                | Short-Term OnChain Arbitrage                                                                              | Long-Term Offline Arbitrage                                                                               |
+|-----------------------|-----------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
+| **Objective**         | Fix small price swings (e.g., 0.95-1.05 USDC/ArtUSD) daily.                                               | Correct major or persistent price deviations for long-term stability.                                      |
+| **Time Frame**        | Seconds to minutes.                                                                                       | Days to weeks.                                                                                            |
+| **Participants**      | Crypto Investors.                                                                                         | Primary Market/Auction House, with Crypto Investors.                                                      |
+| **Method**            | Onchain AMM trades via Secondary Market/DEX.                                                              | Offline art auctions + online supply adjustments.                                                         |
+| **Capital Needs**     | Low (hundreds to thousands of USDC).                                                                      | High (millions to hundreds of millions of USDC).                                                          |
+| **Smart Contracts**   | `swapUSDCToArtUSD`, `swapArtUSDToUSDC`, `depositUSD`, `redeemForUSD`                                      | `depositUSD`, `mint`, `addLiquidity`, `transfer`                                                          |
+| **Impact**            | Stabilizes daily prices, boosts AMM liquidity.                                                            | Restores market confidence, balances leverage (4.33:1).                                                   |
+| **Risks**             | Gas fees, temporary pool imbalances.                                                                      | Art illiquidity, valuation volatility, regulatory scrutiny.                                               |
+| **Examples**          | - **Price < $1 (0.95)**: Buy 10,494.74 ArtUSD with 1,000 USDC (`swapUSDCToArtUSD`), redeem for 10,494.74 USDC (`redeemForUSD`), profit 9,494.69 USDC.<br><br>- **Price > $1 (1.05)**: Deposit 1,000 USDC (`depositUSD`), mint 1,000 ArtUSD, sell for 1,047.12 USDC (`swapArtUSDToUSDC`), profit 47.07 USDC. | - **Price < $1 (0.90)**: Sotheby’s auctions $250M art, deposits 250M USDC (`depositUSD`), mints 250M ArtUSD (`mint`), raising price to ~1 USDC/ArtUSD.<br><br>- **Price > $1 (1.10)**: Auction $100M art, deposit 100M USDC, mint 100M ArtUSD, add to AMM (`addLiquidity`), lowering price to ~1 USDC/ArtUSD. |
+
+#### Notes   
+- **Short-Term Onchain Arbitrage**: Crypto Investors use AMM (`ArtUSDUSDCSwapper.sol`) for quick trades to correct minor price deviations, leveraging the ~$300 USDC FundPool (`FundPool.sol`, `ArtUSD.sol`).   
+- **Long-Term Offline Arbitrage**: Auction houses conduct art auctions, depositing proceeds (`depositUSD`) and minting ArtUSD (`mint`) to adjust supply, addressing significant deviations and maintaining leverage.   
+- **Leverage Model**: The ~$300M USDC FundPool (30-50% reserve) supports both, with the $1B art collection as collateral for long-term stability, resembling perpetual redeemable bonds.   
+- **Auditing**: Auditor verifies FundPool reserves (`FundPool.getReserveBalance`) post-arbitrage for transparency.   
+
 ### 4.3 Stablecoin Flow Diagram (example)
 
 This section outlines the flow diagram for issuing 1 billion ArtUSD backed by a $1 billion art collection and ~$300 million USDC FundPool.
