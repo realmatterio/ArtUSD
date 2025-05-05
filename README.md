@@ -642,15 +642,6 @@ ArtUSD resembles perpetual redeemable bonds:
     - Redemption:   
         - 20% daily demand (200M `ArtUSD`)   
         - requires 200M USDC (`redeemForUSD`), covered by FundPool.   
-    - :arrow_heading_down: Arbitrage Below $1 (0.95 `USDC/ArtUSD`):   
-        - Buy 10,494.74 ArtUSD for 1,000 USDC (`swapUSDCToArtUSD`),   
-        - redeem for 10,494.74 USDC,   
-        - profit 9,494.69 USDC.
-    - :arrow_heading_up: Arbitrage Above $1 (1.05 `USDC/ArtUSD`):   
-        - Deposit 1,000 USDC (`depositUSD`),  
-        - mint 1,000 ArtUSD,   
-        - sell for 1,047.12 USDC (`swapArtUSDToUSDC`),   
-        - profit 47.07 USDC.   
     - Offline:   
         - Sotheby’s auctions $250M art,   
         - deposits 250M USDC (`depositUSD`).   
@@ -658,7 +649,7 @@ ArtUSD resembles perpetual redeemable bonds:
 - Audit:   
     - PwC verifies reserves (`getReserveBalance`).   
 
-### 6.5 Risks and Mitigations   
+### 6.4 Risks and Mitigations   
 
 - Art Illiquidity:   
   Redemption caps (10%), frequent auctions.   
