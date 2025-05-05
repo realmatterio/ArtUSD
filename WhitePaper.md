@@ -17,6 +17,7 @@
 7. [Implementation Details](#7-implementation-details)
 8. [Risks and Mitigations](#8-risks-and-mitigations)
 9. [Conclusion](#9-conclusion)
+- [Future Work](#future-work)
 - [Disclaimer](#disclaimer)
 
 ---
