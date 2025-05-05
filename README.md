@@ -626,7 +626,7 @@ ArtUSD resembles perpetual redeemable bonds:
 - Yield:   
   Other staking protocols   
 
-### 6.3 Stablecoin Flow Example Scenario   
+### 6.3 Stablecoin Funding Scenario   
 
 - Setup:   
     - Art Collection:   
@@ -642,9 +642,9 @@ ArtUSD resembles perpetual redeemable bonds:
     - Redemption:   
         - 20% daily demand (200M `ArtUSD`)   
         - requires 200M USDC (`redeemForUSD`), covered by FundPool.   
-    - Offline:   
-        - Sotheby’s auctions $250M art,   
-        - deposits 250M USDC (`depositUSD`).   
+    - Offline Arbitrary:   
+        - Sotheby’s auctions art,   
+        - deposits extra USDC (`depositUSD`).   
 
 - Audit:   
     - PwC verifies reserves (`getReserveBalance`).   
