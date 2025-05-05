@@ -67,7 +67,7 @@ This white paper outlines the system’s architecture, market role interactions,
 ![Mermaid GIF 1](ArtUSD_Stablecoin_Flowchart.gif)
 
 > Figure 1: The flowchart illustrates the stablecoin system backed by real-world art assets, structured across three sections: Primary Market (involving investors, stablecoin minting, and fund management by the auction house), Real World Assets (collateralized art collection, valuation, and liquidation), and Secondary Market (trading and arbitrage through DEX/swappers, with audit trails for transparency).   
-> <a href="mermaid%20fig1.png" target="_blank">Click to view the figure</a>
+> <a href="Mermaid Fig1.png" target="_blank">Click to view the figure</a>
 
 ---
 ## 2. Role-Centric Market Model
