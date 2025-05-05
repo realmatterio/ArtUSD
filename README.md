@@ -277,7 +277,19 @@ Role: DEX.
 - Profit:   
   47.07 USDC.   
 - Audit:   
-  PwC verifies reserves.   
+  PwC verifies reserves.
+
+:twisted_rightwards_arrows: Price Calculation  
+The Swapper uses a constant product formula (x * y = k):   
+- Buy ArtUSD:   
+```
+artUSDOut = (usdcIn * 997 * reserveArtUSD) / (reserveUSDC * 1000 + usdcIn * 997)
+```
+- Sell ArtUSD:   
+```
+usdcOut = (artUSDIn * 997 * reserveUSDC) / (reserveArtUSD * 1000 + artUSDIn * 997)
+```
+Minimum deviation: ~0.8% (0.3% fee + gas, e.g., 0.05 USDC).  
 
 #### 4.2.2 Long-Term Offline Arbitrage   
 
