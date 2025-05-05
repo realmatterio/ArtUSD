@@ -320,7 +320,7 @@ Role: Auction House.
 - **Long-Term Offline Arbitrage**:   
   Auction houses conduct art auctions, depositing proceeds (`depositUSD`) and minting ArtUSD (`mint`) to adjust supply, addressing significant deviations and maintaining leverage.   
 - **Leverage Model**:   
-  The ~$300M USDC FundPool (30-50% reserve) supports both, with the $1B art collection as collateral for long-term stability, resembling perpetual redeemable bonds.   
+  The ~$300M USDC FundPool (30% reserve) supports both, with the $1B art collection as collateral for long-term stability, resembling perpetual redeemable bonds.   
 - **Auditing**:   
   Auditor verifies FundPool reserves (`FundPool.getReserveBalance`) post-arbitrage for transparency.   
 
@@ -606,7 +606,7 @@ Issuing 1 billion ArtUSD requires a FundPool of ~$300 million USDC (30% reserve 
   $50M for Swapper liquidity (ArtUSDUSDCSwapper.addLiquidity),   
   $50M buffer.   
 - Stress Case:   
-  FundPool of $500M for 50% redemptions.   
+  FundPool of $300M for 30% redemptions.   
 - Art Liquidation:   
   auctions replenish USDC via `FundPool.depositUSD`.   
 
