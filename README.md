@@ -279,7 +279,7 @@ Role: DEX.
 - Audit:   
   PwC verifies reserves.
 
-:twisted_rightwards_arrows: Price Calculation  
+:twisted_rightwards_arrows: AMM Price Calculation  
 The Swapper uses a constant product formula (x * y = k):   
 - Buy ArtUSD:   
 ```
