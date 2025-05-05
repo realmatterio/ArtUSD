@@ -64,7 +64,7 @@ The ArtUSD ecosystem integrates five market roles:
 This white paper outlines the system’s architecture, market role interactions, smart contracts, purchasing and arbitrage processes, and funding model, with diagrams to illustrate operations and the leverage structure.
 
 <!---![Mermaid Figure 1](Mermaid%20Fig%201.png)-->
-![Mermaid GIF 1](ArtUSD_Stablecoin_Flowchart.gif)
+![Mermaid GIF 1](ArtUSD%20Stablecoin%20Flow%20Chart.gif)
 
 > Figure 1: The flowchart illustrates the stablecoin system backed by real-world art assets, structured across three sections: Primary Market (involving investors, stablecoin minting, and fund management by the auction house), Real World Assets (collateralized art collection, valuation, and liquidation), and Secondary Market (trading and arbitrage through DEX/swappers, with audit trails for transparency).   
 > <a href="Mermaid Fig 1.png" target="_blank">Click to view the figure</a>
