@@ -266,13 +266,13 @@ Role: Auction House.
 | **Examples**          | - **Price < $1 (0.95)**: Buy 10,494.74 ArtUSD with 1,000 USDC (`swapUSDCToArtUSD`), redeem for 10,494.74 USDC (`redeemForUSD`), profit 9,494.69 USDC.<br><br>- **Price > $1 (1.05)**: Deposit 1,000 USDC (`depositUSD`), mint 1,000 ArtUSD, sell for 1,047.12 USDC (`swapArtUSDToUSDC`), profit 47.07 USDC. | - **Price < $1 (0.90)**: Sotheby’s auctions $250M art, deposits 250M USDC (`depositUSD`), mints 250M ArtUSD (`mint`), raising price to ~1 USDC/ArtUSD.<br><br>- **Price > $1 (1.10)**: Auction $100M art, deposit 100M USDC, mint 100M ArtUSD, add to AMM (`addLiquidity`), lowering price to ~1 USDC/ArtUSD. |
 
 #### Notes   
-- **Short-Term Onchain Arbitrage**:
+- **Short-Term Onchain Arbitrage**:   
   Crypto Investors use AMM (`ArtUSDUSDCSwapper.sol`) for quick trades to correct minor price deviations, leveraging the ~$300 USDC FundPool (`FundPool.sol`, `ArtUSD.sol`).   
-- **Long-Term Offline Arbitrage**:
+- **Long-Term Offline Arbitrage**:   
   Auction houses conduct art auctions, depositing proceeds (`depositUSD`) and minting ArtUSD (`mint`) to adjust supply, addressing significant deviations and maintaining leverage.   
-- **Leverage Model**:
+- **Leverage Model**:   
   The ~$300M USDC FundPool (30-50% reserve) supports both, with the $1B art collection as collateral for long-term stability, resembling perpetual redeemable bonds.   
-- **Auditing**:
+- **Auditing**:   
   Auditor verifies FundPool reserves (`FundPool.getReserveBalance`) post-arbitrage for transparency.   
 
 ### 4.3 Stablecoin Flow Diagram (example)
