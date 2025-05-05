@@ -267,7 +267,7 @@ Role: Auction House.
 
 #### Notes   
 - **Short-Term Onchain Arbitrage**:   
-  Crypto Investors use AMM (`ArtUSDUSDCSwapper.sol`) for quick trades to correct minor price deviations, leveraging the ~$300 USDC FundPool (`FundPool.sol`, `ArtUSD.sol`).   
+  Crypto Investors use AMM (`ArtUSDUSDCSwapper.sol`) for quick trades to correct minor price deviations, leveraging the ~$300M USDC FundPool (`FundPool.sol`, `ArtUSD.sol`).   
 - **Long-Term Offline Arbitrage**:   
   Auction houses conduct art auctions, depositing proceeds (`depositUSD`) and minting ArtUSD (`mint`) to adjust supply, addressing significant deviations and maintaining leverage.   
 - **Leverage Model**:   
