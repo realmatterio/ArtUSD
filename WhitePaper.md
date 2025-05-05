@@ -534,7 +534,7 @@ Issuing 1 billion ArtUSD requires a FundPool of ~$300 million USDC (30% reserve 
   $50M for Swapper liquidity (ArtUSDUSDCSwapper.addLiquidity),   
   $50M buffer.   
 - Stress Case:   
-  FundPool of $500M for 50% redemptions.   
+  FundPool of $300M for 30% redemptions.   
 - Art Liquidation:   
   auctions replenish USDC via `FundPool.depositUSD`.   
 
