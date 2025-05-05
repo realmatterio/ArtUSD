@@ -263,8 +263,8 @@ Role: DEX.
 - Redeem USDC:   
   `redeemForUSD(10,494.74)` → 10,484 USDC.   
 - Profit:   
-  9,494.69 USDC to ~484 USDC (before fees).
-- Audit:
+  ~484 USDC (before fees).   
+- Audit:   
   PwC verifies reserves (`getReserveBalance`).   
 
 :arrow_heading_up: Above $1 (1.05 USDC/ArtUSD):   
@@ -274,12 +274,12 @@ Role: DEX.
   `depositUSD(1,000)` → 1,000 ArtUSD.   
 - Sell ArtUSD:   
   `swapArtUSDToUSDC(1,000)` → 1,047.12 USDC.   
-- Profit:
+- Profit:   
   47.07 USDC.   
-- Audit:
+- Audit:   
   PwC verifies reserves.   
 
-#### 4.2.2 Long-Term Offline Arbitrage
+#### 4.2.2 Long-Term Offline Arbitrage   
 
 Role: Auction House.  
 - Action: auctions art to address price deviations,  
