@@ -667,10 +667,55 @@ ArtUSD delivers an example stablecoin model backed by a $1 billion art collectio
 ---
 ### Future Work   
 
-- Deploy on cross-chains for cost efficiency.   
-- Develop a DApp integrating auctions and trading.   
-- Incentivize Swapper liquidity via fee sharing.   
-- Partner with PQC platforms for quantum-safe integration   
+System-wise Improvements
+   - Deploy on cross-chains for cost efficiency.   
+   - Develop a DApp integrating auctions and trading.   
+   - Incentivize Swapper liquidity via fee sharing.   
+   - Partner with PQC platforms for quantum-safe integration   
+
+Issues and Improvements for Smart Contracts   
+   - FundPool.sol   
+     Issues: Reentrancy risks, unsafe low-level calls, no input validation, no pause mechanism, missing events, no reserve verification.
+> Improvements:   
+Add ReentrancyGuard and Pausable.   
+Validate inputs (amount > 0).   
+Use typed interface for ArtUSD minting.   
+Emit event for withdrawUSD.   
+Verify totalReserve against USDC balance.   
+Handle fee-on-transfer tokens.   
+   - ArtCredentialNFT.sol   
+     Issues: No validation for details, no burning, no batch minting, no metadata support, missing mint event, centralized control.
+> Improvements:   
+Validate details length.   
+Add burn function.   
+Implement batch minting.   
+Support tokenURI via ERC721URIStorage.   
+Emit event for mint.   
+Consider role-based access control.   
+   - ArtUSD.sol   
+     Issues: Reentrancy in redemption, unsafe price feed, no input validation, low-level calls, no mint event, no decimal normalization.   
+> Improvements:   
+Add ReentrancyGuard and Pausable.   
+Validate inputs (amount > 0).   
+Check price feed staleness.   
+Use typed FundPool interface.   
+Normalize price feed decimals.   
+Emit Minted event.   
+   - ArtUSDUSDCSwapper.sol   
+     Issues: Reentrancy in swaps, no pause mechanism, no liquidity ratio check, unclear fee, no slippage protection, missing event.   
+> Improvements:   
+Add ReentrancyGuard and Pausable.   
+Enforce proportional liquidity addition.   
+Clarify fee in basis points.   
+Add slippage protection (minOut).   
+Emit LiquidityRemoved event.   
+Handle fee-on-transfer tokens.   
+- General Recommendations
+   - Use immutable for constant state variables.
+   - Add comprehensive tests and formal verification.
+   - Include NatSpec documentation.
+   - Optimize gas usage.
+   - Consider upgradeability if needed.
 
 ### Disclaimer   
 
