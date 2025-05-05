@@ -259,11 +259,11 @@ Role: DEX.
 - Price Check:   
   `ArtUSDUSDCSwapper.getArtUSDOut(1,000 USDC)` → 0.95 (reserves: 10,526,316 ArtUSD, 10,000,000 USDC).   
 - Buy ArtUSD:   
-  `swapUSDCToArtUSD(1,000 USDC)` → 10,494.74 ArtUSD.   
+  `swapUSDCToArtUSD(1,000 USDC)` → ~10,484 ArtUSD.
 - Redeem USDC:   
-  `redeemForUSD(10,494.74)` → 10,494.74 USDC.   
+  `redeemForUSD(10,494.74)` → 10,484 USDC.   
 - Profit:   
-  9,494.69 USDC (after 0.3% fee + 0.05 USDC gas).   
+  9,494.69 USDC to ~484 USDC (before fees).
 - Audit:
   PwC verifies reserves (`getReserveBalance`).   
 
@@ -300,7 +300,7 @@ Role: Auction House.
 | **Smart Contracts**   | `swapUSDCToArtUSD`, `swapArtUSDToUSDC`, `depositUSD`, `redeemForUSD`                                      | `depositUSD`, `mint`, `addLiquidity`, `transfer`                                                          |
 | **Impact**            | Stabilizes daily prices, boosts AMM liquidity.                                                            | Restores market confidence, balances leverage (4.33:1).                                                   |
 | **Risks**             | Gas fees, temporary pool imbalances.                                                                      | Art illiquidity, valuation volatility, regulatory scrutiny.                                               |
-| **Examples**          | - **Price < $1 (0.95)**: Buy 10,494.74 ArtUSD with 1,000 USDC (`swapUSDCToArtUSD`), redeem for 10,494.74 USDC (`redeemForUSD`), profit 9,494.69 USDC.<br><br>- **Price > $1 (1.05)**: Deposit 1,000 USDC (`depositUSD`), mint 1,000 ArtUSD, sell for 1,047.12 USDC (`swapArtUSDToUSDC`), profit 47.07 USDC. | - **Price < $1 (0.90)**: Sotheby’s auctions $250M art, deposits 250M USDC (`depositUSD`), mints 250M ArtUSD (`mint`), raising price to ~1 USDC/ArtUSD.<br><br>- **Price > $1 (1.10)**: Auction $100M art, deposit 100M USDC, mint 100M ArtUSD, add to AMM (`addLiquidity`), lowering price to ~1 USDC/ArtUSD. |
+| **Examples**          | - **Price < $1 (0.95)**: Buy ~10,484 ArtUSD with 1,000 USDC (`swapUSDCToArtUSD`), redeem for ~10,484 USDC (`redeemForUSD`), profit ~484 USDC.<br><br>- **Price > $1 (1.05)**: Deposit 1,000 USDC (`depositUSD`), mint 1,000 ArtUSD, sell for 1,047.12 USDC (`swapArtUSDToUSDC`), profit 47.07 USDC. | - **Price < $1 (0.90)**: Sotheby’s auctions $250M art, deposits 250M USDC (`depositUSD`), mints 250M ArtUSD (`mint`), raising price to ~1 USDC/ArtUSD.<br><br>- **Price > $1 (1.10)**: Auction $100M art, deposit 100M USDC, mint 100M ArtUSD, add to AMM (`addLiquidity`), lowering price to ~1 USDC/ArtUSD. |
 
 #### Notes   
 - **Short-Term Onchain Arbitrage**:   
