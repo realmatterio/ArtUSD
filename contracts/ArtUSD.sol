@@ -1,10 +1,9 @@
-
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol"; /* an example of price oracle */
+import "@chainlink/contracts/src/v0.8/shared/interfaces/AggregatorV3Interface.sol"; /* an example of price oracle */
 
 contract ArtUSD is ERC20, Ownable {
     AggregatorV3Interface public artPriceFeed;
@@ -13,10 +12,14 @@ contract ArtUSD is ERC20, Ownable {
 
     event Redeemed(address indexed user, uint256 amount, string assetType);
 
-    constructor(address initialOwner, address _artPriceFeed, address _fundPool) ERC20("ArtUSD", "AUSD")  Ownable(initialOwner) {
+    constructor(address initialOwner, address _artPriceFeed) ERC20("ArtUSD", "AUSD")  Ownable(initialOwner) {
         artPriceFeed = AggregatorV3Interface(_artPriceFeed);
-        fundPool = _fundPool;
         paused = false;
+    }
+
+    // Set fund pool address
+    function setFundPool(address _fundPool) external onlyOwner {
+        fundPool = _fundPool;
     }
 
     modifier whenNotPaused() {
@@ -24,7 +27,12 @@ contract ArtUSD is ERC20, Ownable {
         _;
     }
 
-    function mint(address to, uint256 amount) external onlyOwner whenNotPaused {
+    modifier onlyOwnerOrFundPool() {
+        require(msg.sender == owner() || msg.sender == fundPool, "Not authorized");
+        _;
+    }
+
+    function mint(address to, uint256 amount) external onlyOwnerOrFundPool whenNotPaused {
         require(getArtReserveValue() >= totalSupply() + amount, "Insufficient art collection reserve");
         _mint(to, amount);
     }
