@@ -1,6 +1,6 @@
 
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
@@ -13,7 +13,7 @@ contract FundPool is Ownable {
     event USDDeposited(address indexed user, uint256 amount);
     event USDReleased(address indexed user, uint256 amount);
 
-    constructor(address _usdc, address _artUSD) {
+    constructor(address _usdc, address _artUSD) Ownable(msg.sender) {
         usdc = IERC20(_usdc);
         artUSD = _artUSD;
         totalReserve = 0;

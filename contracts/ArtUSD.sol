@@ -1,10 +1,10 @@
 
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol"; /* an example of price oracle */
+import "@chainlink/contracts/src/v0.8/shared/interfaces/AggregatorV3Interface.sol"; /* an example of price oracle */
 
 contract ArtUSD is ERC20, Ownable {
     AggregatorV3Interface public artPriceFeed;
