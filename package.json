@@ -1,3 +1,6 @@
 {
-  "name": "artusd stablecoin framework"
+  "name": "artusd stablecoin framework",
+  "devDependencies": {
+    "hardhat": "^2.24.2"
+  }
 }
