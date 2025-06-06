@@ -13,10 +13,14 @@ contract ArtUSD is ERC20, Ownable {
 
     event Redeemed(address indexed user, uint256 amount, string assetType);
 
-    constructor(address initialOwner, address _artPriceFeed, address _fundPool) ERC20("ArtUSD", "AUSD")  Ownable(initialOwner) {
+    constructor(address initialOwner, address _artPriceFeed) ERC20("ArtUSD", "AUSD")  Ownable(initialOwner) {
         artPriceFeed = AggregatorV3Interface(_artPriceFeed);
-        fundPool = _fundPool;
         paused = false;
+    }
+
+    // Set fund pool address
+    function setFundPool(address _fundPool) external onlyOwner {
+        fundPool = _fundPool;
     }
 
     modifier whenNotPaused() {
