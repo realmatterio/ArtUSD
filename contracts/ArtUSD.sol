@@ -1,4 +1,3 @@
-
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
@@ -28,7 +27,12 @@ contract ArtUSD is ERC20, Ownable {
         _;
     }
 
-    function mint(address to, uint256 amount) external onlyOwner whenNotPaused {
+    modifier onlyOwnerOrFundPool() {
+        require(msg.sender == owner() || msg.sender == fundPool, "Not authorized");
+        _;
+    }
+
+    function mint(address to, uint256 amount) external onlyOwnerOrFundPool whenNotPaused {
         require(getArtReserveValue() >= totalSupply() + amount, "Insufficient art collection reserve");
         _mint(to, amount);
     }

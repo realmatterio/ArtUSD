@@ -19,7 +19,7 @@ contract FundPool is Ownable {
         totalReserve = 0;
     }
 
-    function depositUSD(uint256 amount) external {
+    function depositUSD(uint256 amount) payable external {
         require(usdc.transferFrom(msg.sender, address(this), amount), "USDC transfer failed");
         totalReserve += amount;
         (bool success, ) = artUSD.call(abi.encodeWithSignature("mint(address,uint256)", msg.sender, amount));
