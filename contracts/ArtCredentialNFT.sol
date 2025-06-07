@@ -1,4 +1,3 @@
-
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
@@ -20,7 +19,6 @@ contract ArtCredentialNFT is ERC721, Ownable {
         tokenIdCounter++;
     }
 
-    // TODO: Write tests for this
     function issueCredential(address to, string memory details) external onlyOwner {
         _safeMint(to, tokenIdCounter);
         artDetails[tokenIdCounter] = details;

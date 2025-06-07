@@ -28,4 +28,20 @@ describe('ArtCredentialNFT', function () {
             expect(Number(await artCredentialNFT.balanceOf(owner.address))).to.equal(1);
         });
     });
+
+    describe('Issue Credential', function () {
+        it('should issue a new credential', async function () {
+            const { artCredentialNFT, owner } = await loadFixture(deployNFTFixture);
+            await artCredentialNFT.issueCredential(owner.address, '{"name": "John"}');
+
+            // Check for emitted event
+            await expect(artCredentialNFT.issueCredential(owner.address, '{"name": "John"}'))
+                .to.emit(artCredentialNFT, "CredentialIssued")
+                .withArgs(owner.address, 1, '{"name": "John"}');
+            // Check for token id counter
+            expect(Number(await artCredentialNFT.tokenIdCounter())).to.equal(2);
+            // Check for artDetails array
+            expect(await artCredentialNFT.artDetails(0)).to.equal('{"name": "John"}');
+        });
+    });
 });
