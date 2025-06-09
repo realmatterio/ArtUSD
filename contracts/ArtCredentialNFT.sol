@@ -8,21 +8,32 @@ contract ArtCredentialNFT is ERC721, Ownable {
     uint256 public tokenIdCounter;
     mapping(uint256 => string) public artDetails;
 
-    event CredentialIssued(address indexed to, uint256 tokenId, string artDetails);
+    event CredentialIssued(address indexed to, uint256 tokenId, string metadataURI);
 
-    constructor(address initialOwner) ERC721("ArtCredentialNFT", "ACN")  Ownable(initialOwner) {
+    constructor(address initialOwner) ERC721("ArtCredentialNFT", "ACN") Ownable(initialOwner) {
         tokenIdCounter = 0;
+        _setBaseURI("ipfs://");
     }
 
-    function mint(address to) external onlyOwner {
+    function mint(address to, string memory uri) external onlyOwner {
         _safeMint(to, tokenIdCounter);
+        artDetails[tokenIdCounter] = uri;
         tokenIdCounter++;
     }
 
-    function issueCredential(address to, string memory details) external onlyOwner {
+    function issueCredential(address to, string memory uri) external onlyOwner {
         _safeMint(to, tokenIdCounter);
-        artDetails[tokenIdCounter] = details;
-        emit CredentialIssued(to, tokenIdCounter, details);
+        artDetails[tokenIdCounter] = uri;
+        emit CredentialIssued(to, tokenIdCounter, uri);
         tokenIdCounter++;
+    }
+
+    function tokenURI(uint256 tokenId) public view override returns (string memory) {
+        _requireMinted(tokenId);
+        return string(abi.encodePacked(super.tokenURI(tokenId), artDetails[tokenId]));
+    }
+
+    function setBaseURI(string memory baseURI) external onlyOwner {
+        _setBaseURI(baseURI);
     }
 }
