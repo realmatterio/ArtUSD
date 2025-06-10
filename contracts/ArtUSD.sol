@@ -44,6 +44,11 @@ contract ArtUSD is ERC20, Ownable, Pausable, Blacklistable {
         artPriceFeed = AggregatorV3Interface(_artPriceFeed);
     }
 
+    // Override decimals
+    function decimals() public view virtual override returns (uint8) {
+        return 6;
+    }
+
     // Set fund pool address
     function setFundPool(address _fundPool) external onlyOwner {
         fundPool = _fundPool;

@@ -1,11 +1,11 @@
 The following is a list of required tasks:
-- [ ] Implement tests (WIP)
-    - [x] FundPool
-    - [x] ArtCredentialNFT
-    - [x] ArtUSD
-    - [ ] ArtUSDUSDCSwapper
 - [ ] Implement a mock auction interface that interacts with testnet deployed contracts to demonstrate funding model (WIP)
-- [ ] Implement blacklisting, freezing and pausable (WIP)
 - [ ] Implement art price feed through chainlink functions
 - [ ] Implement liquidation mechanism
 - [ ] Implement on-chain arbitrage bot
+- [ ] Implement daily attestations with EAS (Ethereum Attestation Service)
+- [x] Implement blacklisting, freezing and pausable
+- [x] Implement tests
+    - [x] FundPool
+    - [x] ArtCredentialNFT
+    - [x] ArtUSD
