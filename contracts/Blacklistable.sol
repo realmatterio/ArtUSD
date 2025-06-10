@@ -30,13 +30,11 @@ import "@openzeppelin/contracts/access/Ownable.sol";
  * @title Blacklistable
  * @dev Contract that allows addresses to be blacklisted and prevents them from interacting with the contract
  */
-contract Blacklistable is Ownable {
+abstract contract Blacklistable is Ownable {
     mapping(address => bool) private _blacklisted;
 
     event Blacklisted(address indexed account);
     event RemovedFromBlacklist(address indexed account);
-
-    constructor(address initialOwner) Ownable(initialOwner) {}
 
     /**
      * @dev Throws if the account is blacklisted
