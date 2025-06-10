@@ -3,6 +3,10 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import { getProvider, getSigner, getContract } from './utils/ethereum'
+import { create } from "@web3-storage/w3up-client"
+
+// Initialize Storacha client
+const client = await create();
 
 // Utility function to shorten wallet address
 const shortenAddress = (address) => {
@@ -51,6 +55,7 @@ function App() {
   const [walletAddress, setWalletAddress] = useState('');
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState('');
+  const [isUploading, setIsUploading] = useState(false);
 
   const connectWallet = async () => {
     try {
@@ -87,17 +92,33 @@ function App() {
       setStatus('Please select an image file');
       return;
     }
-    setStatus('Issuing credential...');
+    setStatus('Uploading to Storacha...');
+    setIsUploading(true);
     setTxHash('');
+
     try {
+      const account = await client.login(import.meta.env.VITE_STORACHA_EMAIL);
+      
+      // Upload file to Storacha
+      const cid = await client.put([selectedFile], {
+        name: selectedFile.name,
+        wrapWithDirectory: false
+      });
+      
+      // Create Storacha URI
+      const storachaUri = `storacha://${cid}`;
+      
+      setStatus('Issuing credential...');
       const provider = getProvider();
       const signer = await getSigner(provider);
       const contract = getContract(CONTRACT_ADDRESS, ABI, signer);
-      const tx = await contract.issueCredential(walletAddress, details);
+      
+      const tx = await contract.issueCredential(walletAddress, storachaUri);
       setStatus('Transaction sent. Waiting for confirmation...');
       await tx.wait();
       setTxHash(tx.hash);
       setStatus('Credential issued!');
+      
       // Reset form
       setDetails('');
       setSelectedFile(null);
@@ -105,6 +126,8 @@ function App() {
       handleCloseModal();
     } catch (err) {
       setStatus('Error: ' + (err.reason || err.message));
+    } finally {
+      setIsUploading(false);
     }
   };
 
@@ -176,6 +199,7 @@ function App() {
                   className="file-input"
                   id="file-upload"
                   required
+                  disabled={isUploading}
                 />
                 <label htmlFor="file-upload" className="file-upload-label">
                   <span className="upload-icon">📁</span>
@@ -195,8 +219,11 @@ function App() {
                 value={details}
                 onChange={e => setDetails(e.target.value)}
                 required
+                disabled={isUploading}
               />
-              <button type="submit">Issue Credential</button>
+              <button type="submit" disabled={isUploading}>
+                {isUploading ? 'Processing...' : 'Issue Credential'}
+              </button>
             </form>
             {status && <p className="status-message">{status}</p>}
             {txHash && <p>Tx: <a href={`https://sepolia.etherscan.io/tx/${txHash}`} target="_blank" rel="noopener noreferrer">{txHash}</a></p>}
