@@ -24,8 +24,22 @@ describe('ArtCredentialNFT', function () {
     describe('Minting', function () {
         it('should mint a new token', async function () {
             const { artCredentialNFT, owner } = await loadFixture(deployNFTFixture);
-            await artCredentialNFT.mint(owner.address);
+            await artCredentialNFT.mint(owner.address, "some uri here");
             expect(Number(await artCredentialNFT.balanceOf(owner.address))).to.equal(1);
+        });
+    });
+
+    describe('Issue Credential', function () {
+        it('should issue a new credential', async function () {
+            const { artCredentialNFT, owner } = await loadFixture(deployNFTFixture);
+            await artCredentialNFT.issueCredential(owner.address, 'some uri here');
+
+            // Check for emitted event
+            await expect(artCredentialNFT.issueCredential(owner.address, 'some uri here'))
+                .to.emit(artCredentialNFT, "CredentialIssued")
+                .withArgs(owner.address, 1, 'some uri here');
+            // Check for token id counter
+            expect(Number(await artCredentialNFT.tokenIdCounter())).to.equal(2);
         });
     });
 });

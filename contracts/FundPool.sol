@@ -1,4 +1,3 @@
-
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
@@ -27,6 +26,7 @@ contract FundPool is Ownable {
         emit USDDeposited(msg.sender, amount);
     }
 
+    // TODO: Write tests for this
     function releaseUSD(address to, uint256 amount) external {
         require(msg.sender == artUSD, "Only ArtUSD contract can call");
         require(totalReserve >= amount, "Insufficient reserve");
@@ -39,6 +39,7 @@ contract FundPool is Ownable {
         return totalReserve;
     }
 
+    // TODO: Write tests for this
     function withdrawUSD(uint256 amount) external onlyOwner {
         require(totalReserve >= amount, "Insufficient reserve");
         require(usdc.transfer(owner(), amount), "USDC transfer failed");
