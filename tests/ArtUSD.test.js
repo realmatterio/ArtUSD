@@ -27,4 +27,29 @@ describe('ArtUSD', function () {
             await expect(artUSD.pause()).to.emit(artUSD, "Paused");
         });
     });
+
+    describe('Blacklist', function () {
+        it('should blacklist address', async function () {
+            const { artUSD, owner } = await loadFixture(deployFixture);
+            const [_, addr1, addr2] = await ethers.getSigners();
+            
+            // Check for blacklisted address
+            await artUSD.blacklist(addr1);
+            expect(await artUSD.isBlacklisted(addr1)).to.equal(true);
+            // Check for un-blacklisted address
+            expect(await artUSD.isBlacklisted(addr2)).to.equal(false);
+        });
+    });
+
+    describe('Un-Blacklist', function () {
+        it('should remove address from blacklist', async function () {
+            const { artUSD } = await loadFixture(deployFixture);
+            const [_, addr1, addr2] = await ethers.getSigners();
+            
+            await artUSD.blacklist(addr1);
+            await artUSD.removeFromBlacklist(addr1);
+            
+            expect(await artUSD.isBlacklisted(addr1)).to.equal(false);
+        });
+    });
 });
