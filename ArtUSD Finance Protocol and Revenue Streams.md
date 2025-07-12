@@ -57,12 +57,13 @@ graph TD
     A -->|30% Allocation| C[Short-term Liquidity Pool<br>$300M max]
     B --> D[Earnings from Investments<br>e.g., Art Appreciation/Leasing]
     D -->|5-10% Dividends| E[Art Fund DAO Stakeholders]
-    D -->|Lending Revenue| F[ArtUSD Lending Protocol]
+    F[ArtUSD Lending Protocol] -->|12% Lending Revenue| D
     F -->|8% Yield| G[ArtUSD Staking Protocol]
     G --> H[Crypto Investors]
     C --> I[DEX Fund Swapper<br>ArtUSD/USDC Pair]
     I --> H
     I --> J[Artist Borrowers]
+    J --> D
 ```
 
 ```mermaid
