@@ -55,15 +55,15 @@ The ArtUSD stablecoin finance protocol is a decentralized finance (DeFi) system 
 graph TD
     A[Public Sale of ArtUSD<br>e.g., $1B Raised] -->|70% Allocation| B[Core Investment Portfolio<br>$700M max]
     A -->|30% Allocation| C[Short-term Liquidity Pool<br>$300M max]
-    B --> D[Earnings from Investments<br>e.g., Art Appreciation/Leasing]
-    D -->|5-10% Dividends| E[Art Fund DAO Stakeholders]
+    B --> D[Earnings from Investments]
+    D -->|5-10% Dividends| E([Art Fund DAO Stakeholders])
     F[ArtUSD Lending Protocol] -->|12% Lending Revenue| D
     F -->|8% Yield| G[ArtUSD Staking Protocol]
-    G --> H[Crypto Investors]
+    G --> H([Crypto Investors])
     C --> I[DEX Fund Swapper<br>ArtUSD/USDC Pair]
     I --> H
-    I --> J[Artist Borrowers]
-    J --> D
+    I --> J([Artist Borrowers])
+    J --> F
 ```
 
 ```mermaid
