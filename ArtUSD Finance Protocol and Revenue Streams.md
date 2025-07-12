@@ -10,7 +10,7 @@ The ArtUSD stablecoin finance protocol is a decentralized finance (DeFi) system 
 ---
 
 ### 2. **Art Fund Management**
-- **Revenue Generation**: The Art Fund generates earnings through the public sale of ArtUSD and other core investment activities (e.g., art appreciation or leasing).
+- **Revenue Generation**: The Art Fund generates earnings through the public sale of ArtUSD and core investment activities.
 - **Dividends**: Stakeholders in the Art Fund receive dividends, estimated at 5–10% of the earnings, as a reward for their investment or governance participation.
 
 ---
