@@ -57,12 +57,12 @@ graph TD
     A -->|30% Allocation| C[Short-term Liquidity Pool<br>$300M max]
     B --> D[Earnings from Investments]
     D -->|5-10% Dividends| E([Art Fund DAO Stakeholders])
-    F[ArtUSD Lending Protocol] -->|12% Lending Revenue| D
+    F[ArtUSD Lending Protocol] -->|Lending Revenue| D
     F -->|8% Yield| G[ArtUSD Staking Protocol]
     G --> H([Crypto Investors])
     C --> I[DEX Fund Swapper<br>ArtUSD/USDC Pair]
     I --> H
-    I --> J([Artist Borrowers])
+    I <-> |12% Interest| J([Artist Borrowers])
     J --> F
 ```
 
