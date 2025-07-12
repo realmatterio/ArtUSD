@@ -31,6 +31,24 @@ The ArtUSD stablecoin finance protocol is a decentralized finance (DeFi) system 
 - **Role**: Ensures market liquidity and accessibility for investors and borrowers.
 
 ---
+```mermaid
+---
+title: Revenue Stream
+---
+graph TD
+    A[(Public Sale of ArtUSD<br>e.g., $1B Raised)] -->|70% Allocation| B[Core Investment Portfolio<br>$700M max]
+    A -->|30% Allocation| C[Short-term Liquidity Pool<br>$300M max]
+    B --> D[Earnings from Investments]
+    D -->|5-10% Dividends| E([Art Fund DAO Stakeholders])
+    F[ArtUSD Lending Protocol] -->|Lending Revenue| D
+    F -->|Lending Revenue| G[ArtUSD Staking Protocol]
+    G --> H([Crypto Investors])
+    C --> I[DEX Fund Swapper<br>ArtUSD/USDC Pair]
+    I <--> |8% Yield| H
+    I <--> J([Artist Borrowers])
+    J --> |12% Interest| F
+```
+---
 
 ### 5. **ArtUSD Staking Protocol**
 - **Purpose**: Allows crypto investors to stake their ArtUSD to earn a yield.
@@ -52,21 +70,9 @@ The ArtUSD stablecoin finance protocol is a decentralized finance (DeFi) system 
 
 
 ```mermaid
-graph TD
-    A[(Public Sale of ArtUSD<br>e.g., $1B Raised)] -->|70% Allocation| B[Core Investment Portfolio<br>$700M max]
-    A -->|30% Allocation| C[Short-term Liquidity Pool<br>$300M max]
-    B --> D[Earnings from Investments]
-    D -->|5-10% Dividends| E([Art Fund DAO Stakeholders])
-    F[ArtUSD Lending Protocol] -->|Lending Revenue| D
-    F -->|8% Yield| G[ArtUSD Staking Protocol]
-    G --> H([Crypto Investors])
-    C --> I[DEX Fund Swapper<br>ArtUSD/USDC Pair]
-    I <--> H
-    I <--> J([Artist Borrowers])
-    J --> |12% Interest| F
-```
-
-```mermaid
+---
+title: Staking and Lending
+---
 graph TD
     A[ArtUSD Lending Protocol] -->|Loans at 12-20% Interest| B[Artist Borrowers]
     B -->|Repay Interest + Principal| A
