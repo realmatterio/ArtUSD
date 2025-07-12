@@ -1,3 +1,4 @@
+```
 graph TD
     A[Public Sale of ArtUSD<br>e.g., $1B Raised] -->|70% Allocation| B[Core Investment Portfolio<br>$700M max]
     A -->|30% Allocation| C[Short-term Liquidity Pool<br>$300M max]
@@ -9,7 +10,9 @@ graph TD
     C --> I[DEX Fund Swapper<br>ArtUSD/USDC Pair]
     I --> H
     I --> J[Artist Borrowers]
+```
 
+```
 graph TD
     A[ArtUSD Lending Protocol] -->|Loans at 12-20% Interest| B[Artist Borrowers]
     B -->|Repay Interest + Principal| A
@@ -20,3 +23,4 @@ graph TD
     E -->|Sell ArtUSD for Funding| B
     B -->|Buy ArtUSD for Repayment| E
     D -->|Sell ArtUSD for Redemption| E
+```
