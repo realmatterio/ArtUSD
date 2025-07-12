@@ -38,13 +38,13 @@ title: Revenue Stream
 graph TD
     A[(Public Sale of ArtUSD<br>e.g., $1B Raised)] -->|70% Allocation| B[Core Investment Portfolio<br>$700M max]
     A -->|30% Allocation| C[Short-term Liquidity Pool<br>$300M max]
-    B --> D[Earnings from Investments]
+    B --> |Return on Investment| D[Earnings from Investments]
     D -->|5-10% Dividends| E([Art Fund DAO Stakeholders])
     F[ArtUSD Lending Protocol] -->|Lending Revenue| D
     F -->|Lending Revenue| G[ArtUSD Staking Protocol]
-    G --> H([Crypto Investors])
+    G --> |8% Yield| H([Crypto Investors])
     C --> I[DEX Fund Swapper<br>ArtUSD/USDC Pair]
-    I <--> |8% Yield| H
+    I <--> H
     I <--> J([Artist Borrowers])
     J --> |12% Interest| F
 ```
