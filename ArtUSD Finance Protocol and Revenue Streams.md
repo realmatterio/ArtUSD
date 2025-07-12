@@ -74,10 +74,10 @@ graph TD
 title: Staking and Lending
 ---
 graph TD
-    A[ArtUSD Lending Protocol] -->|Loans at 12-20% Interest| B[Artist Borrowers]
+    A[ArtUSD Lending Protocol] -->|Loans at 12-20% Interest| B([Artist Borrowers])
     B -->|Repay Interest + Principal| A
     A -->|Lending Revenue| C[ArtUSD Staking Protocol]
-    C -->|8% Yield| D[Crypto Investors]
+    C -->|8% Yield| D([Crypto Investors])
     D -->|Stake ArtUSD| C
     E[DEX Fund Swapper<br>ArtUSD/USDC Pair] -->|Buy ArtUSD| D
     E -->|Sell ArtUSD for Funding| B
