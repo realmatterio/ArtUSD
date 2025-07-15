@@ -30,7 +30,7 @@ Below is an explanation of each component of the protocol:
 
 ### 1. **Art Fund DAO Stakeholders**
 - **Concept**: The system is governed by a Decentralized Autonomous Organization (DAO) comprising stakeholders who hold or manage the Art Fund.
-- **Collateral**: The stablecoin (ArtUSD) is backed by a portfolio of art assets valued at, for example, $1 billion.
+- **Collateral**: The stablecoin (ArtUSD) is backed by a portfolio of art assets valued at, for example, more than $1 billion.
 - **Valuation Mechanism**: The total supply of ArtUSD is tied to the valuation of the art collateral. This ensures the stablecoin's peg (likely 1:1 with USD) is supported by tangible assets.
 
 ---
