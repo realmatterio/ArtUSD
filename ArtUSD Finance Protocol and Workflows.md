@@ -16,7 +16,7 @@ graph TD
     C --> J[DEX Fund Swapper<br>ArtUSD/USDC Pair]
     J <-->|Buy/Sell ArtUSD| I
     J <-->|Buy/Sell ArtUSD| G
-    K[ArtUSD Stablecoin Arbitrary Protocol<br>Offline Auction] -->|Maintains 1:1 Peg| J
+    K[ArtUSD Stablecoin Arbitrary Protocol<br>Offline Art Auction] -->|Maintains 1:1 Peg| J
     K -->|Arbitrage Adjustments| C
     L([Art Fund DAO]) --> M[(Portfolio of Art Assets<br>Valuation of Art Collateral<br>e.g., >$1B)]
     M -.-> A
