@@ -8,7 +8,7 @@ graph TD
     A[(Public Sale of ArtUSD<br>e.g., $1B Raised)] -->|70% Allocation| B[Core Investment Portfolio<br>$700M max]
     A -->|30% Allocation| C[Short-term Liquidity Pool<br>$300M max]
     B -->|Return on Investment| D[Earnings from Investments]
-    D -->|5-10% Dividends| E[Art Fund DAO Stakeholders]
+    D -->|5-10% Dividends| E([Art Fund DAO Stakeholders])
     F[ArtUSD Lending Protocol] -->|Loans at 12-20% Interest| G([Artist Borrowers])
     G -->|Repay Interest + Principal| F
     F -->|Lending Revenue| H[ArtUSD Staking Protocol]
@@ -18,6 +18,9 @@ graph TD
     J <-->|Buy/Sell ArtUSD| G
     K[ArtUSD Stablecoin Arbitrary Protocol] -->|Maintains 1:1 Peg| J
     K -->|Arbitrage Adjustments| C
+    L([Art Fund DAO]) --> M[(Portfolio of Art Assets<br>Valuation of Art Collateral<br>e.g., $1B Raised)]
+    M --> A
+    M --> K 
 ```    
 The "ArtUSD Stablecoin Ecosystem Workflow" diagram illustrates the decentralized finance (DeFi) system of ArtUSD, a stablecoin backed by a $1B art portfolio. It shows how funds from the ArtUSD public sale are allocated (70% to investments, 30% to liquidity), generating returns for DAO stakeholders (5-10% dividends) and stakers (8% yield). Artists borrow ArtUSD at 12-20% interest, repaid via a DEX (ArtUSD/USDC pair), while an arbitrage protocol maintains the 1:1 USD peg, ensuring stability and liquidity.
 
