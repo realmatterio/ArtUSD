@@ -5,7 +5,7 @@ The ArtUSD stablecoin finance protocol is a decentralized finance (DeFi) system 
 title: ArtUSD Stablecoin Ecosystem Workflow
 ---
 graph TD
-    A[(Public Sale of ArtUSD<br>e.g., $1B Raised)] -->|70% Allocation| B[Core Investment Portfolio<br>$700M max]
+    A[(Public Sale of ArtUSD<br>ICO/TGE<br>e.g., $1B Raised)] -->|70% Allocation| B[Core Investment Portfolio<br>$700M max]
     A -->|30% Allocation| C[Short-term Liquidity Pool<br>$300M max]
     B -->|Return on Investment| D[Earnings from Investments]
     D -->|5-10% Dividends| E([Art Fund DAO Stakeholders])
@@ -16,7 +16,7 @@ graph TD
     C --> J[DEX Fund Swapper<br>ArtUSD/USDC Pair]
     J <-->|Buy/Sell ArtUSD| I
     J <-->|Buy/Sell ArtUSD| G
-    K[ArtUSD Stablecoin Arbitrary Protocol] -->|Maintains 1:1 Peg| J
+    K[ArtUSD Stablecoin Arbitrary Protocol<br>Offline Auction] -->|Maintains 1:1 Peg| J
     K -->|Arbitrage Adjustments| C
     L([Art Fund DAO]) --> M[(Portfolio of Art Assets<br>Valuation of Art Collateral<br>e.g., $1B Raised)]
     M --> A
