@@ -20,7 +20,7 @@ graph TD
     K -->|Arbitrage Adjustments| C
     L([Art Fund DAO]) --> M[(Portfolio of Art Assets<br>Valuation of Art Collateral<br>e.g., >$1B)]
     M --> A
-    M --> K 
+    M -.-> K 
 ```    
 The "ArtUSD Stablecoin Ecosystem Workflow" diagram illustrates the decentralized finance (DeFi) system of ArtUSD, a stablecoin backed by a $1B art portfolio. It shows how funds from the ArtUSD public sale are allocated (70% to investments, 30% to liquidity), generating returns for DAO stakeholders (5-10% dividends) and stakers (8% yield). Artists borrow ArtUSD at 12-20% interest, repaid via a DEX (ArtUSD/USDC pair), while an arbitrage protocol maintains the 1:1 USD peg, ensuring stability and liquidity.
 
