@@ -1,6 +1,29 @@
-The ArtUSD stablecoin finance protocol is a decentralized finance (DeFi) system backed by art investments, designed to maintain a stable value while providing opportunities for investors, stakeholders, and artists. Below is an explanation of each component of the protocol:
+The ArtUSD stablecoin finance protocol is a decentralized finance (DeFi) system backed by art investments, designed to maintain a stable value while providing opportunities for investors, stakeholders, and artists. 
+
+```mermaid
+---
+title: ArtUSD Stablecoin Ecosystem Workflow
+---
+graph TD
+    A[(Public Sale of ArtUSD<br>e.g., $1B Raised)] -->|70% Allocation| B[Core Investment Portfolio<br>$700M max]
+    A -->|30% Allocation| C[Short-term Liquidity Pool<br>$300M max]
+    B -->|Return on Investment| D[Earnings from Investments]
+    D -->|5-10% Dividends| E[Art Fund DAO Stakeholders]
+    F[ArtUSD Lending Protocol] -->|Loans at 12-20% Interest| G([Artist Borrowers])
+    G -->|Repay Interest + Principal| F
+    F -->|Lending Revenue| H[ArtUSD Staking Protocol]
+    H -->|8% Yield| I([Crypto Investors])
+    C --> J[DEX Fund Swapper<br>ArtUSD/USDC Pair]
+    J <-->|Buy/Sell ArtUSD| I
+    J <-->|Buy/Sell ArtUSD| G
+    K[ArtUSD Stablecoin Arbitrary Protocol] -->|Maintains 1:1 Peg| J
+    K -->|Arbitrage Adjustments| C
+```    
+The "ArtUSD Stablecoin Ecosystem Workflow" diagram illustrates the decentralized finance (DeFi) system of ArtUSD, a stablecoin backed by a $1B art portfolio. It shows how funds from the ArtUSD public sale are allocated (70% to investments, 30% to liquidity), generating returns for DAO stakeholders (5-10% dividends) and stakers (8% yield). Artists borrow ArtUSD at 12-20% interest, repaid via a DEX (ArtUSD/USDC pair), while an arbitrage protocol maintains the 1:1 USD peg, ensuring stability and liquidity.
 
 ---
+
+Below is an explanation of each component of the protocol:
 
 ### 1. **Art Fund DAO Stakeholders**
 - **Concept**: The system is governed by a Decentralized Autonomous Organization (DAO) comprising stakeholders who hold or manage the Art Fund.
