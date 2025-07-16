@@ -13,6 +13,7 @@ graph TD
     G -->|Repay Interest + Principal| F
     F -->|Lending Revenue| H[ArtUSD Staking Protocol]
     H -->|8% Yield| I([Crypto Investors])
+    I -->|Stake| H
     C --> J[DEX Fund Swapper<br>ArtUSD/USDC Pair]
     J <-->|Buy/Sell ArtUSD| I
     J <-->|Buy/Sell ArtUSD| G
