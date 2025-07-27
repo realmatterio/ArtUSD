@@ -26,13 +26,18 @@ pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 contract ArtCredentialNFT is ERC721URIStorage, Ownable {
     uint256 public tokenIdCounter;
-
+    address public fundPool;
+    IERC20 public usdc;
     event CredentialIssued(address indexed to, uint256 tokenId, string metadataURI);
+    event CredentialLiquidated(address indexed to, uint256 tokenId, uint256 amount);
 
-    constructor(address initialOwner) ERC721("ArtCredentialNFT", "ACN") Ownable(initialOwner) {
+    constructor(address initialOwner, address _fundPool, address _usdc) ERC721("ArtCredentialNFT", "ACN") Ownable(initialOwner) {
+        fundPool = _fundPool;
+        usdc = IERC20(_usdc);
         tokenIdCounter = 0;
     }
 
@@ -47,5 +52,36 @@ contract ArtCredentialNFT is ERC721URIStorage, Ownable {
         _setTokenURI(tokenIdCounter, uri);
         emit CredentialIssued(to, tokenIdCounter, uri);
         tokenIdCounter++;
+    }
+
+    /**
+     * @notice Liquidate a credential
+     * @param tokenId     Token ID
+     * @param to          Receiver's address
+     * @param amount      Amount credential sold for / Amount of ArtUSD to mint
+     */
+    function liquidate(uint256 tokenId, address to, uint256 amount) external onlyOwner {
+        require(amount > 0, "Amount must be greater than 0");
+
+        // Transfer USDC tokens from msg.sender to FundPool
+        require(usdc.transferFrom(msg.sender, fundPool, amount), "USDC transfer to FundPool failed");
+        
+        // Call FundPool's depositUSD function
+        (bool success, ) = fundPool.call(abi.encodeWithSignature("depositUSD(uint256)", amount));
+        require(success, "FundPool deposit failed");
+
+        // Transfer the NFT to the specified recipient
+        _transfer(ownerOf(tokenId), to, tokenId);
+        
+        emit CredentialLiquidated(to, tokenId, amount);
+    }
+
+    function tokenURI(uint256 tokenId)
+        public
+        view
+        override(ERC721URIStorage)
+        returns (string memory)
+    {
+        return super.tokenURI(tokenId);
     }
 }
