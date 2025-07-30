@@ -1,6 +1,6 @@
-**Software Requirement Specification for USD Stablecoin Issuance, Fund Pool, and Digital Exchange**
+**Software Requirement Specification for USD Stablecoin Issuance, Fund Pool, and Digital Exchange Market**
 
-Develop an English-language HTML mockup application to demonstrate the operation of a stablecoin arbitrage mechanism within a digital exchange, titled **USD Stablecoin Issuance, Fund Pool, and Digital Exchange**. Use a modern white-themed CSS style with hover glowing and shadow box effects. Ensure the layout is responsive for desktop, divided into three column boxes: **Stablecoin Issuance**, **Fund Pool**, and **Exchange Market**.
+Develop an English-language HTML mockup application to demonstrate the operation of a stablecoin arbitrage mechanism within a digital exchange market, titled **USD Stablecoin Issuance, Fund Pool, and Digital Exchange Market**. Use a modern white-themed CSS style with hover glowing and shadow box effects. Ensure the layout is responsive for desktop, divided into three column boxes: **Stablecoin Issuance**, **Fund Pool**, and **Exchange Market**.
 
 ### Stablecoin Issuance Column Box
 Contains four row boxes:
@@ -53,6 +53,7 @@ Contains three row boxes:
    - One second after submission, a checkmark is added to the buy or sell event to indicate a simulated successful transaction.
 
 3. **Short-Term Arbitrary Console Row**:
+   - Scrolling console displaying arbitrary buy-side orders in light red and arbitrary sell-side orders in light green.
    - If a buy-side event's USD value < lower USD value bound, the arbitrary protocol automatically generates an arbitrary sell-side event equal to the lower USD value bound in the arbitrary console.
    - If a sell-side event's USD value > upper USD value bound, the arbitrary protocol automatically generates an arbitrary buy-side event equal to the upper USD value bound in the arbitrary console.
    - One second after submission, a checkmark is added to the arbitrary buy or sell event to indicate a simulated successful transaction.
