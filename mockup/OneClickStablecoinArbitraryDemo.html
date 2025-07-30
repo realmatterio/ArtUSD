@@ -347,8 +347,8 @@
                         <span id="total-supply">0.000000</span>
                     </div>
                     <div class="input-group">
-                        <label>Loan-to-Value (LTV) Ratio:</label>
-                        <input type="number" id="ltv-ratio" placeholder="0.75" step="0.01" max="1" min="0">
+                        <label>Circulation Ratio:</label>
+                        <input type="number" id="circulation-ratio" placeholder="0.5" step="0.01" max="1" min="0">
                     </div>
                     <button class="button" onclick="mintBurn()">Mint-Burn</button>
                     <div class="display-box">
@@ -359,11 +359,13 @@
                 
                 <!-- ICO and Reserve Row -->
                 <div class="row-box">
-                    <div class="row-title">ICO and Reserve</div>
+                    <div class="row-title">ICO & Reserve</div>
                     <div class="input-group">
-                        <label>ICO Token Sales USD Amount:</label>
+                        <label>Token Sales / Deposit / Withdraw in USD Value:</label>
                         <input type="number" id="ico-amount" placeholder="$0.00" step="0.01" onchange="updateReserve()">
                         <button class="button" onclick="launchICO()">ICO Launch</button>
+                        <button class="button secondary" onclick="depositUSD()">Deposit</button>
+                        <button class="button danger" onclick="withdrawUSD()">Withdraw</button>
                     </div>
                     <div class="display-box">
                         USD Reserve Fund Pool: <br>
@@ -554,13 +556,13 @@
         
         // Mint-Burn function
         function mintBurn() {
-            const ltv = parseFloat(document.getElementById('ltv-ratio').value);
-            if (!ltv) {
-                alert('Please enter LTV ratio');
+            const ciratio = parseFloat(document.getElementById('circulation-ratio').value);
+            if (!ciratio) {
+                alert('Please enter circulation ratio');
                 return;
             }
             
-            totalSupply = totalCollateralValue * ltv;
+            totalSupply = totalCollateralValue * ciratio;
             circulatingSupply = totalSupply; // Assuming all minted stablecoins are in circulation
             document.getElementById('circulating-supply').textContent = circulatingSupply.toFixed(2);
             updateFundPools();
@@ -568,7 +570,7 @@
         
         // Update reserve fund
         function updateReserve() {
-            icoAmount = parseFloat(document.getElementById('ico-amount').value) || 0;
+            //icoAmount = parseFloat(document.getElementById('ico-amount').value) || 0;
             const usdReserve = icoAmount + exchangeNetUSD;
             document.getElementById('usd-reserve').textContent = usdReserve.toFixed(2);
             updateCollateralizationStatus();
@@ -577,8 +579,9 @@
         
         // Add "ICO Launch" button functionality
         function launchICO() {
+            icoAmount = parseFloat(document.getElementById('ico-amount').value) || 0;
             updateReserve();
-            alert('ICO Launched Successfully!');
+            alert(`ICO Launched for $${icoAmount.toFixed(2)}`);
         }
         
         // Add "Clear" button functionality for Liquidity Pool
@@ -593,10 +596,11 @@
         // Update collateralization status
         function updateCollateralizationStatus() {
             const usdReserve = icoAmount + exchangeNetUSD;
+            const stablecoinPool = circulatingSupply + exchangeNetStablecoin;
             const indicator = document.getElementById('collateral-indicator');
             const status = document.getElementById('collateral-status');
             
-            if (usdReserve >= totalCollateralValue) {
+            if (usdReserve >= stablecoinPool) {
                 indicator.className = 'indicator-light green';
                 status.textContent = 'Over-collateralized';
             } else {
@@ -717,6 +721,35 @@
             updateFundPools();
             updateCollateralizationStatus();
         });
+        
+        // Add Deposit and Withdraw button functionality
+        function depositUSD() {
+            const amount = parseFloat(document.getElementById('ico-amount').value);
+            if (!amount || amount <= 0) {
+                alert('Please enter a valid deposit amount');
+                return;
+            }
+            const lastIcoAmount = icoAmount;
+            icoAmount = lastIcoAmount + amount;
+            updateReserve();
+            alert(`Deposited $${amount.toFixed(2)} into $${lastIcoAmount.toFixed(2)}`);
+        }
+
+        function withdrawUSD() {
+            const amount = parseFloat(document.getElementById('ico-amount').value);
+            if (!amount || amount <= 0) {
+                alert('Please enter a valid withdrawal amount');
+                return;
+            }
+            if (amount > icoAmount) {
+                alert('Insufficient funds in Reserve for withdrawal');
+                return;
+            }
+            const lastIcoAmount = icoAmount;
+            icoAmount = lastIcoAmount - amount;
+            updateReserve();
+            alert(`Withdrew $${amount.toFixed(2)} from $${lastIcoAmount.toFixed(2)}`);
+        }
     </script>
 </body>
 </html>
