@@ -22,7 +22,7 @@ Contains four row boxes:
 4. **ICO and Reserve Row**:
    - Input field for ICO token sales USD amount, with stablecoin:USD pair fixed at 1:1.
    - Display `USD reserve fund pool = sum of token sales USD amount + exchange net USD value`.
-   - Indicator light: Red for `USD reserve fund pool < total collateral value` (under-collateralized), green for `USD reserve fund pool > total collateral value` (over-collateralized).
+   - Indicator light: Red for `USD reserve fund pool < total collateral value` (under-collateralized), green for `USD reserve fund pool > total collateral value` (over-collateralized), with captions
 
 ### Fund Pool Column Box
 Contains three row boxes:
