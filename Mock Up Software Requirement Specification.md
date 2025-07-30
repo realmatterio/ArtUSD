@@ -39,7 +39,7 @@ Contains three row boxes:
    - Display three values:
      - `exchange net USD value = all buy-side USD value - all sell-side USD value`.
      - `exchange net stablecoin value = all sell-side event count - all buy-side event count`.
-     - `suggested liquidity = 30% of USD reserve fund pool + 30% of stablecoin fund pool`.
+     - `suggested liquidity in USD/Stablecoin pair = 30% of USD reserve fund pool and 30% of stablecoin fund pool`.
 
 ### Exchange Market Column Box
 Contains three row boxes:
