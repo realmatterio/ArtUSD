@@ -316,11 +316,11 @@
                 <div class="row-box">
                     <div class="row-title">Collateral Basket</div>
                     <div class="input-group">
-                        <label>NFT Credential Address 1:</label>
+                        <label>Asset Credential Address 1:</label>
                         <input type="text" id="nft-address-1" placeholder="0x...">
                     </div>
                     <div class="input-group">
-                        <label>NFT Credential Address 2:</label>
+                        <label>Auction Transaction Address 2:</label>
                         <input type="text" id="nft-address-2" placeholder="0x...">
                     </div>
                     <div class="input-group">
@@ -334,20 +334,26 @@
                     </div>
                     <div class="console" id="collateral-console"></div>
                     <div class="display-box">
-                        Total Collateral Value: $<span id="total-collateral">0.00</span>
+                        Total Collateral Value: <br>
+                        $<span id="total-collateral">0.00</span>
                     </div>
                 </div>
                 
                 <!-- Stablecoin Mint-Burn Row -->
                 <div class="row-box">
                     <div class="row-title">Stablecoin Mint-Burn</div>
+                    <div class="display-box">
+                        Stablecoin Total Supply: <br>
+                        <span id="total-supply">0.000000</span>
+                    </div>
                     <div class="input-group">
                         <label>Loan-to-Value (LTV) Ratio:</label>
                         <input type="number" id="ltv-ratio" placeholder="0.75" step="0.01" max="1" min="0">
                     </div>
                     <button class="button" onclick="mintBurn()">Mint-Burn</button>
                     <div class="display-box">
-                        Stablecoin Total Supply: <span id="total-supply">0.00</span>
+                        Stablecoin Circulating Supply: <br>
+                        <span id="circulating-supply">0.000000</span>
                     </div>
                 </div>
                 
@@ -356,10 +362,12 @@
                     <div class="row-title">ICO and Reserve</div>
                     <div class="input-group">
                         <label>ICO Token Sales USD Amount:</label>
-                        <input type="number" id="ico-amount" placeholder="0.00" step="0.01" onchange="updateReserve()">
+                        <input type="number" id="ico-amount" placeholder="$0.00" step="0.01" onchange="updateReserve()">
+                        <button class="button" onclick="launchICO()">ICO Launch</button>
                     </div>
                     <div class="display-box">
-                        USD Reserve Fund Pool: $<span id="usd-reserve">0.00</span>
+                        USD Reserve Fund Pool: <br>
+                        $<span id="usd-reserve">0.00</span>
                     </div>
                     <div style="margin-top: 15px;">
                         <span class="indicator-light red" id="collateral-indicator"></span>
@@ -382,7 +390,7 @@
                         </div>
                         <div class="comparison-item">
                             <div class="comparison-label">Stablecoin Fund Pool</div>
-                            <div class="comparison-value"><span id="stablecoin-pool-display">0.00</span></div>
+                            <div class="comparison-value"><span id="stablecoin-pool-display">0.000000</span></div>
                         </div>
                     </div>
                     <div class="comparison-grid">
@@ -399,13 +407,13 @@
                 
                 <!-- Stablecoin Arbitrary Level Row -->
                 <div class="row-box">
-                    <div class="row-title">Stablecoin Arbitrage Level</div>
+                    <div class="row-title">Stablecoin Arbitrage Price Band</div>
                     <div class="input-group">
-                        <label>Lower USD Value Bound:</label>
+                        <label>Lower Bound in USD value:</label>
                         <input type="number" id="lower-bound" value="0.97" step="0.01" onchange="updateArbitrageBounds()">
                     </div>
                     <div class="input-group">
-                        <label>Upper USD Value Bound:</label>
+                        <label>Upper Bound in USD value:</label>
                         <input type="number" id="upper-bound" value="1.03" step="0.01" onchange="updateArbitrageBounds()">
                     </div>
                 </div>
@@ -414,15 +422,19 @@
                 <div class="row-box">
                     <div class="row-title">Liquidity Pool</div>
                     <div class="display-box">
-                        Exchange Net USD Value: $<span id="exchange-net-usd">0.00</span>
+                        Exchange Swapper USD Net: <br>
+                        $<span id="exchange-net-usd">0.00</span>
                     </div>
                     <div class="display-box">
-                        Exchange Net Stablecoin Value: <span id="exchange-net-stablecoin">0.00</span>
+                        Exchange Swapper Stablecoin Net: <br>
+                        <span id="exchange-net-stablecoin">0.000000</span>
                     </div>
                     <div class="display-box">
-                        Suggested Liquidity USD: $<span id="suggested-usd">0.00</span><br>
-                        Suggested Liquidity Stablecoin: <span id="suggested-stablecoin">0.00</span>
+                        Suggested Liquidity <br>
+                        USD / Stablecoin pair: <br>
+                        $<span id="suggested-usd">0.00</span> / <span id="suggested-stablecoin">0.000000</span>
                     </div>
+                    <button class="button danger" onclick="clearLiquidityPool()">Developer - Clear Swapper -</button>
                 </div>
             </div>
             
@@ -434,24 +446,24 @@
                 <div class="row-box">
                     <div class="row-title">Stablecoin Buy and Sell</div>
                     <div class="input-group">
-                        <label>USD Value:</label>
+                        <label>USD Value for ONE stablecoin:</label>
                         <input type="number" id="trade-amount" placeholder="0.00" step="0.01">
                     </div>
                     <div class="button-group">
-                        <button class="button" onclick="buyStablecoin()">Buy</button>
-                        <button class="button danger" onclick="sellStablecoin()">Sell</button>
+                        <button class="button" onclick="buyStablecoin()">Buy ONE Stablecoin</button>
+                        <button class="button danger" onclick="sellStablecoin()">Sell ONE Stablecoin</button>
                     </div>
                 </div>
                 
                 <!-- Order Book Console Row -->
                 <div class="row-box">
-                    <div class="row-title">Order Book Console</div>
+                    <div class="row-title">Regular Order Book</div>
                     <div class="console" id="orderbook-console"></div>
                 </div>
                 
                 <!-- Short-Term Arbitrary Console Row -->
                 <div class="row-box">
-                    <div class="row-title">Short-Term Arbitrage Console</div>
+                    <div class="row-title">Short-Term Arbitrage Order Book</div>
                     <div class="console" id="arbitrage-console"></div>
                 </div>
             </div>
@@ -463,6 +475,7 @@
         let collateralBasket = [];
         let totalCollateralValue = 0;
         let totalSupply = 0;
+        let circulatingSupply = 0;
         let icoAmount = 0;
         let exchangeNetUSD = 0;
         let exchangeNetStablecoin = 0;
@@ -528,6 +541,7 @@
             });
             
             document.getElementById('total-collateral').textContent = totalCollateralValue.toFixed(2);
+            document.getElementById('total-supply').textContent = totalCollateralValue.toFixed(2);
             updateCollateralizationStatus();
             updateFundPools();
         }
@@ -547,7 +561,8 @@
             }
             
             totalSupply = totalCollateralValue * ltv;
-            document.getElementById('total-supply').textContent = totalSupply.toFixed(2);
+            circulatingSupply = totalSupply; // Assuming all minted stablecoins are in circulation
+            document.getElementById('circulating-supply').textContent = circulatingSupply.toFixed(2);
             updateFundPools();
         }
         
@@ -558,6 +573,21 @@
             document.getElementById('usd-reserve').textContent = usdReserve.toFixed(2);
             updateCollateralizationStatus();
             updateFundPools();
+        }
+        
+        // Add "ICO Launch" button functionality
+        function launchICO() {
+            updateReserve();
+            alert('ICO Launched Successfully!');
+        }
+        
+        // Add "Clear" button functionality for Liquidity Pool
+        function clearLiquidityPool() {
+            exchangeNetUSD = 0;
+            exchangeNetStablecoin = 0;
+            document.getElementById('exchange-net-usd').textContent = exchangeNetUSD.toFixed(2);
+            document.getElementById('exchange-net-stablecoin').textContent = exchangeNetStablecoin.toFixed(2);
+            alert('Liquidity Pool Cleared!');
         }
         
         // Update collateralization status
@@ -578,7 +608,7 @@
         // Update fund pools
         function updateFundPools() {
             const usdReserve = icoAmount + exchangeNetUSD;
-            const stablecoinPool = totalSupply - exchangeNetStablecoin;
+            const stablecoinPool = circulatingSupply + exchangeNetStablecoin;
             
             document.getElementById('usd-pool-display').textContent = usdReserve.toFixed(2);
             document.getElementById('stablecoin-pool-display').textContent = stablecoinPool.toFixed(2);
@@ -609,7 +639,8 @@
             
             addOrderToBook('buy', amount);
             exchangeNetUSD += amount;
-            exchangeNetStablecoin -= amount; // Assuming 1:1 ratio
+            exchangeNetStablecoin -= 1; // Assuming one stablecoin every purchase
+            //exchangeNetStablecoin -= amount; // Assuming 1:1 ratio
             updateReserve();
             checkArbitrage('buy', amount);
             
@@ -625,7 +656,8 @@
             
             addOrderToBook('sell', amount);
             exchangeNetUSD -= amount;
-            exchangeNetStablecoin += amount; // Assuming 1:1 ratio
+            exchangeNetStablecoin += 1; // Assuming one stablecoin every purchase
+            //exchangeNetStablecoin += amount; // Assuming 1:1 ratio
             updateReserve();
             checkArbitrage('sell', amount);
             
@@ -636,7 +668,7 @@
             const console = document.getElementById('orderbook-console');
             const entry = document.createElement('div');
             entry.className = `console-entry ${type}`;
-            entry.innerHTML = `#${orderCounter++} ${type.toUpperCase()}: $${amount.toFixed(2)}`;
+            entry.innerHTML = `#${orderCounter++} VOL: 1 | ${type.toUpperCase()}: $${amount.toFixed(2)}`;
             console.appendChild(entry);
             console.scrollTop = console.scrollHeight;
             
@@ -652,8 +684,12 @@
             
             if (type === 'buy' && amount < lowerBound) {
                 addArbitrageOrder('sell', lowerBound);
+                exchangeNetUSD -= lowerBound;
+                exchangeNetStablecoin += 1; // Assuming one stablecoin every purchase
             } else if (type === 'sell' && amount > upperBound) {
                 addArbitrageOrder('buy', upperBound);
+                exchangeNetUSD += upperBound;
+                exchangeNetStablecoin -= 1; // Assuming one stablecoin every purchase
             }
         }
         
@@ -661,7 +697,7 @@
             const console = document.getElementById('arbitrage-console');
             const entry = document.createElement('div');
             entry.className = `console-entry arb-${type}`;
-            entry.innerHTML = `ARB#${arbOrderCounter++} ${type.toUpperCase()}: $${amount.toFixed(2)}`;
+            entry.innerHTML = `#${arbOrderCounter++} VOL: 1 | ${type.toUpperCase()}: $${amount.toFixed(2)}`;
             console.appendChild(entry);
             console.scrollTop = console.scrollHeight;
             
