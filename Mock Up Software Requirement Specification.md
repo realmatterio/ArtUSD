@@ -1,6 +1,6 @@
 **Software Requirement Specification for USD Stablecoin Issuance, Fund Pool, and Digital Exchange Market**
 
-Develop an English-language HTML mockup application to demonstrate the operation of a stablecoin arbitrage mechanism within a digital exchange market, titled **USD Stablecoin Issuance, Fund Pool, and Digital Exchange Market**. Use a modern white-themed CSS style with hover glowing and shadow box effects. Ensure the layout is responsive for desktop, divided into three column boxes: **Stablecoin Issuance**, **Fund Pool**, and **Exchange Market**.
+Develop an English-language HTML mockup application to demonstrate the operation of a stablecoin arbitrage mechanism within a digital exchange market, titled **USD Stablecoin Issuance, Fund Pool, and Digital Exchange Market**. Use a modern white-themed CSS style with hover glowing and shadow box effects. Ensure the layout is responsive for desktop, divided into three column boxes: **Stablecoin Issuance**, **Fund Pool**, and **Exchange Market**. Show the codes in a html file and a css file.
 
 ### Stablecoin Issuance Column Box
 Contains four row boxes:
