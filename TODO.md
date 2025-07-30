@@ -1,9 +1,10 @@
 The following is a list of required tasks:
 - [ ] Implement a mock auction interface that interacts with testnet deployed contracts to demonstrate funding model (WIP)
-- [ ] Implement art price feed through chainlink functions
-- [ ] Implement liquidation mechanism
+- [ ] Implement art price feed through chainlink functions (or implement chainlink node)
+- [x] Design liquidation mechanism
 - [ ] Implement on-chain arbitrage bot
 - [ ] Implement daily attestations with EAS (Ethereum Attestation Service)
+- [ ] Implement gas abstraction to allow users to pay gas fees with ArtUSD
 - [x] Implement blacklisting, freezing and pausable
 - [x] Implement tests
     - [x] FundPool

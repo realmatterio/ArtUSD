@@ -27,7 +27,13 @@ ArtUSD is a stablecoin model pegged 1:1 to the US dollar, backed by a **$1 billi
    
 The system integrates a **reference leverage model** requiring, for example, only **$300 million USDC** in the FundPool to issue **1 billion ArtUSD**, achieving capital efficiency with a 4.33:1 leverage ratio. The **Primary Market/Auction House (e.g., Sotheby’s)** manages issuance and offline arbitrage, the **Secondary Market/DEX (e.g., Quantumatter)** enables trading and onchain arbitrage, and the **Auditor (e.g., PwC)** ensures reserve transparency.   
    
-This white paper details the system’s architecture, market roles, smart contracts, purchasing/arbitrage processes, and funding model, supported by visual diagrams. This paper is for educational purposes only. It is not intended to provide financial, legal, or investment advice.  
+This white paper details the system’s architecture, market roles, smart contracts, purchasing/arbitrage processes, and funding model, supported by visual diagrams. This paper is for educational purposes only. It is not intended to provide financial, legal, or investment advice.
+
+Contracts deployed to Sepolia:
+- MockUSDC: 0xa62b2e742d53426525D83D9d080A206EbEdF146F
+- ArtUSD: 0xdEdfBbf4c710be86058588f3Ba6846F35e4A59C9
+- FundPool: 0x03473108D76A2117Fcd995aC3c85cf01E14e5350
+- ArtCredentialNFT: 0x20EC8909093E79EFCaf3E2B507Eae57FcD124fE4
 
 ---
 ## 1. Introduction
