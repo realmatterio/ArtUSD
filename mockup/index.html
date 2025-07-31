@@ -380,6 +380,35 @@
             transform: translateY(-1px);
         }
 
+        /* Specific corner styling for each comparison item */
+        .comparison-item.top-left {
+            border-top-left-radius:50px;
+            border-top-right-radius: 10px;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+
+        .comparison-item.top-right {
+            border-top-left-radius: 10px;
+            border-top-right-radius: 50px;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+
+        .comparison-item.bottom-left {
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            border-bottom-left-radius: 50px;
+            border-bottom-right-radius: 10px;
+        }
+
+        .comparison-item.bottom-right {
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 50px;
+        }
+
         .comparison-label {
             font-size: 0.75rem;
             color: #8e8e93;
@@ -532,21 +561,21 @@
                 <div class="row-box">
                     <div class="row-title">Fund Pool Comparison</div>
                     <div class="comparison-grid">
-                        <div class="comparison-item">
+                        <div class="comparison-item top-left">
                             <div class="comparison-label">USD Reserve Fund Pool</div>
                             <div class="comparison-value">$<span id="usd-pool-display">0.00</span></div>
                         </div>
-                        <div class="comparison-item">
+                        <div class="comparison-item top-right">
                             <div class="comparison-label">Stablecoin Fund Pool</div>
                             <div class="comparison-value"><span id="stablecoin-pool-display">0.000000</span></div>
                         </div>
                     </div>
                     <div class="comparison-grid">
-                        <div class="comparison-item">
+                        <div class="comparison-item bottom-left">
                             <div class="comparison-label">USD Pool %</div>
                             <div class="comparison-value"><span id="usd-pool-percent">0</span>%</div>
                         </div>
-                        <div class="comparison-item">
+                        <div class="comparison-item bottom-right">
                             <div class="comparison-label">Stablecoin Pool %</div>
                             <div class="comparison-value"><span id="stablecoin-pool-percent">0</span>%</div>
                         </div>
