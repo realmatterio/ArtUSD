@@ -1,11 +1,11 @@
-**Software Specification for ArtUSD Stablecoin Lending and Staking Protocol**
+# Software Specification for ArtUSD Stablecoin Lending and Staking Protocol
 
-**1. Overview**  
+## **1. Overview**  
 This specification outlines a lending and staking protocol for the ArtUSD stablecoin, a stablecoin pegged 1:1 to USDC, utilizing a shared liquidity pool (ArtUSD/USDC) to support the stablecoin system. The system includes a lending protocol with lending and borrowing modes, a staking protocol with a farming mode, and a shared liquidity pool to facilitate market-making and maintain the stablecoin peg.
 
 ---
 
-**2. System Components**
+## **2. System Components**
 
 ### 2.1 Shared Liquidity Pool
 - **Purpose**: Acts as a centralized pool for ArtUSD and USDC to support lending, staking, and stablecoin system operations.
@@ -56,7 +56,7 @@ This specification outlines a lending and staking protocol for the ArtUSD stable
 
 ---
 
-**3. Stablecoin System Integration**
+## **3. Stablecoin System Integration**
 - **Order Book Exchange**:
   - The shared liquidity pool provides ArtUSD and USDC for market-making and arbitrage activities.
   - Ensures the 1:1 peg between ArtUSD and USDC through automated market-making strategies.
@@ -67,7 +67,7 @@ This specification outlines a lending and staking protocol for the ArtUSD stable
 
 ---
 
-**4. Technical Requirements**
+## **4. Technical Requirements**
 - **Blockchain Platform**: Deployed on a compatible blockchain (e.g., Ethereum, Solana, or equivalent).
 - **Smart Contracts**:
   - Lending protocol: Deposit, interest calculation, loan issuance, collateral management, and liquidation.
@@ -85,7 +85,7 @@ This specification outlines a lending and staking protocol for the ArtUSD stable
 
 ---
 
-**5. Assumptions and Constraints**
+## **5. Assumptions and Constraints**
 - ArtUSD is fully backed and pegged 1:1 to USDC.
 - Collateral assets are supported by reliable price oracles.
 - The shared liquidity pool has sufficient capacity to handle deposits and withdrawals.
@@ -93,7 +93,7 @@ This specification outlines a lending and staking protocol for the ArtUSD stable
 
 ---
 
-**6. Future Considerations**
+## **6. Future Considerations**
 - Support for additional stablecoins or collateral types.
 - Dynamic interest/yield rate adjustments based on market conditions.
 - Integration with decentralized governance for protocol updates.
