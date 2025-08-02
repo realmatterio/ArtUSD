@@ -94,3 +94,4 @@ contract ArtUSDUSDCSwapper is Ownable {
         return (usdcInWithFee * reserveArtUSD) / (reserveUSDC * 1000 + usdcInWithFee);
     }
 }
+
