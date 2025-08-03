@@ -242,6 +242,10 @@
 
         /* Responsive Design */
         @media (max-width: 768px) {
+            .main-content {
+                margin-top: 180px; /* Increased margin for mobile when top bar is taller */
+            }
+            
             .protocol-grid {
                 grid-template-columns: 1fr;
                 gap: 20px;
@@ -254,6 +258,22 @@
             
             .protocol-card {
                 padding: 20px;
+            }
+            
+            .top-bar {
+                padding: 15px 10px; /* Reduced horizontal padding on mobile */
+            }
+            
+            .balance-item {
+                padding: 8px 15px; /* Slightly smaller padding on mobile */
+            }
+            
+            .balance-text {
+                font-size: 12px;
+            }
+            
+            .balance-amount {
+                font-size: 16px;
             }
         }
 
@@ -299,7 +319,7 @@
                 </div>
             </div>
             <div class="balance-item">
-                <div class="balance-icon">U</div>
+                <div class="balance-icon">C</div>
                 <div>
                     <div class="balance-text">USDC Pool</div>
                     <div class="balance-amount" id="usdcBalance">1,000,000</div>
@@ -311,10 +331,93 @@
     <!-- Main Content -->
     <div class="main-content">
         <div class="protocol-grid">
+
+            <!-- Borrowing Mode Card -->
+            <div class="protocol-card">
+                <div class="card-header">
+                    <h2 class="card-title glow-text">Borrowing from us</h2>
+                    <h2 class="card-title glow-text">12% APR 💸</h2>
+                    <p class="card-subtitle">Borrow ArtUSD against crypto collateral</p>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Collateral Token</label>
+                    <select class="form-select" id="collateralToken" onchange="toggleNftContract()">
+                        <option value="eth">ETH</option>
+                        <option value="btc">BTC</option>
+                        <option value="usdc">USDC</option>
+                        <option value="art-nft">Real Art NFT</option>
+                    </select>
+                </div>
+                
+                <div class="form-group" id="nftContractGroup" style="display: none;">
+                    <label class="form-label">Collateral Contract</label>
+                    <input type="text" class="form-input" id="collateralContract" placeholder="Enter ERC721 Contract Address">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" id="collateralAmountLabel">Collateral Amount</label>
+                    <input type="number" class="form-input" id="collateralAmount" placeholder="Enter collateral amount">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">ArtUSD to Borrow</label>
+                    <input type="number" class="form-input" id="borrowAmount" placeholder="Max borrowable will be calculated">
+                </div>
+
+                <button class="action-button" onclick="borrow()">
+                    Borrow ArtUSD
+                </button>
+
+                <button class="action-button secondary-button" onclick="toggleRepayForm()">
+                    Repay Loan
+                </button>
+                
+                <div id="repayForm" style="display: none; margin-top: 15px;">
+                    <div class="form-group">
+                        <label class="form-label">ArtUSD Amount to Repay</label>
+                        <input type="number" class="form-input" id="repayAmount" placeholder="Enter ArtUSD amount to repay">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">USDC Interest Amount</label>
+                        <input type="number" class="form-input" id="interestAmount" placeholder="Enter USDC interest amount">
+                    </div>
+                    <button class="action-button" onclick="executeRepay()">
+                        Execute Repayment
+                    </button>
+                </div>
+
+                <div class="info-section">
+                    <div class="info-row">
+                        <span class="info-label">LTV Ratio:</span>
+                        <span class="info-value glow-text">70%</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Annual Interest:</span>
+                        <span class="info-value glow-text">12% (paid in USDC)</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Active Loan:</span>
+                        <span class="info-value" id="activeLoan">0 ArtUSD</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Collateral Value:</span>
+                        <span class="info-value" id="collateralValue">$0</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Health Factor:</span>
+                        <span class="info-value">
+                            <span class="status-indicator status-active"></span>Healthy
+                        </span>
+                    </div>
+                </div>
+            </div>
+
             <!-- Lending Mode Card -->
             <div class="protocol-card">
                 <div class="card-header">
-                    <h2 class="card-title glow-text">Lending Mode</h2>
+                    <h2 class="card-title glow-text">Lending to us</h2>
+                    <h2 class="card-title glow-text">5% APY🏦</h2>
                     <p class="card-subtitle">Deposit ArtUSD/USDC and earn annual interest</p>
                 </div>
 
@@ -361,70 +464,11 @@
                 </div>
             </div>
 
-            <!-- Borrowing Mode Card -->
-            <div class="protocol-card">
-                <div class="card-header">
-                    <h2 class="card-title glow-text">Borrowing Mode</h2>
-                    <p class="card-subtitle">Borrow ArtUSD against crypto collateral</p>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Collateral Token</label>
-                    <select class="form-select" id="collateralToken">
-                        <option value="eth">ETH</option>
-                        <option value="btc">BTC</option>
-                        <option value="usdc">USDC</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Collateral Amount</label>
-                    <input type="number" class="form-input" id="collateralAmount" placeholder="Enter collateral amount">
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">ArtUSD to Borrow</label>
-                    <input type="number" class="form-input" id="borrowAmount" placeholder="Max borrowable will be calculated">
-                </div>
-
-                <button class="action-button" onclick="borrow()">
-                    Borrow ArtUSD
-                </button>
-
-                <button class="action-button secondary-button" onclick="repay()">
-                    Repay Loan
-                </button>
-
-                <div class="info-section">
-                    <div class="info-row">
-                        <span class="info-label">LTV Ratio:</span>
-                        <span class="info-value glow-text">70%</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">Annual Interest:</span>
-                        <span class="info-value glow-text">12% (paid in USDC)</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">Active Loan:</span>
-                        <span class="info-value" id="activeLoan">0 ArtUSD</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">Collateral Value:</span>
-                        <span class="info-value" id="collateralValue">$0</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">Health Factor:</span>
-                        <span class="info-value">
-                            <span class="status-indicator status-active"></span>Healthy
-                        </span>
-                    </div>
-                </div>
-            </div>
-
             <!-- Staking/Farming Mode Card -->
             <div class="protocol-card">
                 <div class="card-header">
-                    <h2 class="card-title glow-text">Farming Mode</h2>
+                    <h2 class="card-title glow-text">Farming with us</h2>
+                    <h2 class="card-title glow-text">5%-8% APY🌾</h2>
                     <p class="card-subtitle">Stake tokens with lock-up periods for higher yields</p>
                 </div>
 
@@ -444,7 +488,7 @@
                 <div class="form-group">
                     <label class="form-label">Lock-up Period</label>
                     <select class="form-select" id="lockPeriod" onchange="updateYieldRate()">
-                        <option value="30">30 Days (4% APY)</option>
+                        <option value="30">30 Days (5% APY)</option>
                         <option value="90">90 Days (6% APY)</option>
                         <option value="180">180 Days (8% APY)</option>
                     </select>
@@ -454,9 +498,46 @@
                     Stake & Lock Tokens
                 </button>
 
-                <button class="action-button secondary-button" onclick="unstake()">
+                <button class="action-button secondary-button" onclick="toggleUnstakeForm()">
                     Unstake & Claim Yield
                 </button>
+                
+                <div id="unstakeForm" style="display: none; margin-top: 15px;">
+                    <div class="form-group">
+                        <label class="form-label">Select Stake to Unstake</label>
+                        <select class="form-select" id="stakeIndexSelect">
+                            <option value="">Select a stake...</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Stake Details</label>
+                        <div class="info-section" id="selectedStakeDetails">
+                            <div class="info-row">
+                                <span class="info-label">Amount:</span>
+                                <span class="info-value" id="selectedStakeAmount">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Token:</span>
+                                <span class="info-value" id="selectedStakeToken">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Lock Period:</span>
+                                <span class="info-value" id="selectedStakePeriod">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Unlock Time:</span>
+                                <span class="info-value" id="selectedStakeUnlock">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Expected Yield:</span>
+                                <span class="info-value" id="selectedStakeYield">-</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="action-button" onclick="executeUnstake()">
+                        Execute Unstake
+                    </button>
+                </div>
 
                 <div class="info-section">
                     <div class="info-row">
@@ -565,6 +646,64 @@
         }
 
         // Borrowing Protocol Functions
+        function toggleNftContract() {
+            const collateralToken = document.getElementById('collateralToken').value;
+            const nftContractGroup = document.getElementById('nftContractGroup');
+            const collateralAmountLabel = document.getElementById('collateralAmountLabel');
+            
+            if (collateralToken === 'art-nft') {
+                nftContractGroup.style.display = 'block';
+                collateralAmountLabel.textContent = 'Token ID';
+                document.getElementById('collateralAmount').placeholder = 'Enter NFT Token ID';
+            } else {
+                nftContractGroup.style.display = 'none';
+                collateralAmountLabel.textContent = 'Collateral Amount';
+                document.getElementById('collateralAmount').placeholder = 'Enter collateral amount';
+            }
+        }
+
+        function toggleRepayForm() {
+            const repayForm = document.getElementById('repayForm');
+            const button = event.target;
+            
+            if (repayForm.style.display === 'none' || repayForm.style.display === '') {
+                repayForm.style.display = 'block';
+                button.textContent = 'Cancel Repay';
+            } else {
+                repayForm.style.display = 'none';
+                button.textContent = 'Repay Loan';
+                // Clear form fields
+                document.getElementById('repayAmount').value = '';
+                document.getElementById('interestAmount').value = '';
+            }
+        }
+
+        function executeRepay() {
+            const repayAmount = parseFloat(document.getElementById('repayAmount').value);
+            const interestAmount = parseFloat(document.getElementById('interestAmount').value);
+            
+            if (!repayAmount || !interestAmount) {
+                showNotification('Please fill in all repayment fields', 'error');
+                return;
+            }
+
+            // Mock contract call: repay(repayAmount, interestAmount)
+            userData.loans.amount -= repayAmount;
+            if (userData.loans.amount <= 0) {
+                userData.loans.collateral = 0;
+                userData.loans.amount = 0;
+            }
+            
+            poolData.artUSD += repayAmount;
+            
+            updatePoolDisplay();
+            updateLoanInfo();
+            showNotification(`Repaid ${repayAmount} ArtUSD + ${interestAmount} USDC interest`);
+            
+            // Hide form and reset button
+            toggleRepayForm();
+        }
+
         function borrow() {
             const collateralToken = document.getElementById('collateralToken').value;
             const collateralAmount = parseFloat(document.getElementById('collateralAmount').value);
@@ -575,8 +714,22 @@
                 return;
             }
 
+            // For NFT collateral, also check contract address
+            if (collateralToken === 'art-nft') {
+                const contractAddress = document.getElementById('collateralContract').value;
+                if (!contractAddress) {
+                    showNotification('Please enter the ERC721 contract address', 'error');
+                    return;
+                }
+            }
+
             // Mock price calculation (simplified)
-            const collateralValue = collateralAmount * (collateralToken === 'eth' ? 3000 : collateralToken === 'btc' ? 50000 : 1);
+            let collateralValue;
+            if (collateralToken === 'art-nft') {
+                collateralValue = collateralAmount * 10000; // Mock NFT value
+            } else {
+                collateralValue = collateralAmount * (collateralToken === 'eth' ? 3000 : collateralToken === 'btc' ? 50000 : 1);
+            }
             const maxBorrow = collateralValue * 0.7; // 70% LTV
             
             if (borrowAmount > maxBorrow) {
@@ -595,26 +748,14 @@
             
             document.getElementById('collateralAmount').value = '';
             document.getElementById('borrowAmount').value = '';
+            if (collateralToken === 'art-nft') {
+                document.getElementById('collateralContract').value = '';
+            }
         }
 
         function repay() {
-            const repayAmount = parseFloat(prompt('Enter ArtUSD amount to repay:'));
-            const interestAmount = parseFloat(prompt('Enter USDC interest amount:'));
-            
-            if (!repayAmount || !interestAmount) return;
-
-            // Mock contract call: repay(repayAmount, interestAmount)
-            userData.loans.amount -= repayAmount;
-            if (userData.loans.amount <= 0) {
-                userData.loans.collateral = 0;
-                userData.loans.amount = 0;
-            }
-            
-            poolData.artUSD += repayAmount;
-            
-            updatePoolDisplay();
-            updateLoanInfo();
-            showNotification(`Repaid ${repayAmount} ArtUSD + ${interestAmount} USDC interest`);
+            // This function is kept for backward compatibility but now just calls toggleRepayForm
+            toggleRepayForm();
         }
 
         function updateLoanInfo() {
@@ -624,6 +765,120 @@
         }
 
         // Staking Protocol Functions
+        function toggleUnstakeForm() {
+            const unstakeForm = document.getElementById('unstakeForm');
+            const button = event.target;
+            
+            if (unstakeForm.style.display === 'none' || unstakeForm.style.display === '') {
+                unstakeForm.style.display = 'block';
+                button.textContent = 'Cancel Unstake';
+                updateStakeSelector();
+            } else {
+                unstakeForm.style.display = 'none';
+                button.textContent = 'Unstake & Claim Yield';
+                // Clear selection
+                document.getElementById('stakeIndexSelect').value = '';
+                clearSelectedStakeDetails();
+            }
+        }
+
+        function updateStakeSelector() {
+            const selector = document.getElementById('stakeIndexSelect');
+            selector.innerHTML = '<option value="">Select a stake...</option>';
+            
+            userData.stakes.forEach((stake, index) => {
+                const unlockDate = new Date(stake.unlockTime).toLocaleDateString();
+                const canUnstake = Date.now() >= stake.unlockTime;
+                const status = canUnstake ? '✓ Unlocked' : '🔒 Locked';
+                const option = document.createElement('option');
+                option.value = index;
+                option.textContent = `Stake ${index + 1}: ${stake.amount} ${stake.token.toUpperCase()} - ${status} (${unlockDate})`;
+                if (!canUnstake) {
+                    option.style.color = '#f59e0b';
+                }
+                selector.appendChild(option);
+            });
+            
+            selector.onchange = function() {
+                updateSelectedStakeDetails(this.value);
+            };
+        }
+
+        function updateSelectedStakeDetails(stakeIndex) {
+            if (stakeIndex === '') {
+                clearSelectedStakeDetails();
+                return;
+            }
+            
+            const stake = userData.stakes[stakeIndex];
+            const yieldRates = { 30: 0.05, 90: 0.06, 180: 0.08 };
+            const expectedYield = stake.amount * yieldRates[stake.lockPeriod] * (stake.lockPeriod / 365);
+            const canUnstake = Date.now() >= stake.unlockTime;
+            
+            document.getElementById('selectedStakeAmount').textContent = `${stake.amount} ${stake.token.toUpperCase()}`;
+            document.getElementById('selectedStakeToken').textContent = stake.token.toUpperCase();
+            document.getElementById('selectedStakePeriod').textContent = `${stake.lockPeriod} days`;
+            document.getElementById('selectedStakeUnlock').textContent = new Date(stake.unlockTime).toLocaleDateString();
+            document.getElementById('selectedStakeYield').textContent = `${expectedYield.toFixed(2)} ArtUSD`;
+            
+            // Update the execute button based on unlock status
+            const executeButton = document.querySelector('#unstakeForm .action-button');
+            if (canUnstake) {
+                executeButton.disabled = false;
+                executeButton.textContent = 'Execute Unstake';
+                executeButton.style.opacity = '1';
+            } else {
+                executeButton.disabled = true;
+                executeButton.textContent = 'Still Locked';
+                executeButton.style.opacity = '0.5';
+            }
+        }
+
+        function clearSelectedStakeDetails() {
+            document.getElementById('selectedStakeAmount').textContent = '-';
+            document.getElementById('selectedStakeToken').textContent = '-';
+            document.getElementById('selectedStakePeriod').textContent = '-';
+            document.getElementById('selectedStakeUnlock').textContent = '-';
+            document.getElementById('selectedStakeYield').textContent = '-';
+            
+            const executeButton = document.querySelector('#unstakeForm .action-button');
+            executeButton.disabled = false;
+            executeButton.textContent = 'Execute Unstake';
+            executeButton.style.opacity = '1';
+        }
+
+        function executeUnstake() {
+            const stakeIndex = document.getElementById('stakeIndexSelect').value;
+            
+            if (stakeIndex === '') {
+                showNotification('Please select a stake to unstake', 'error');
+                return;
+            }
+
+            const stake = userData.stakes[stakeIndex];
+            const now = Date.now();
+            
+            if (now < stake.unlockTime) {
+                showNotification('Lock period not ended yet', 'error');
+                return;
+            }
+
+            // Mock contract call: unstake(stakeIndex)
+            const yieldRates = { 30: 0.05, 90: 0.06, 180: 0.08 };
+            const yield = stake.amount * yieldRates[stake.lockPeriod] * (stake.lockPeriod / 365);
+            
+            poolData[stake.token] -= stake.amount;
+            poolData.artUSD -= yield; // Yield paid in ArtUSD
+            userData.stakes.splice(stakeIndex, 1);
+            
+            updatePoolDisplay();
+            updateStakeInfo();
+            showNotification(`Unstaked ${stake.amount} ${stake.token.toUpperCase()} + ${yield.toFixed(2)} ArtUSD yield`);
+            
+            // Hide form and reset button
+            toggleUnstakeForm();
+        }
+
         function stake() {
             const token = document.getElementById('stakingToken').value;
             const amount = parseFloat(document.getElementById('stakingAmount').value);
@@ -654,38 +909,13 @@
         }
 
         function unstake() {
-            if (userData.stakes.length === 0) {
-                showNotification('No active stakes to unstake', 'error');
-                return;
-            }
-
-            const stakeIndex = parseInt(prompt(`Enter stake index (0-${userData.stakes.length - 1}):`));
-            if (isNaN(stakeIndex) || stakeIndex >= userData.stakes.length) return;
-
-            const stake = userData.stakes[stakeIndex];
-            const now = Date.now();
-            
-            if (now < stake.unlockTime) {
-                showNotification('Lock period not ended yet', 'error');
-                return;
-            }
-
-            // Mock contract call: unstake(stakeIndex)
-            const yieldRates = { 30: 0.04, 90: 0.06, 180: 0.08 };
-            const yield = stake.amount * yieldRates[stake.lockPeriod] * (stake.lockPeriod / 365);
-            
-            poolData[stake.token] -= stake.amount;
-            poolData.artUSD -= yield; // Yield paid in ArtUSD
-            userData.stakes.splice(stakeIndex, 1);
-            
-            updatePoolDisplay();
-            updateStakeInfo();
-            showNotification(`Unstaked ${stake.amount} ${stake.token.toUpperCase()} + ${yield.toFixed(2)} ArtUSD yield`);
+            // This function is kept for backward compatibility but now just calls toggleUnstakeForm
+            toggleUnstakeForm();
         }
 
         function updateYieldRate() {
             const lockPeriod = document.getElementById('lockPeriod').value;
-            const rates = { 30: '4% APY', 90: '6% APY', 180: '8% APY' };
+            const rates = { 30: '5% APY', 90: '6% APY', 180: '8% APY' };
             document.getElementById('currentYieldRate').textContent = rates[lockPeriod];
         }
 
@@ -694,7 +924,7 @@
             
             let totalYield = 0;
             userData.stakes.forEach(stake => {
-                const yieldRates = { 30: 0.04, 90: 0.06, 180: 0.08 };
+                const yieldRates = { 30: 0.05, 90: 0.06, 180: 0.08 };
                 totalYield += stake.amount * yieldRates[stake.lockPeriod] * (stake.lockPeriod / 365);
             });
             document.getElementById('pendingYield').textContent = `${totalYield.toFixed(2)} ArtUSD`;
