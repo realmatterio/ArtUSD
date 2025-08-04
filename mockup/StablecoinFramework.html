@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stablecoin and Compliance Framework</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 25%, #90caf9 50%, #64b5f6 75%, #42a5f5 100%);
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Cyber glow animations */
+        @keyframes glow {
+            0%, 100% { text-shadow: 0 0 10px rgba(0, 150, 255, 0.8), 0 0 20px rgba(0, 150, 255, 0.6), 0 0 30px rgba(0, 150, 255, 0.4); }
+            50% { text-shadow: 0 0 20px rgba(0, 200, 255, 1), 0 0 30px rgba(0, 200, 255, 0.8), 0 0 40px rgba(0, 200, 255, 0.6); }
+        }
+
+        @keyframes borderGlow {
+            0%, 100% { border-color: rgba(0, 150, 255, 0.5); box-shadow: 0 0 20px rgba(0, 150, 255, 0.3); }
+            50% { border-color: rgba(0, 200, 255, 0.8); box-shadow: 0 0 30px rgba(0, 200, 255, 0.5); }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            animation: glow 2s ease-in-out infinite;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .column-box {
+            background: linear-gradient(145deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6));
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(15px);
+            border: 4px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.1),
+                0 4px 16px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .column-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 150, 255, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .column-box:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: rgba(0, 200, 255, 0.6);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.2),
+                0 0 40px rgba(0, 200, 255, 0.4);
+            animation: borderGlow 2s ease-in-out infinite;
+        }
+
+        .column-box:hover::before {
+            opacity: 1;
+        }
+
+        .title-icon {
+            font-size: 2rem;            
+            display: inline-block;
+        }
+
+        .column-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #bff0ff;
+            margin-bottom: 25px;
+            text-align: center;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            font-size: 14px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-family: inherit;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: rgba(0, 200, 255, 0.8);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 
+                0 0 0 3px rgba(0, 200, 255, 0.2),
+                0 4px 12px rgba(0, 200, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        select:hover {
+            border-color: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-1px);
+        }
+
+        select option {
+            background: #1a1a1a;
+            color: #ffffff;
+            padding: 8px;
+        }
+
+        .sub-options {
+            margin-left: 20px;
+            margin-top: 10px;
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .description {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 5px;
+            line-height: 1.4;
+            font-style: italic;
+        }
+
+        .nav-button {
+            background: linear-gradient(135deg, #8155fc 0%, #007fc8 100%);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            padding: 15px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 
+                0 8px 20px rgba(0, 230, 118, 0.3),
+                0 4px 10px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+            margin-top: 20px;
+            width: 100%;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .nav-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .nav-button:hover::before {
+            left: 100%;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 
+                0 15px 30px rgba(0, 230, 118, 0.4),
+                0 8px 20px rgba(0, 0, 0, 0.3);
+            animation: bounce 1s ease-in-out infinite;
+        }
+
+        .arrow-icon {
+            font-size: 1.5rem;            
+            margin-left: 8px;
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-button:hover .arrow-icon {
+            transform: translateY(3px);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+        }
+
+        .footer a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 10px 20px;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .footer a:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Responsive design */
+        @media (max-width: 1200px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .column-box {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.5rem;
+                line-height: 1.2;
+            }
+            
+            .column-box {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>RWA Stablecoin and Compliance Framework</h1>
+        </div>
+        
+        <div class="main-grid">
+            <!-- Column 1: Stablecoin Framework -->
+            <div class="column-box">
+                <div class="column-title">Stablecoin Framework<br>
+                    <span class="title-icon">🌐</span>
+                </div>
+                
+                <div class="input-group">
+                    <label>Collateral Type</label>
+                    <select id="collateral-type" onchange="updateCollateralOptions()">
+                        <option value="">Select Collateral Type</option>
+                        <option value="asset-backed">Asset-backed</option>
+                        <option value="fiat-pegged">Fiat-pegged</option>
+                        <option value="commodity-pegged">Commodity-pegged</option>
+                    </select>
+                    <div id="collateral-sub" class="sub-options">
+                        <label>Sub-options</label>
+                        <select id="collateral-sub-select">
+                            <option value="">Select Sub-option</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Proof of Reserve Method</label>
+                    <select>
+                        <option value="">Select Method</option>
+                        <option value="third-party-audit">Third-Party Audit</option>
+                        <option value="on-chain-transparency">On-Chain Transparency</option>
+                        <option value="oracles">Oracles</option>
+                        <option value="bank-custody">Bank Custody Reports</option>
+                    </select>
+                    <div class="description">Methods to verify the backing reserves, ensuring transparency and trust in the stablecoin's value.</div>
+                </div>
+
+                <div class="input-group">
+                    <label>Pegged Exchange Rate</label>
+                    <select>
+                        <option value="">Select Rate</option>
+                        <option value="1-usd">1 stablecoin to 1 USD</option>
+                        <option value="1-hkd">1 stablecoin to 1 HKD</option>
+                        <option value="1-cny">1 stablecoin to 1 CNY</option>
+                    </select>
+                    <div class="description">Fixed exchange rate to maintain stablecoin value alignment with the selected fiat or asset.</div>
+                </div>
+
+                <div class="input-group">
+                    <label>Smart Contract Type</label>
+                    <select>
+                        <option value="">Select Type</option>
+                        <option value="erc20">ERC20</option>
+                        <option value="erc1400">ERC1400</option>
+                    </select>
+                    <div class="description">ERC20 for standard token functionality; ERC1400 for advanced features like compliance and transfer restrictions.</div>
+                </div>
+
+                <div class="input-group">
+                    <label>Primary Market</label>
+                    <select>
+                        <option value="">Select Market</option>
+                        <option value="permissioned-besu">Permissioned Besu</option>
+                        <option value="ethereum">Ethereum</option>
+                        <option value="layer2-optimism">Layer 2 (Optimism)</option>
+                        <option value="layer2-arbitrum">Layer 2 (Arbitrum)</option>
+                    </select>
+                    <div class="description">Blockchain platform for issuing and managing the stablecoin.</div>
+                </div>
+
+                <div class="input-group">
+                    <label>Cross Bridge Protocol</label>
+                    <select>
+                        <option value="">Select Protocol</option>
+                        <option value="lock-mint">Locked and Mint</option>
+                        <option value="burn-mint">Burn and Mint</option>
+                    </select>
+                    <div class="description">Mechanisms for cross-chain interoperability, ensuring secure transfers between blockchains.</div>
+                </div>
+
+                <a href="IssuanceArbitrage.html" target="_blank" class="nav-button">
+                    Try STABLECOIN Issuance
+                </a>
+            </div>
+
+            <!-- Column 2: Liquidity Protocols -->
+            <div class="column-box">
+                <div class="column-title">Liquidity Protocols<br>
+                    <span class="title-icon">🌀</span>
+                </div>
+                
+                <div class="input-group">
+                    <label>Liquidity Pool</label>
+                    <select>
+                        <option value="">Select Pool</option>
+                        <option value="uniswap-v3">Uniswap V3</option>
+                        <option value="curve-finance">Curve Finance</option>
+                        <option value="balancer">Balancer</option>
+                        <option value="bancor">Bancor</option>
+                    </select>
+                    <div class="description">Decentralized platforms for pooling assets to facilitate trading and ensure liquidity for the stablecoin.</div>
+                </div>
+
+                <div class="input-group">
+                    <label>Market Maker</label>
+                    <select>
+                        <option value="">Select Maker</option>
+                        <option value="amm">Automated Market Maker (AMM)</option>
+                        <option value="centralized">Centralized Market Maker</option>
+                        <option value="hybrid">Hybrid Market Maker</option>
+                    </select>
+                    <div class="description">Systems to provide liquidity and stabilize prices through automated or manual trading strategies.</div>
+                </div>
+
+                <div class="input-group">
+                    <label>Staking</label>
+                    <select>
+                        <option value="">Select Staking</option>
+                        <option value="yield-farming">Yield Farming</option>
+                        <option value="liquidity-rewards">Liquidity Provision Rewards</option>
+                        <option value="governance-staking">Governance Staking</option>
+                    </select>
+                    <div class="description">Yield Farming allows users to earn rewards by locking stablecoins in liquidity pools; Liquidity Provision Rewards incentivize providing liquidity; Governance Staking enables participation in protocol governance.</div>
+                </div>
+
+                <div class="input-group">
+                    <label>Lending</label>
+                    <select>
+                        <option value="">Select Lending</option>
+                        <option value="savings">Savings</option>
+                        <option value="overcollateralized">Overcollateralized Lending</option>
+                        <option value="flash-loans">Flash Loans</option>
+                    </select>
+                    <div class="description">Savings allows users to earn interest on stablecoin deposits; Overcollateralized Lending enables borrowing against collateral; Flash Loans provide uncollateralized loans for arbitrage or liquidations.</div>
+                </div>
+
+                <div class="input-group">
+                    <label>Borrowing</label>
+                    <select>
+                        <option value="">Select Borrowing</option>
+                        <option value="loans">Loans</option>
+                        <option value="margin-borrowing">Margin Borrowing</option>
+                        <option value="p2p-borrowing">Peer-to-Peer Borrowing</option>
+                    </select>
+                    <div class="description">Loans allow users to borrow stablecoins against collateral; Margin Borrowing supports leveraged trading; Peer-to-Peer Borrowing enables direct lending between users.</div>
+                </div>
+
+                <a href="StakingLending.html" target="_blank" class="nav-button">
+                    Try LIQUIDITY Protocols
+                </a>
+            </div>
+
+            <!-- Column 3: Tokenomic and Compliance -->
+            <div class="column-box">
+                <div class="column-title">Tokenomic and Compliance<br>
+                    <span class="title-icon">💠</span>            
+                </div>
+                
+                <div class="input-group">
+                    <label>Cross Border Remittance</label>
+                    <select>
+                        <option value="">Select Option</option>
+                        <option value="instant-settlement">Instant Settlement</option>
+                        <option value="scheduled-transfers">Scheduled Transfers</option>
+                        <option value="multi-currency-swaps">Multi-Currency Swaps</option>
+                    </select>
+                    <div class="description">Facilitates fast, low-cost international transfers using stablecoins.</div>
+                </div>
+
+                <div class="input-group">
+                    <label>Stablecoin Payment</label>
+                    <select>
+                        <option value="">Select Payment</option>
+                        <option value="p2p-payments">Peer-to-Peer Payments</option>
+                        <option value="merchant-payments">Merchant Payments</option>
+                        <option value="subscription-payments">Subscription Payments</option>
+                    </select>
+                    <div class="description">Enables stablecoin use for everyday transactions, including retail and recurring payments.</div>
+                </div>
+
+                <div class="input-group">
+                    <label>Stablecoin Point of Sale</label>
+                    <select>
+                        <option value="">Select POS</option>
+                        <option value="qr-payments">QR Code Payments</option>
+                        <option value="nfc-payments">NFC Payments</option>
+                        <option value="online-checkout">Online Checkout Integration</option>
+                    </select>
+                    <div class="description">Supports stablecoin payments at physical and online points of sale.</div>
+                </div>
+
+                <div class="input-group">
+                    <label>Visa Debit Card</label>
+                    <select>
+                        <option value="">Select Card Type</option>
+                        <option value="prepaid-card">Prepaid Stablecoin Card</option>
+                        <option value="linked-wallet-card">Linked Wallet Card</option>
+                    </select>
+                    <div class="description">Allows spending stablecoins via a Visa debit card linked to a wallet or prepaid balance.</div>
+                </div>
+
+                <div class="input-group">
+                    <label>Custody</label>
+                    <select>
+                        <option value="">Select Custody</option>
+                        <option value="custodian-based">Custodian-Based Wallet</option>
+                        <option value="self-custody">Self-Custody-Based Wallet</option>
+                    </select>
+                    <div class="description">Custodian-Based Wallet involves third-party management of assets; Self-Custody-Based Wallet gives users full control over their private keys.</div>
+                </div>
+
+                <div class="input-group">
+                    <label>KYC</label>
+                    <select>
+                        <option value="">Select KYC</option>
+                        <option value="custodian-kyc">Custodian-Based Procedures</option>
+                        <option value="self-custody-kyc">Self-Custody-Based Procedures</option>
+                    </select>
+                    <div class="description">Custodian-Based Procedures require KYC through a third party; Self-Custody-Based Procedures use decentralized identity verification.</div>
+                </div>
+
+                <div class="input-group">
+                    <label>AML/CFT</label>
+                    <select>
+                        <option value="">Select AML/CFT</option>
+                        <option value="chainalysis">Chainalysis Integration</option>
+                        <option value="elliptic">Elliptic Monitoring</option>
+                        <option value="automated-screening">Automated Transaction Screening</option>
+                    </select>
+                    <div class="description">Tools to monitor and prevent money laundering and terrorist financing, ensuring regulatory compliance.</div>
+                </div>
+
+                <div class="input-group">
+                    <label>Travel Rule</label>
+                    <select>
+                        <option value="">Select Travel Rule</option>
+                        <option value="chainalysis">ISO20022</option>
+                    </select>
+                    <div class="description">Compliance with the Travel Rule for cryptocurrency transactions.</div>
+                </div>
+
+                <a href="https://qbesu-wallet.web.app" target="_blank" class="nav-button">
+                    Try POS Payment
+                </a>
+
+                <a href="https://QuantumBesu.web.app" target="_blank" class="nav-button">
+                    Scan qBESU Blockchain
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <a href="http://www.realmatter.io" target="_blank">Contact us: Real Matter Technology Limited</a>
+    </div>
+
+    <script>
+        // Dynamic collateral type sub-options
+        function updateCollateralOptions() {
+            const collateralType = document.getElementById('collateral-type').value;
+            const subOptions = document.getElementById('collateral-sub');
+            const subSelect = document.getElementById('collateral-sub-select');
+            
+            // Clear previous options
+            subSelect.innerHTML = '<option value="">Select Sub-option</option>';
+            
+            if (collateralType === 'asset-backed') {
+                subOptions.style.display = 'block';
+                const options = [
+                    { value: 'art', text: 'Art' },
+                    { value: 'real-estate', text: 'Real Estate' },
+                    { value: 'carbon-offset', text: 'Carbon Offset' },
+                    { value: 'intellectual-property', text: 'Intellectual Property' },
+                    { value: 'collectibles', text: 'Collectibles' }
+                ];
+                options.forEach(option => {
+                    const optionEl = document.createElement('option');
+                    optionEl.value = option.value;
+                    optionEl.textContent = option.text;
+                    subSelect.appendChild(optionEl);
+                });
+            } else if (collateralType === 'fiat-pegged') {
+                subOptions.style.display = 'block';
+                const options = [
+                    { value: 'usd', text: 'USD' },
+                    { value: 'bonds', text: 'Bonds' },
+                    { value: 'hkd', text: 'HKD' },
+                    { value: 'cny', text: 'CNY' },
+                    { value: 'eur', text: 'EUR' },
+                    { value: 'gbp', text: 'GBP' }
+                ];
+                options.forEach(option => {
+                    const optionEl = document.createElement('option');
+                    optionEl.value = option.value;
+                    optionEl.textContent = option.text;
+                    subSelect.appendChild(optionEl);
+                });
+            } else if (collateralType === 'commodity-pegged') {
+                subOptions.style.display = 'block';
+                const options = [
+                    { value: 'gold', text: 'Gold' },
+                    { value: 'silver', text: 'Silver' },
+                    { value: 'petroleum', text: 'Petroleum' },
+                    { value: 'copper', text: 'Copper' },
+                    { value: 'agricultural', text: 'Agricultural Commodities' }
+                ];
+                options.forEach(option => {
+                    const optionEl = document.createElement('option');
+                    optionEl.value = option.value;
+                    optionEl.textContent = option.text;
+                    subSelect.appendChild(optionEl);
+                });
+            } else {
+                subOptions.style.display = 'none';
+            }
+        }
+
+        // Enhanced button interactions
+        document.addEventListener('DOMContentLoaded', function() {
+            const buttons = document.querySelectorAll('.nav-button');
+            
+            buttons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    // Add visual feedback
+                    this.style.transform = 'translateY(-1px) scale(1.02)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 150);
+                });
+            });
+
+            // Add keyboard navigation
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Tab') {
+                    const focusedElement = document.activeElement;
+                    if (focusedElement.tagName === 'SELECT') {
+                        focusedElement.parentElement.style.transform = 'scale(1.02)';
+                        setTimeout(() => {
+                            focusedElement.parentElement.style.transform = '';
+                        }, 200);
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
