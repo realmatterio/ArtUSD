@@ -45,6 +45,7 @@
         .header {
             text-align: center;
             margin-bottom: 40px;
+            position: relative;
         }
 
         .header h1 {
@@ -54,6 +55,110 @@
             animation: glow 2s ease-in-out infinite;
             margin-bottom: 20px;
             letter-spacing: 1px;
+            display: inline-block;
+        }
+
+        .about-button {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            background: linear-gradient(135deg, rgba(0, 150, 255, 0.3), rgba(0, 200, 255, 0.5));
+            color: #ffffff;
+            border: 2px solid rgba(0, 200, 255, 0.6);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .about-button:hover {
+            transform: translateY(-50%) scale(1.1);
+            background: linear-gradient(135deg, rgba(0, 200, 255, 0.5), rgba(0, 255, 255, 0.7));
+            box-shadow: 0 0 20px rgba(0, 200, 255, 0.5);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, rgba(0, 20, 40, 0.95), rgba(0, 30, 60, 0.95));
+            margin: 5% auto;
+            padding: 30px;
+            border: 2px solid #00ffff;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0, 255, 255, 0.3), 
+                        0 0 100px rgba(0, 255, 255, 0.1);
+            animation: slideIn 0.3s ease-out;
+            color: #ffffff;
+        }
+
+        .modal-content h2 {
+            color: #00ffff;
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 2rem;
+            background: linear-gradient(45deg, #00ffff, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .modal-content p {
+            line-height: 1.8;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            text-align: justify;
+        }
+
+        .close-hint {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            color: #00ffff;
+            font-size: 1.5rem;
+            opacity: 0.7;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+
+        .close-hint:hover {
+            opacity: 1;
+        }
+
+        @keyframes slideIn {
+            from { 
+                transform: translateY(-50px) scale(0.9);
+                opacity: 0;
+            }
+            to { 
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
         }
 
         .main-grid {
@@ -307,8 +412,28 @@
 </head>
 <body>
     <div class="container">
+        <!-- About Modal -->
+        <div id="about-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-hint" onclick="closeAboutModal()">&times;</span>
+                <h2>About This Framework</h2>
+                <p>This Stablecoin Scenario Analysis Framework is an interactive web tool designed to help users explore, configure, and analyze different models for issuing and managing stablecoins. The framework provides a comprehensive, modular interface that covers the full lifecycle of a stablecoin, from collateral selection and proof of reserves to liquidity protocols and compliance requirements.</p>
+                
+                <p>Users can experiment with various collateral types (asset-backed, fiat-pegged, commodity-pegged), select reserve verification methods, and define pegged exchange rates and smart contract standards. The framework also allows users to simulate liquidity strategies, including market making, staking, lending, and borrowing, using leading DeFi protocols.</p>
+                
+                <p>On the compliance side, the tool covers essential aspects such as custody models, KYC/AML procedures, and regulatory standards like the Travel Rule. Each configuration option is accompanied by helpful descriptions, making the framework accessible to both technical and non-technical users.</p>
+                
+                <p>By providing a hands-on, visual approach to stablecoin design, this scenario analysis framework empowers innovators, regulators, and stakeholders to better understand the trade-offs and requirements of different stablecoin architectures, supporting informed decision-making and robust financial product development.</p>
+                
+                <div style="text-align: center; margin-top: 20px; font-style: italic; color: #00ffff;">
+                    Click anywhere outside this box to close
+                </div>
+            </div>
+        </div>
+
         <div class="header">
             <h1>RWA Stablecoin and Compliance Framework</h1>
+            <button class="about-button" onclick="openAboutModal()" title="About this framework">?</button>
         </div>
         
         <div class="main-grid">
@@ -651,6 +776,37 @@
                             focusedElement.parentElement.style.transform = '';
                         }, 200);
                     }
+                }
+            });
+        });
+
+        // About modal functions
+        function openAboutModal() {
+            const modal = document.getElementById('about-modal');
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeAboutModal() {
+            const modal = document.getElementById('about-modal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('about-modal');
+            
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    closeAboutModal();
+                }
+            });
+
+            // Close modal with Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && modal.style.display === 'block') {
+                    closeAboutModal();
                 }
             });
         });

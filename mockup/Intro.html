@@ -44,6 +44,7 @@
             text-align: center;
             margin-bottom: 50px;
             z-index: 10;
+            position: relative;
         }
 
         .header h1 {
@@ -53,6 +54,34 @@
             animation: glow 2s ease-in-out infinite;
             margin-bottom: 20px;
             letter-spacing: 2px;
+            display: inline-block;
+        }
+
+        .about-button {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            background: linear-gradient(135deg, rgba(0, 150, 255, 0.3), rgba(0, 200, 255, 0.5));
+            color: #ffffff;
+            border: 2px solid rgba(0, 200, 255, 0.6);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .about-button:hover {
+            transform: translateY(-50%) scale(1.1);
+            background: linear-gradient(135deg, rgba(0, 200, 255, 0.5), rgba(0, 255, 255, 0.7));
+            box-shadow: 0 0 20px rgba(0, 200, 255, 0.5);
         }
 
         .header h2 {  
@@ -243,8 +272,9 @@
             top: 15px;
             right: 20px;
             color: #00ffff;
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             opacity: 0.7;
+            cursor: pointer;
             transition: opacity 0.3s ease;
         }
 
@@ -380,13 +410,18 @@
     <!-- Modal popup -->
     <div id="description-modal" class="modal" style="display: none;">
         <div class="modal-content">
+            <span class="close-hint" onclick="closeModal()">&times;</span>
             <h2>RWA Stablecoin Issuance Scenario Analysis</h2>
             <p>This RWA Stablecoin Issuance Scenario Analysis is an interactive web tool designed to help users explore, configure, and analyze different models for issuing and managing stablecoins. The framework provides a comprehensive, modular interface that covers the full lifecycle of a stablecoin, from collateral selection and proof of reserves to liquidity protocols and compliance requirements.</p>
+            <div style="text-align: center; margin-top: 20px; font-style: italic; color: #00ffff;">
+                Click anywhere outside this box to close
+            </div>
         </div>
     </div>
     
     <div class="header">
       <h1>RWA Stablecoin Issuance</h1>
+      <button class="about-button" onclick="openModal()" title="About this analysis">?</button>
       <h2>Scenario Analysis</h2>
       <p><a href="http://www.realmatter.io" target="_blank">by Real Matter</a></p>
     </div>
