@@ -74,7 +74,7 @@ The "Real Matter Stablecoin Issuer" is a responsive HTML mockup web application 
   5. **Borrowing**:
      - Options: Loans, Margin Borrowing, Peer-to-Peer Borrowing.
      - Description: Loans allow users to borrow stablecoins against collateral; Margin Borrowing supports leveraged trading; Peer-to-Peer Borrowing enables direct lending between users.
-- **Navigation**: A "Try Liquidity Protocols" button styled as a hopping down arrow with a glowing hover effect. Clicking opens `Staking.html` in a new browser tab.
+- **Navigation**: A "Try Liquidity Protocols" button styled as a hopping down arrow with a glowing hover effect. Clicking opens `StakingLending.html` in a new browser tab.
 
 #### 3.2.3 Column 3: Tokenomic and Compliance
 - **Title**: "Tokenomic and Compliance"
