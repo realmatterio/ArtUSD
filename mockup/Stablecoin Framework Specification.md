@@ -16,7 +16,7 @@ The "Real Matter Stablecoin Issuer" is a responsive HTML mockup web application 
 - **Purpose**: Introduce the stablecoin issuer framework.
 - **Layout**:
   - **Header**: Title text: "RWA Stablecoin Issuance Scenario Analysis by Real Matter" in bold, centered, with a glowing effect.
-  - **Main Content**: Display an image named `RWA.png` centered on the page, with subtle hover animation (e.g., slight zoom or glow enhancement).
+  - **Main Content**: Display an image named `RWA_Stablecoin.png` centered on the page, with subtle hover animation (e.g., slight zoom or glow enhancement).
   - **Navigation**: A "Try Mock Up" button at the bottom, styled as a hopping down arrow with a glowing hover effect. Clicking this button navigates to the second page.
 - **Styling**:
   - Gradient background (e.g., light blue to white or neon green to blue).
@@ -54,7 +54,7 @@ The "Real Matter Stablecoin Issuer" is a responsive HTML mockup web application 
   6. **Cross Bridge Protocol**:
      - Options: Locked and Mint, Burn and Mint.
      - Description: Mechanisms for cross-chain interoperability, ensuring secure transfers between blockchains.
-- **Navigation**: A "Try Stablecoin Issuance" button styled as a hopping down arrow with a glowing hover effect. Clicking opens `Issurance.html` in a new browser tab.
+- **Navigation**: A "Try Stablecoin Issuance" button styled as a hopping down arrow with a glowing hover effect. Clicking opens `IssuanceArbitrage.html` in a new browser tab.
 
 #### 3.2.2 Column 2: Liquidity Protocols
 - **Title**: "Liquidity Protocols"
