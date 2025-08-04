@@ -111,15 +111,9 @@ The "Real Matter Stablecoin Issuer" is a responsive HTML mockup web application 
      - **Travel Rule**:
        - Option: ISO 20022.
        - Description: Standard for exchanging financial transaction data to comply with cross-border regulatory requirements.
-- **Navigation**: A "Try POS Payment" button styled as a hopping down arrow with a glowing hover effect. Clicking opens `Staking.html` in a new browser tab.
+- **Navigation**: A "Try POS Payment" button styled as a hopping down arrow with a glowing hover effect. Clicking opens the url `qbesu-wallet.web.app` in a new browser tab.
 
-## 4. Technical Requirements
-- **Frontend**:
-  - HTML5 for structure, CSS3 for styling (including gradients, shadow boxes, and glowing effects), and JavaScript for interactivity (e.g., dropdowns, button actions).
-  - Use a modern CSS framework (e.g., Tailwind CSS or Bootstrap) to streamline responsive design and animations.
-- **Assets**:
-  - Include `RWA.png` for the introductory page.
-  - External HTML files: `Issurance.html`, `Staking.html` (assumed to be provided or placeholders).
+## 4. Other Technical Requirements
 - **Interactivity**:
   - Dropdown menus dynamically update based on selections (e.g., collateral type sub-options).
   - Buttons trigger navigation to new tabs or pages with smooth animations.
@@ -127,18 +121,3 @@ The "Real Matter Stablecoin Issuer" is a responsive HTML mockup web application 
   - Ensure keyboard navigation and screen reader compatibility.
   - Use high-contrast colors for readability within the cyber light theme.
 
-## 5. Footer
-- **Content**: Hypertext "Contact us: Real Matter Technology Limited" linking to [www.realmatter.io](http://www.realmatter.io).
-- **Placement**: Centered at the bottom of both pages, styled with a subtle glow effect on hover.
-
-## 6. Assumptions
-- External files (`Issurance.html`, `Staking.html`) are assumed to exist or will be created separately.
-- The `RWA.png` image is provided and optimized for web use.
-- No backend functionality is required; the mockup is frontend-only for demonstration purposes.
-
-## 7. Deliverables
-- HTML, CSS, and JavaScript files for the two-page web app.
-- Directory structure including `RWA.png` and placeholders for `Issurance.html` and `Staking.html`.
-- Documentation (this specification) detailing the design and functionality.
-
-This specification provides a clear framework for developing the "Real Matter Stablecoin Issuer" web app, ensuring a visually appealing, user-friendly, and functional mockup.
