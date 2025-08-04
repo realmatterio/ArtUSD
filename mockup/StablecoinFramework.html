@@ -59,10 +59,9 @@
         }
 
         .about-button {
-            position: absolute;
-            right: 0;
-            top: 50%;
-            transform: translateY(-50%);
+            position: fixed;
+            right: 20px;
+            top: 20px;
             background: linear-gradient(135deg, rgba(0, 150, 255, 0.3), rgba(0, 200, 255, 0.5));
             color: #ffffff;
             border: 2px solid rgba(0, 200, 255, 0.6);
@@ -77,10 +76,11 @@
             align-items: center;
             justify-content: center;
             backdrop-filter: blur(10px);
+            z-index: 100;
         }
 
         .about-button:hover {
-            transform: translateY(-50%) scale(1.1);
+            transform: scale(1.1);
             background: linear-gradient(135deg, rgba(0, 200, 255, 0.5), rgba(0, 255, 255, 0.7));
             box-shadow: 0 0 20px rgba(0, 200, 255, 0.5);
         }
@@ -433,14 +433,16 @@
 
         <div class="header">
             <h1>RWA Stablecoin and Compliance Framework</h1>
-            <button class="about-button" onclick="openAboutModal()" title="About this framework">?</button>
         </div>
+
+        <button class="about-button" onclick="openAboutModal()" title="About this framework">?</button>
         
         <div class="main-grid">
             <!-- Column 1: Stablecoin Framework -->
             <div class="column-box">
-                <div class="column-title">Stablecoin Framework<br>
+                <div class="column-title">
                     <span class="title-icon">🌐</span>
+                    <br>Stablecoin Framework<br>
                 </div>
                 
                 <div class="input-group">
@@ -521,8 +523,9 @@
 
             <!-- Column 2: Liquidity Protocols -->
             <div class="column-box">
-                <div class="column-title">Liquidity Protocols<br>
+                <div class="column-title">
                     <span class="title-icon">🌀</span>
+                    <br>Liquidity Protocols<br>
                 </div>
                 
                 <div class="input-group">
@@ -588,8 +591,9 @@
 
             <!-- Column 3: Tokenomic and Compliance -->
             <div class="column-box">
-                <div class="column-title">Tokenomic and Compliance<br>
+                <div class="column-title">
                     <span class="title-icon">💠</span>            
+                    <br>Tokenomic and Compliance<br>
                 </div>
                 
                 <div class="input-group">
@@ -615,7 +619,7 @@
                 </div>
 
                 <div class="input-group">
-                    <label>Stablecoin Point of Sale</label>
+                    <label>Stablecoin Points of Sale</label>
                     <select>
                         <option value="">Select POS</option>
                         <option value="qr-payments">QR Code Payments</option>
@@ -626,33 +630,33 @@
                 </div>
 
                 <div class="input-group">
-                    <label>Visa Debit Card</label>
+                    <label>VISA Debit Card</label>
                     <select>
                         <option value="">Select Card Type</option>
-                        <option value="prepaid-card">Prepaid Stablecoin Card</option>
+                        <option value="prepaid-card">Prepaid Crypto Card</option>
                         <option value="linked-wallet-card">Linked Wallet Card</option>
                     </select>
-                    <div class="description">Allows spending stablecoins via a Visa debit card linked to a wallet or prepaid balance.</div>
+                    <div class="description">Allows spending stablecoins via a VISA debit card linked to a wallet or prepaid balance.</div>
                 </div>
 
                 <div class="input-group">
                     <label>Custody</label>
                     <select>
                         <option value="">Select Custody</option>
-                        <option value="custodian-based">Custodian-Based Wallet</option>
-                        <option value="self-custody">Self-Custody-Based Wallet</option>
+                        <option value="Custodial">Custodial Wallet</option>
+                        <option value="self-custody">Self-Custody Wallet</option>
                     </select>
-                    <div class="description">Custodian-Based Wallet involves third-party management of assets; Self-Custody-Based Wallet gives users full control over their private keys.</div>
+                    <div class="description">Custodial Wallet involves third-party management of assets; Self-Custody Wallet gives users full control over their private keys.</div>
                 </div>
 
                 <div class="input-group">
                     <label>KYC</label>
                     <select>
                         <option value="">Select KYC</option>
-                        <option value="custodian-kyc">Custodian-Based Procedures</option>
-                        <option value="self-custody-kyc">Self-Custody-Based Procedures</option>
+                        <option value="custodian-kyc">Custodian Procedures</option>
+                        <option value="self-custody-kyc">Self-Custody Procedures</option>
                     </select>
-                    <div class="description">Custodian-Based Procedures require KYC through a third party; Self-Custody-Based Procedures use decentralized identity verification.</div>
+                    <div class="description">Custodian Procedures require KYC through a third party; Self-Custody Procedures use decentralized identity verification.</div>
                 </div>
 
                 <div class="input-group">
@@ -676,9 +680,11 @@
                 </div>
 
                 <a href="https://qbesu-wallet.web.app" target="_blank" class="nav-button">
+                    Try Custodial Wallet
+                </a>
+                <a href="https://qbesu-wallet.web.app/QuantumatterWallet-POS.html" target="_blank" class="nav-button">
                     Try POS Payment
                 </a>
-
                 <a href="https://QuantumBesu.web.app" target="_blank" class="nav-button">
                     Scan qBESU Blockchain
                 </a>

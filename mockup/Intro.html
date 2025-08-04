@@ -58,10 +58,9 @@
         }
 
         .about-button {
-            position: absolute;
-            right: 0;
-            top: 50%;
-            transform: translateY(-50%);
+            position: fixed;
+            right: 20px;
+            top: 20px;
             background: linear-gradient(135deg, rgba(0, 150, 255, 0.3), rgba(0, 200, 255, 0.5));
             color: #ffffff;
             border: 2px solid rgba(0, 200, 255, 0.6);
@@ -76,10 +75,11 @@
             align-items: center;
             justify-content: center;
             backdrop-filter: blur(10px);
+            z-index: 100;
         }
 
         .about-button:hover {
-            transform: translateY(-50%) scale(1.1);
+            transform: scale(1.1);
             background: linear-gradient(135deg, rgba(0, 200, 255, 0.5), rgba(0, 255, 255, 0.7));
             box-shadow: 0 0 20px rgba(0, 200, 255, 0.5);
         }
@@ -87,7 +87,7 @@
         .header h2 {  
             font-size: 1.5rem;
             color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 10px;
+            margin-bottom: 20px;
             font-weight: 500;
             animation: glow 2s ease-in-out infinite;
             letter-spacing: 1.5px;           
@@ -118,7 +118,7 @@
             position: relative;
             overflow: hidden;
             border-radius: 20px;
-            box-shadow: 
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.1);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             backdrop-filter: blur(10px);
         }
@@ -357,7 +357,7 @@
 
         .particle {
             position: absolute;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(234, 0, 255, 0.1);
             border-radius: 50%;
             animation: float 6s ease-in-out infinite;
         }
@@ -405,7 +405,7 @@
     </style>
 </head>
 <body>
-    <div class="particles" id="particles"></div>
+    <!-- div class="particles" id="particles"></div -->
     
     <!-- Modal popup -->
     <div id="description-modal" class="modal" style="display: none;">
@@ -413,18 +413,16 @@
             <span class="close-hint" onclick="closeModal()">&times;</span>
             <h2>RWA Stablecoin Issuance Scenario Analysis</h2>
             <p>This RWA Stablecoin Issuance Scenario Analysis is an interactive web tool designed to help users explore, configure, and analyze different models for issuing and managing stablecoins. The framework provides a comprehensive, modular interface that covers the full lifecycle of a stablecoin, from collateral selection and proof of reserves to liquidity protocols and compliance requirements.</p>
-            <div style="text-align: center; margin-top: 20px; font-style: italic; color: #00ffff;">
-                Click anywhere outside this box to close
-            </div>
         </div>
     </div>
     
     <div class="header">
       <h1>RWA Stablecoin Issuance</h1>
-      <button class="about-button" onclick="openModal()" title="About this analysis">?</button>
       <h2>Scenario Analysis</h2>
       <p><a href="http://www.realmatter.io" target="_blank">by Real Matter</a></p>
     </div>
+
+    <button class="about-button" onclick="openModal()" title="About this analysis">?</button>
 
     <div class="main-content">
       <div class="image-container">
@@ -434,7 +432,7 @@
 
         <a href="StablecoinFramework.html" class="nav-button">
           <span class="arrow-icon">🔽</span>
-          Try Mock Up
+          Try Our MockUp
           <span class="arrow-icon">🔽</span>
         </a>
     </div>
