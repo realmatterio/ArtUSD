@@ -283,6 +283,10 @@
             font-weight: 700;
         }
 
+        select option.highlight-blue::before {
+            content: "⭐ ";
+        }
+
         .sub-options {
             margin-left: 20px;
             margin-top: 10px;
@@ -442,7 +446,7 @@
         </div>
 
         <div class="header">
-            <h1>RWA Stablecoin and Compliance Framework</h1>
+            <h1>Stablecoin and Compliance Framework</h1>
         </div>
 
         <button class="about-button" onclick="openAboutModal()" title="About this framework">?</button>
@@ -459,8 +463,8 @@
                     <label>Collateral Type</label>
                     <select id="collateral-type" onchange="updateCollateralOptions()">
                         <option value="">▶️ Collateral Type</option>
-                        <option value="asset-backed" class="highlight-blue">Asset-backed</option>
-                        <option value="fiat-pegged" class="highlight-blue">Fiat-pegged</option>
+                        <option value="asset-backed" class="highlight-blue">⭐ Asset-backed</option>
+                        <option value="fiat-pegged" class="highlight-blue">⭐ Fiat-pegged</option>
                         <option value="commodity-pegged">Commodity-pegged</option>
                     </select>
                     <div id="collateral-sub" class="sub-options">
@@ -475,8 +479,8 @@
                     <label>Proof of Reserve Method</label>
                     <select>
                         <option value="">▶️ Method</option>
-                        <option value="third-party-audit" class="highlight-blue">Third-Party Audit</option>
-                        <option value="on-chain-transparency" class="highlight-blue">On-Chain Transparency</option>
+                        <option value="third-party-audit" class="highlight-blue">⭐ Third-Party Audit</option>
+                        <option value="on-chain-transparency" class="highlight-blue">⭐ On-Chain Transparency</option>
                         <option value="oracles">Oracles</option>
                         <option value="bank-custody">Bank Custody Reports</option>
                     </select>
@@ -487,7 +491,7 @@
                     <label>Pegged Exchange Rate</label>
                     <select>
                         <option value="">▶️ Rate</option>
-                        <option value="1-usd" class="highlight-blue">1 stablecoin to 1 USD</option>
+                        <option value="1-usd" class="highlight-blue">⭐ 1 stablecoin to 1 USD</option>
                         <option value="1-hkd">1 stablecoin to 1 HKD</option>
                         <option value="1-cny">1 stablecoin to 1 CNY</option>
                     </select>
@@ -498,7 +502,7 @@
                     <label>Smart Contract Type</label>
                     <select>
                         <option value="">▶️ Type</option>
-                        <option value="erc20" class="highlight-blue">ERC20</option>
+                        <option value="erc20" class="highlight-blue">⭐ ERC20</option>
                         <option value="erc1400">ERC1400</option>
                     </select>
                     <div class="description">ERC20 for standard token functionality; ERC1400 for advanced features like compliance and transfer restrictions.</div>
@@ -508,7 +512,7 @@
                     <label>Primary Market</label>
                     <select>
                         <option value="">▶️ Market</option>
-                        <option value="permissioned-besu" class="highlight-blue">Permissioned Besu</option>
+                        <option value="permissioned-besu" class="highlight-blue">⭐ Permissioned Besu</option>
                         <option value="ethereum">Ethereum</option>
                         <option value="layer2-optimism">Layer 2 (Optimism)</option>
                         <option value="layer2-arbitrum">Layer 2 (Arbitrum)</option>
@@ -520,7 +524,7 @@
                     <label>Cross Bridge Protocol</label>
                     <select>
                         <option value="">▶️ Protocol</option>
-                        <option value="burn-mint" class="highlight-blue">Burn and Mint</option>
+                        <option value="burn-mint" class="highlight-blue">⭐ Burn and Mint</option>
                         <option value="lock-mint">Locked and Mint</option>
                     </select>
                     <div class="description">Mechanisms for cross-chain interoperability, ensuring secure transfers between blockchains.</div>
@@ -542,7 +546,7 @@
                     <label>Liquidity Pool</label>
                     <select>
                         <option value="">▶️ Pool</option>
-                        <option value="quantumatter" class="highlight-blue">Quantumatter</option>
+                        <option value="quantumatter" class="highlight-blue">⭐ Quantumatter</option>
                         <option value="uniswap-v3">Uniswap V3</option>
                         <option value="curve-finance">Curve Finance</option>
                         <option value="balancer">Balancer</option>
@@ -554,7 +558,7 @@
                     <label>Market Maker</label>
                     <select>
                         <option value="">▶️ Maker</option>
-                        <option value="amm" class="highlight-blue">Automated Market Maker (AMM)</option>
+                        <option value="amm" class="highlight-blue">⭐ Automated Market Maker (AMM)</option>
                         <option value="centralized">Centralized Market Maker</option>
                         <option value="hybrid">Hybrid Market Maker</option>
                     </select>
@@ -565,7 +569,7 @@
                     <label>Staking</label>
                     <select>
                         <option value="">▶️ Staking</option>
-                        <option value="yield-farming" class="highlight-blue">Yield Farming</option>
+                        <option value="yield-farming" class="highlight-blue">⭐ Yield Farming</option>
                         <option value="liquidity-rewards">Liquidity Provision Rewards</option>
                         <option value="governance-staking">Governance Staking</option>
                     </select>
@@ -576,7 +580,7 @@
                     <label>Lending</label>
                     <select>
                         <option value="">▶️ Lending</option>
-                        <option value="savings" class="highlight-blue">Savings</option>
+                        <option value="savings" class="highlight-blue">⭐ Savings</option>
                     </select>
                     <div class="description">Savings allows users to earn interest on stablecoin deposits.</div>
                 </div>
@@ -585,7 +589,7 @@
                     <label>Borrowing</label>
                     <select>
                         <option value="">▶️ Borrowing</option>
-                        <option value="loans" class="highlight-blue">Loans</option>
+                        <option value="loans" class="highlight-blue">⭐ Loans</option>
                         <option value="overcollateralized">Overcollateralized Lending</option>
                         <option value="flash-loans">Flash Loans</option>
                     </select>
@@ -608,7 +612,7 @@
                     <label>Cross Border Remittance</label>
                     <select>
                         <option value="">▶️ Option</option>
-                        <option value="instant-settlement" class="highlight-blue">Instant Settlement</option>
+                        <option value="instant-settlement" class="highlight-blue">⭐ Instant Settlement</option>
                         <option value="scheduled-transfers">Scheduled Transfers</option>
                         <option value="multi-currency-swaps">Multi-Currency Swaps</option>
                     </select>
@@ -619,7 +623,7 @@
                     <label>Stablecoin Payment</label>
                     <select>
                         <option value="">▶️ Payment</option>
-                        <option value="merchant-payments" class="highlight-blue">Merchant Payments</option>
+                        <option value="merchant-payments" class="highlight-blue">⭐ Merchant Payments</option>
                         <option value="p2p-payments">Peer-to-Peer Payments</option>
                         <option value="subscription-payments">Subscription Payments</option>
                     </select>
@@ -630,7 +634,7 @@
                     <label>Stablecoin Points of Sale</label>
                     <select>
                         <option value="">▶️ POS</option>
-                        <option value="qr-payments" class="highlight-blue">QR Code Payments</option>
+                        <option value="qr-payments" class="highlight-blue">⭐ QR Code Payments</option>
                         <option value="nfc-payments">NFC Payments</option>
                         <option value="online-checkout">Online Checkout Integration</option>
                     </select>
@@ -641,7 +645,7 @@
                     <label>VISA Debit Card</label>
                     <select>
                         <option value="">▶️ Card Type</option>
-                        <option value="prepaid-card" class="highlight-blue">Prepaid Crypto Card</option>
+                        <option value="prepaid-card" class="highlight-blue">⭐ Prepaid Crypto Card</option>
                         <option value="linked-wallet-card">Linked Wallet Card</option>
                     </select>
                     <div class="description">Allows spending stablecoins via a VISA debit card linked to a wallet or prepaid balance.</div>
@@ -651,7 +655,7 @@
                     <label>Custody</label>
                     <select>
                         <option value="">▶️ Custody</option>
-                        <option value="Custodial" class="highlight-blue">Custodial Wallet</option>
+                        <option value="Custodial" class="highlight-blue">⭐ Custodial Wallet</option>
                         <option value="self-custody">Self-Custody Wallet</option>
                     </select>
                     <div class="description">Custodial Wallet involves third-party management of assets; Self-Custody Wallet gives users full control over their private keys.</div>
@@ -661,7 +665,7 @@
                     <label>KYC</label>
                     <select>
                         <option value="">▶️ KYC</option>
-                        <option value="custodian-kyc" class="highlight-blue">Custodian Procedures</option>
+                        <option value="custodian-kyc" class="highlight-blue">⭐ Custodian Procedures</option>
                         <option value="self-custody-kyc">Self-Custody Procedures</option>
                     </select>
                     <div class="description">Custodian Procedures require KYC through a third party; Self-Custody Procedures use decentralized identity verification.</div>
@@ -721,9 +725,9 @@
             if (collateralType === 'asset-backed') {
                 subOptions.style.display = 'block';
                 const options = [
-                    { value: 'art', text: 'Art', highlight: true },
-                    { value: 'real-estate', text: 'Real Estate', highlight: true },
-                    { value: 'carbon-offset', text: 'Carbon Offset', highlight: true },
+                    { value: 'art', text: '⭐ Art', highlight: true },
+                    { value: 'real-estate', text: '⭐ Real Estate', highlight: true },
+                    { value: 'carbon-offset', text: '⭐ Carbon Offset', highlight: true },
                     { value: 'intellectual-property', text: 'Intellectual Property' },
                     { value: 'collectibles', text: 'Collectibles' }
                 ];
@@ -739,7 +743,7 @@
             } else if (collateralType === 'fiat-pegged') {
                 subOptions.style.display = 'block';
                 const options = [
-                    { value: 'usd', text: 'USD', highlight: true },
+                    { value: 'usd', text: '⭐ USD', highlight: true },
                     { value: 'bonds', text: 'Bonds' },
                     { value: 'hkd', text: 'HKD' },
                     { value: 'cny', text: 'CNY' },
@@ -755,7 +759,7 @@
             } else if (collateralType === 'commodity-pegged') {
                 subOptions.style.display = 'block';
                 const options = [
-                    { value: 'gold', text: 'Gold', highlight: true },
+                    { value: 'gold', text: '⭐ Gold', highlight: true },
                     { value: 'silver', text: 'Silver' },
                     { value: 'petroleum', text: 'Petroleum' },
                     { value: 'copper', text: 'Copper' },
