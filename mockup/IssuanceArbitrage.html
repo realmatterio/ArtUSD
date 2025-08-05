@@ -562,8 +562,8 @@
                         <label>Collateral Type:</label>
                         <select id="collateral-type" onchange="updateCollateralType()" style="width: 100%; padding: 16px 20px; border: 2px solid #e5e5ea; border-radius: 20px; font-size: 15px; background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 50%, #e8f4fd 100%); color: #1c1c1e; font-family: inherit; font-weight: 500;">
                             <option value="asset-backed">Asset-Backed</option>
-                            <option value="fiat-commodity">Fiat-Pegged</option>
-                            <option value="fiat-commodity">Commodity-Pegged</option>
+                            <option value="fiat-pegged">Fiat-Pegged</option>
+                            <option value="commodity-pegged">Commodity-Pegged</option>
                             <option value="crypto-backed" disabled>Crypto-Backed</option>
                             <option value="algorithmic" disabled>Algorithmic</option>
                         </select>
@@ -767,6 +767,19 @@
         let arbOrderCounter = 1;
         let collateralType = 'asset-backed';
         
+        // Initialize page based on URL parameters
+        // query URL parameters = ?collateral-type=asset-backed|fiat-pegged|commodity-pegged
+        function initializePage() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const collateralParam = urlParams.get('collateral-type');
+            
+            if (collateralParam && ['asset-backed', 'fiat-pegged', 'commodity-pegged'].includes(collateralParam)) {
+                collateralType = collateralParam;
+                document.getElementById('collateral-type').value = collateralParam;
+                updateCollateralType();
+            }
+        }
+        
         // Update collateral type interface
         function updateCollateralType() {
             collateralType = document.getElementById('collateral-type').value;
@@ -778,7 +791,7 @@
             const icoReserveTitle = document.getElementById('ico-reserve-title');
             const circulationRatio = document.getElementById('circulation-ratio');
             
-            if (collateralType === 'fiat-commodity') {
+            if (collateralType === 'fiat-pegged' || collateralType === 'commodity-pegged') {
                 assetBackedInputs.style.display = 'none';
                 assetBackedButtons.style.display = 'none';
                 fiatCommodityButtons.style.display = 'flex';
@@ -811,9 +824,9 @@
                 return;
             }
             
-            if (collateralType === 'fiat-commodity') {
+            if (collateralType === 'fiat-pegged' || collateralType === 'commodity-pegged') {
                 collateralBasket.push({
-                    type: 'fiat-commodity',
+                    type: collateralType,
                     value: value,
                     timestamp: new Date().toLocaleTimeString()
                 });
@@ -824,7 +837,7 @@
         
         // Withdraw Reserve function for fiat/commodity-pegged
         function withdrawReserve() {
-            if (collateralType === 'fiat-commodity' && collateralBasket.length > 0) {
+            if ((collateralType === 'fiat-pegged' || collateralType === 'commodity-pegged') && collateralBasket.length > 0) {
                 collateralBasket.pop();
                 updateCollateralDisplay();
             }
@@ -890,7 +903,7 @@
             
             collateralBasket.forEach((item, index) => {
                 const entry = document.createElement('div');
-                if (item.type === 'fiat-commodity') {
+                if (item.type === 'fiat-pegged' || item.type === 'commodity-pegged') {
                     entry.textContent = `${index + 1}. Fiat/Commodity Reserve | ${item.timestamp} | $${item.value.toFixed(2)}`;
                 } else {
                     entry.textContent = `${index + 1}. ${item.addr1} | ${item.addr2} | $${item.value.toFixed(2)}`;
@@ -903,7 +916,7 @@
             document.getElementById('stablecoin-total-supply').textContent = totalCollateralValue.toFixed(6);
             
             // For fiat/commodity-pegged, set USD Reserve Fund Pool = Collateral Total Value
-            if (collateralType === 'fiat-commodity') {
+            if (collateralType === 'fiat-pegged' || collateralType === 'commodity-pegged') {
                 document.getElementById('usd-reserve-fiat').textContent = totalCollateralValue.toFixed(2);
             }
             
@@ -963,7 +976,7 @@
         // Update collateralization status
         function updateCollateralizationStatus() {
             let usdReserve;
-            if (collateralType === 'fiat-commodity') {
+            if (collateralType === 'fiat-pegged' || collateralType === 'commodity-pegged') {
                 usdReserve = totalCollateralValue;
             } else {
                 usdReserve = icoAmount + exchangeNetUSD;
@@ -985,7 +998,7 @@
         // Update fund pools
         function updateFundPools() {
             let usdReserve;
-            if (collateralType === 'fiat-commodity') {
+            if (collateralType === 'fiat-pegged' || collateralType === 'commodity-pegged') {
                 usdReserve = totalCollateralValue;
             } else {
                 usdReserve = icoAmount + exchangeNetUSD;
@@ -1129,6 +1142,11 @@
             updateReserve();
             alert(`Withdrew $${amount.toFixed(2)} from $${lastIcoAmount.toFixed(2)}`);
         }
+        
+        // Initialize page when loaded
+        window.onload = function() {
+            initializePage();
+        };
     </script>
 </body>
 </html>
