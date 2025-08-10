@@ -1,6 +1,6 @@
 **Software Requirement Specification for USD Stablecoin Issuance, Fund Pool, and Primary Exchange Market**
 
-Develop an English-language HTML mockup application to demonstrate the operation of a stablecoin arbitrage mechanism within a digital exchange market, titled **USD Stablecoin Issuance, Fund Pool, and Digital Exchange Market**. Use a modern white-themed CSS style with hover glowing and shadow box effects. Ensure the layout is responsive for desktop, divided into three column boxes: **Stablecoin Issuance**, **Fund Pool**, and **Exchange Market**. Show the codes in a html file and a css file.
+Develop an English-language HTML mockup application to demonstrate the operation of a stablecoin arbitrage mechanism within a digital exchange market, titled **USD Stablecoin Issuance, Fund Pool, and Primary Exchange Market**. Use a modern white-themed CSS style with hover glowing and shadow box effects. Ensure the layout is responsive for desktop, divided into three column boxes: **Stablecoin Issuance**, **Fund Pool**, and **Exchange Market**. Show the codes in a html file and a css file.
 
 ### Stablecoin Issuance Column Box
 Contains four row boxes:
@@ -17,7 +17,7 @@ Contains four row boxes:
 
 3. **Stablecoin Mint-Burn Row**:
    - Input field for Loan-to-Value (LTV) ratio.
-   - Button labeled "Mint-Burn" to calculate and display `stablecoin totalSupply = total collateral value * LTV ratio`.
+   - Button labeled "Mint-Burn" to calculate and display `stablecoin circulatingTotalSupply = total collateral value * LTV ratio`.
 
 4. **ICO and Reserve Row**:
    - Input field for ICO token sales USD amount, with stablecoin:USD pair fixed at 1:1.
@@ -29,7 +29,7 @@ Contains three row boxes:
 
 1. **Fund Pool Row**:
    - Display a comparison of `USD reserve fund pool` and `stablecoin fund pool`.
-   - Calculate `stablecoin fund pool = stablecoin total supply - exchange net stablecoin value`.
+   - Calculate `stablecoin fund pool = stablecoin circulating total supply - exchange net stablecoin value`.
    - Show comparison as actual numbers and relative percentages.
 
 2. **Stablecoin Arbitrary Level Row**:
